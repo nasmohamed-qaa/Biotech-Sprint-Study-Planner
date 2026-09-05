@@ -651,6 +651,10 @@
   .profile-modal{position:fixed;inset:0;z-index:800;background:rgba(15,23,42,.38);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}.profile-modal.visible{display:flex}
   .profile-card{width:min(1050px,96vw);max-height:92vh;overflow:auto;background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.25);padding:24px}
   .profile-head{display:flex;align-items:center;gap:16px;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:18px}.profile-avatar{width:58px;height:58px;border-radius:15px;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font:800 20px 'Syne',sans-serif}.profile-head-main{flex:1}.profile-head h2{font:800 20px 'Syne',sans-serif}.profile-head p{font-size:10px;color:var(--muted);margin-top:3px}.profile-close{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:8px;padding:8px 12px;cursor:pointer}.profile-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.profile-courses{display:grid;gap:10px}.profile-course{padding:12px;border:1px solid var(--border);border-radius:11px;background:var(--surface2)}.profile-course-head{display:flex;justify-content:space-between;font-size:10px;margin-bottom:7px}.profile-course-tasks{font-size:9px;color:var(--muted);margin-top:5px}.profile-live{font-size:10px;color:var(--accent3)}
+
+  .csb-section{margin-top:20px}.csb-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.csb-badge{font-size:9px;padding:5px 8px;border-radius:999px;background:rgba(245,158,11,.12);color:#f59e0b;border:1px solid rgba(245,158,11,.25)}
+  .csb-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.csb-card{padding:15px;border:1px solid var(--border);border-radius:12px;background:var(--surface2)}.csb-card h4{font:700 13px 'Syne',sans-serif;margin:7px 0 5px}.csb-card p{font-size:10px;color:var(--muted);line-height:1.55;margin-bottom:10px}.csb-meta{font-size:9px;color:var(--muted);margin-bottom:9px}.csb-btn,.resource-btn,.report-btn{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:8px 11px;cursor:pointer;font-size:10px}.csb-btn.primary,.report-btn{background:var(--accent);color:#fff;border-color:transparent}.resource-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.resource-card{padding:12px;border:1px solid var(--border);border-radius:11px;background:var(--surface2)}.resource-card h4{font-size:11px;margin-bottom:5px}.resource-card p{font-size:9px;color:var(--muted);line-height:1.5;margin-bottom:9px}.google-links{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}.google-link{display:inline-flex;align-items:center;gap:5px;padding:7px 9px;border-radius:8px;border:1px solid var(--border);color:var(--text);text-decoration:none;font-size:9px;background:var(--surface)}
+  .test-q{padding:13px;border:1px solid var(--border);border-radius:10px;margin:9px 0;background:var(--surface2)}.test-q p{font-size:11px;line-height:1.5;margin-bottom:9px}.test-option{display:block;margin:6px 0;font-size:10px;color:var(--muted);cursor:pointer}.test-option input{margin-right:7px}.test-result{padding:12px;border-radius:10px;margin-top:12px;background:var(--surface2);border:1px solid var(--border);font-size:11px;line-height:1.5}.report-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.habit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.habit-item{padding:9px;border:1px solid var(--border);border-radius:9px;background:var(--surface2)}.habit-item strong{display:block;font-size:11px}.habit-item span{font-size:9px;color:var(--muted)}
   @media(max-width:900px){.inst-summary{grid-template-columns:1fr 1fr}.profile-grid{grid-template-columns:1fr}}
   .learning-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:28px}
   .focus-grid,.mock-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
@@ -782,6 +786,19 @@
       <div class="section-label">Lesson Mock Tests</div>
       <div class="learning-card"><div class="mock-grid" id="lesson-mock-tests"></div></div>
 
+      <!-- CSB_101 Learning Hub -->
+      <div class="section-label csb-section">CSB_101 — Computer Programming I</div>
+      <div class="learning-card">
+        <div class="csb-header"><div><strong style="font-size:13px">💻 CS Learning Hub</strong><div class="mock-note">Lesson tests and supplementary study resources built from your CSB_101 materials.</div></div><span class="csb-badge">CSB_101</span></div>
+        <div class="csb-grid" id="csb-lesson-tests"></div>
+      </div>
+      <div class="learning-card csb-section">
+        <div class="csb-header"><div><strong style="font-size:13px">📚 Supplementary Materials</strong><div class="mock-note">Your uploaded CS materials, plus targeted Google study searches.</div></div></div>
+        <div class="resource-list" id="csb-resources"></div>
+        <div class="section-label" style="margin-top:16px">🔎 Google Study Links</div>
+        <div class="focus-grid" id="csb-google-focus"></div>
+      </div>
+
       <!-- Pomodoro -->
       <div class="section-label">Pomodoro Timer</div>
       <div class="pomodoro-card">
@@ -841,11 +858,13 @@
     <div class="student-hero" id="inst-student-hero">
       <div class="student-big-avatar">👩‍🔬</div>
       <div class="student-info">
-        <h2 id="inst-student-name">Student Name</h2>
+        <div style="font-size:9px;color:var(--accent);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Currently Tracking</div>
+        <h2 id="inst-student-name">Select a student</h2>
         <div class="student-email" id="inst-student-email">email@msa.edu.eg</div>
         <div class="student-status" id="inst-student-status">Active Now</div>
         <div class="last-seen">Last activity: <span id="inst-last-active">just now</span></div>
       </div>
+      <div class="report-actions" style="margin-left:auto;align-self:center"><button class="report-btn" id="inst-report-btn" onclick="generateStudentReport()" disabled>📄 Generate Student File</button></div>
       <div class="student-hero-stats">
         <div class="hero-stat">
           <span class="hero-stat-val" id="inst-overall-pct">0%</span>
@@ -933,6 +952,7 @@
       <div class="profile-head-main"><h2 id="profile-name">Student</h2><p id="profile-email">—</p><div id="profile-status" style="margin-top:7px"></div></div>
       <button class="profile-close" onclick="closeStudentProfile()">✕ Close</button>
     </div>
+    <div class="report-actions" style="margin-bottom:14px"><button class="report-btn" onclick="generateStudentReport()">📄 Generate Student File</button></div>
     <div class="profile-grid">
       <div class="inst-card"><div class="section-label">Individual Course Progress</div><div class="profile-courses" id="profile-courses"></div></div>
       <div class="inst-card"><div class="section-label">Student Snapshot</div><div id="profile-snapshot"></div></div>
@@ -996,7 +1016,7 @@ const schedule = [
 let currentRole='student', authMode='signin';
 let studentName='', studentEmail='', currentUid=null;
 let pomoSeconds=50*60, pomoPhase='focus', pomoInterval=null, pomoRunning=false, pomoSessionCount=0;
-let activityLog=[], unsubscribeStudent=null, unsubscribeDirectory=null, heartbeatTimer=null;
+let activityLog=[], csbTestResults={}, trackedStudentId=null, trackedStudentData=null, unsubscribeStudent=null, unsubscribeDirectory=null, heartbeatTimer=null;
 const FOCUS_SEC=50*60, BREAK_SEC=10*60, RING_CIRC=238.76;
 
 function el(id){ return document.getElementById(id); }
@@ -1008,7 +1028,7 @@ function overallPct(){ return Math.round(totalDone()/totalTasks()*100); }
 function currentState(){ return {
   name:studentName, email:studentEmail,
   courses:courses.map(c=>({code:c.code,done:c.done})),
-  pomoSessionCount, activityLog:activityLog.slice(0,30),
+  pomoSessionCount, activityLog:activityLog.slice(0,30), csbTestResults,
   progress:overallPct(), tasksDone:totalDone(), totalTasks:totalTasks()
 }; }
 
@@ -1032,6 +1052,7 @@ async function loadStudentState(uid){
   });
   pomoSessionCount=Number(saved.pomoSessionCount)||0;
   activityLog=Array.isArray(saved.activityLog)?saved.activityLog:[];
+  csbTestResults=saved.csbTestResults&&typeof saved.csbTestResults==='object'?saved.csbTestResults:{};
 }
 
 async function ensureStudentDoc(user,nameOverride=''){
@@ -1124,7 +1145,7 @@ async function openDashboard(user){
 async function logout(){
   stopHeartbeat(); if(unsubscribeStudent) unsubscribeStudent(); if(unsubscribeDirectory) unsubscribeDirectory();
   if(auth) await signOut(auth);
-  currentUid=null; currentRole='student'; authMode='signin'; studentName=''; studentEmail=''; activityLog=[]; resetCourseArrays();
+  currentUid=null; currentRole='student'; authMode='signin'; studentName=''; trackedStudentId=null; trackedStudentData=null; csbTestResults={}; studentEmail=''; activityLog=[]; resetCourseArrays();
   setRole('student');
   el('app').classList.remove('visible'); el('instructor-panel').classList.remove('visible'); el('login-screen').classList.remove('hidden');
 }
@@ -1153,6 +1174,85 @@ function closeMockTest(evt){if(evt&&evt.target!==el('mock-test-modal'))return;el
 window.openMockTest=openMockTest;window.closeMockTest=closeMockTest;
 function instructorWarningForStudent(s){const w=[],p=Number(s.progress)||0,pomos=Number(s.pomoSessionCount)||0,last=studentLastDate(s);if(p<20)w.push({level:'high',text:`${s.name||'Student'} — readiness is ${p}%. Immediate support recommended.`});else if(p<50)w.push({level:'medium',text:`${s.name||'Student'} — readiness is ${p}%. Practice support recommended.`});if(pomos===0)w.push({level:'medium',text:`${s.name||'Student'} — no completed Pomodoro sessions recorded.`});if(last&&Date.now()-last.getTime()>24*3600000)w.push({level:'high',text:`${s.name||'Student'} — no activity recorded for more than 24 hours.`});return w;}
 function renderInstructorEarlyWarning(){const box=el('inst-early-warning');if(!box)return;if(!directoryStudents.length){box.innerHTML='<div class="warning-box good">✅ No student records to evaluate yet.</div>';return;}const w=directoryStudents.flatMap(instructorWarningForStudent);box.innerHTML=w.length?w.slice(0,12).map(x=>`<div class="warning-box ${x.level}">⚠️ ${x.text}</div>`).join(''):'<div class="warning-box good">✅ No early-warning flags across the current student list.</div>';}
+
+const csbLessons=[
+ {id:'basics',title:'Computer Basics & Programming Process',focus:'Foundation Focus',summary:'Hardware vs software, input, and the six programming phases.',qs:[
+  {q:'What is the main difference between hardware and software?',a:'B',opts:['Hardware is logical and software is physical.','Hardware is physical; software is logical instructions.','Both are physical computer parts.','Both are programming languages.']},
+  {q:'Which sequence correctly lists the six programming phases?',a:'A',opts:['Understand → Plan → Code → Translate → Test → Production','Plan → Understand → Test → Code → Deploy → Translate','Code → Plan → Understand → Test → Translate → Production','Understand → Code → Plan → Test → Production → Translate']},
+  {q:'What does the Input operation do?',a:'C',opts:['Shows results on screen.','Stores files permanently.','Accepts data from the user or external sources.','Compiles Python into machine code.']},
+  {q:'Python is best described as which type of language in the supplied study material?',a:'A',opts:['High-level language','Low-level language','Hardware language','Machine-only language']},
+  {q:'Which of the following is software?',a:'D',opts:['CPU','Keyboard','RAM','Python']}
+ ]},
+ {id:'variables',title:'Variables, Data Types & Operations',focus:'Foundation Focus',summary:'Variables, strings, integers, types, case sensitivity, and operators.',qs:[
+  {q:'What happens when x = 5 is followed by x = "Hello"?',a:'B',opts:['Python crashes.','x changes from an integer to a string.','x becomes a Boolean.','The second assignment is ignored.']},
+  {q:'What is the output of x = 10; y = 3; print(x % y)?',a:'C',opts:['0','3','1','10']},
+  {q:'How do you check the data type of name = "Ali"?',a:'A',opts:['print(type(name))','print(data(name))','type.print(name)','check(name)']},
+  {q:'Is my_Variable the same as my_variable?',a:'D',opts:['Yes, Python ignores case.','Only inside loops.','Only for strings.','No, Python is case-sensitive.']},
+  {q:'How do you take a user age and convert it to an integer?',a:'B',opts:['age = input(int())','age = int(input("Enter age: "))','age = integer(input("Enter age: "))','age = input("Enter age: ").int()']}
+ ]},
+ {id:'selection',title:'Selection — If Statements',focus:'Practice & Application',summary:'Use if, elif, else, comparison operators, and correct Boolean logic.',qs:[
+  {q:'Which statement prints "Big" when x is greater than 100?',a:'A',opts:['if x > 100: print("Big")','if x < 100: print("Big")','if x = 100: print("Big")','if x >= 0: print("Big")']},
+  {q:'What is the output of if 5 == "5": print("Yes") else: print("No")?',a:'C',opts:['Yes','5','No','Error']},
+  {q:'How do you write "Not Equal" in Python?',a:'B',opts:['<>','!=','=!','not=']},
+  {q:'Which structure checks whether a number is positive, negative, or zero?',a:'D',opts:['for / while','try / except','switch / case','if / elif / else']},
+  {q:'What is the correction for if x = 10: print("Ten")?',a:'A',opts:['if x == 10: print("Ten")','if x := 10: print("Ten")','if x equals 10: print("Ten")','if x === 10: print("Ten")']}
+ ]},
+ {id:'loops',title:'Loops & Repetition',focus:'Practice & Application',summary:'while, for, range(), break, and nested loops.',qs:[
+  {q:'Which while loop prints the numbers 1 to 3?',a:'B',opts:['i=0; while i<3: print(i)','i=1; while i<=3: print(i); i+=1','i=1; while i<3: print(i)','for i in 1:3: print(i)']},
+  {q:'What does range(5) generate?',a:'A',opts:['0, 1, 2, 3, 4','1, 2, 3, 4, 5','0, 1, 2, 3, 4, 5','5 only']},
+  {q:'How do you stop a loop prematurely?',a:'D',opts:['stop','exitloop','returnall','break']},
+  {q:'What does for x in "DNA": print(x) do?',a:'C',opts:['Prints DNA once.','Prints only D.','Prints each character on its own iteration.','Creates a DNA file.']},
+  {q:'What is printed by for i in range(2, 10, 3): print(i)?',a:'B',opts:['2, 3, 4, 5, 6, 7, 8, 9','2, 5, 8','3, 6, 9','2, 4, 6, 8']}
+ ]},
+ {id:'strings',title:'Strings & Bioinformatics',focus:'Exam Sprint',summary:'Indexing, slicing, upper/lower transformations, find, count, split, replace, and DNA transcription.',qs:[
+  {q:'If s = "Bioinformatics", what are s[0] and s[-1]?',a:'A',opts:['B and s','B and c','i and s','s and B']},
+  {q:'How do you find the length of dna = "ATGC"?',a:'C',opts:['size(dna)','dna.length()','len(dna)','length(dna)']},
+  {q:'How do you slice "Python" to get "Py"?',a:'B',opts:['"Python"[1:2]','"Python"[:2]','"Python"[2:]','"Python"[0:1]']},
+  {q:'What does "AATT".replace("A", "U") produce?',a:'D',opts:['AATT','ATUU','UUAA','UUTT']},
+  {q:'What is the result of "AAGCT".find("G")?',a:'A',opts:['2','3','1','-1']}
+ ]},
+ {id:'bioarrays',title:'Bioinformatics Practice & Arrays',focus:'High-Performance Sprint',summary:'DNA counting/transcription, gene filtering, nested loops, and Python arrays.',qs:[
+  {q:'Which expression counts the number of C bases in a DNA sequence?',a:'B',opts:['dna.find("C")','dna.count("C")','count.dna("C")','len(dna,"C")']},
+  {q:'What does "Apple,Banana,Orange".split(",") return?',a:'C',opts:['A single string','A tuple','A list of the three items','A dictionary']},
+  {q:'For the supplied transcription task, what does dna = "GA" produce when G→C and A→U?',a:'A',opts:['CU','GC','UA','GU']},
+  {q:'In the supplied gene-filtering example, which genes have length greater than 3?',a:'D',opts:['TNF, MYC','MYC, HEXA','TNF, HEXA','BRCA1, HEXA']},
+  {q:'What is the key rule given for Python arrays?',a:'C',opts:['They must contain mixed data types.','They always start at index 1.','They store one data type and start at index 0.','They do not need the array module.']}
+ ]}
+];
+const csbResources=[
+ {title:'Python Fundamentals',desc:'18-page CSB_101 comprehensive summary and practice guide covering computer basics, programming process, variables, operations, selection, repetition, strings, bioinformatics, and practice questions.',file:'CSB_101_Python_Fundamentals.pdf',icon:'📘'},
+ {title:'Arrays in Python',desc:'14-page beginner-friendly guide covering array creation, indexing, changing values, loops, common operations, exam strategy, mistakes, and quick practice.',file:'CSB_101_Arrays_Beginner_Guide.pptx',icon:'🧮'},
+ {title:'Programming Practice Questions',desc:'4-page question-and-solution set covering computer basics, variables, selection, loops, strings, bioinformatics, and nested loops.',file:'CSB_101_Programming_Practice_Questions.docx',icon:'📝'}
+];
+const csbGoogle=[
+ {key:'foundation',title:'Foundation Focus',icon:'🧠',desc:'Use Google to reinforce Python basics, variables, data types, and programming process.',queries:[['Python basics for beginners','python basics beginners'],['Python variables and data types','python variables data types'],['Python programming process','python programming phases']]},
+ {key:'practice',title:'Practice & Application',icon:'🧪',desc:'Find worked examples and practice exercises for selection, loops, and programming logic.',queries:[['Python if elif else practice','python if elif else practice'],['Python loops practice problems','python loops practice problems'],['Python problem solving exercises','python programming problem solving exercises']]},
+ {key:'exam',title:'Exam Sprint',icon:'🎯',desc:'Target fast revision on strings, indexing, slicing, and bioinformatics-style Python tasks.',queries:[['Python strings indexing slicing practice','python strings indexing slicing practice'],['Python bioinformatics DNA strings','python bioinformatics DNA strings'],['Python exam practice questions','python exam practice questions']]},
+ {key:'advanced',title:'High-Performance Sprint',icon:'🚀',desc:'Go deeper with arrays, nested loops, and mixed programming challenges.',queries:[['Python arrays practice','python arrays practice'],['Python nested loops exercises','python nested loops exercises'],['Python bioinformatics programming exercises','python bioinformatics programming exercises']]}
+];
+function buildCSBHub(){
+ const box=el('csb-lesson-tests'); if(box) box.innerHTML=csbLessons.map(l=>`<div class="csb-card"><span class="focus-tag">${l.focus}</span><h4>${l.title}</h4><p>${l.summary}</p><div class="csb-meta">${l.qs.length} questions · auto-marked · score saved to your account</div><button class="csb-btn primary" onclick="openCSBTest('${l.id}')">📝 Take Lesson Test</button></div>`).join('');
+ const rb=el('csb-resources'); if(rb) rb.innerHTML=csbResources.map(r=>`<div class="resource-card"><div style="font-size:20px">${r.icon}</div><h4>${r.title}</h4><p>${r.desc}</p><a class="resource-btn" href="${r.file}" target="_blank" rel="noopener">📂 Open resource</a></div>`).join('');
+ const gb=el('csb-google-focus'); if(gb) gb.innerHTML=csbGoogle.map(g=>`<div class="focus-card"><span class="focus-tag">${g.key===getFocusGroup().key?'YOUR CURRENT GROUP':'STUDY GROUP'}</span><h4>${g.icon} ${g.title}</h4><p>${g.desc}</p><div class="google-links">${g.queries.map(q=>`<a class="google-link" href="https://www.google.com/search?q=${encodeURIComponent(q[1])}" target="_blank" rel="noopener">🔎 ${q[0]}</a>`).join('')}</div></div>`).join('');
+}
+function openCSBTest(id){
+ const l=csbLessons.find(x=>x.id===id); if(!l)return;
+ el('mock-test-title').textContent=`CSB_101 — ${l.title}`;
+ const previous=csbTestResults[id];
+ el('mock-test-body').innerHTML=`<p class="mock-note">${l.summary} This test is based on the supplied CSB_101 study materials. ${previous?`Previous best: <strong>${previous.score}/${previous.total} (${previous.percent}%)</strong>.`:''}</p><form id="csb-test-form">${l.qs.map((q,i)=>`<div class="test-q"><p><strong>Q${i+1}.</strong> ${q.q}</p>${q.opts.map((o,j)=>`<label class="test-option"><input type="radio" name="q${i}" value="${String.fromCharCode(65+j)}"> ${String.fromCharCode(65+j)}. ${o}</label>`).join('')}</div>`).join('')}<button type="submit" class="csb-btn primary">Submit Test</button></form><div id="csb-test-result"></div>`;
+ el('csb-test-form').onsubmit=async e=>{e.preventDefault();let score=0;const fd=new FormData(e.target);l.qs.forEach((q,i)=>{if(fd.get('q'+i)===q.a)score++;});const percent=Math.round(score/l.qs.length*100),old=csbTestResults[id];csbTestResults[id]={score,total:l.qs.length,percent,attempts:Number(old?.attempts||0)+1,lastAttempt:new Date().toISOString()};await addActivity('📝',`Completed CSB_101 test — ${l.title} (${percent}%)`,'var(--accent3)');await saveStudentState();el('csb-test-result').innerHTML=`<div class="test-result"><strong>${percent>=70?'✅ Test passed':'📌 Keep practicing'}</strong><br>Score: ${score}/${l.qs.length} (${percent}%)<br>Attempt: ${csbTestResults[id].attempts}<br><span style="color:var(--muted)">${percent>=70?'Good work. Review any missed questions and continue to the next lesson.':'Review the lesson material and try the test again.'}</span></div>`;buildCSBHub();};
+ el('mock-test-modal').classList.add('visible');
+}
+function habitSummary(data){
+ const logs=Array.isArray(data.activityLog)?data.activityLog:[]; const pomos=Number(data.pomoSessionCount)||0; const tests=data.csbTestResults||{}; const attempts=Object.values(tests).reduce((n,x)=>n+Number(x.attempts||0),0); const completed=Object.values(tests).filter(x=>Number(x.percent)>=70).length;
+ const hourCounts={}; logs.forEach(a=>{if(a.timestamp){const h=new Date(a.timestamp).getHours();hourCounts[h]=(hourCounts[h]||0)+1;}}); let peak='Not enough data'; if(Object.keys(hourCounts).length){const h=Object.entries(hourCounts).sort((a,b)=>b[1]-a[1])[0][0];peak=`Around ${String(h).padStart(2,'0')}:00`;} return {pomos,attempts,completed,peak,activities:logs.length,consistency:logs.length>=10?'High':logs.length>=4?'Moderate':'Emerging'};
+}
+function generateStudentReport(){
+ if(!trackedStudentData && currentRole==='instructor') return;
+ const d=trackedStudentData||currentState(); const name=d.name||'Student'; const habits=habitSummary(d); const courseRows=courses.map(c=>{const sc=(d.courses||[]).find(x=>x.code===c.code),done=Array.isArray(sc?.done)?sc.done:[];return `<tr><td>${escapeHtml(c.code)} — ${escapeHtml(c.name)}</td><td>${done.length}/${c.tasks.length}</td><td>${Math.round(done.length/c.tasks.length*100)}%</td></tr>`}).join(''); const tests=Object.entries(d.csbTestResults||{}).map(([id,r])=>{const l=csbLessons.find(x=>x.id===id);return `<tr><td>${escapeHtml(l?.title||id)}</td><td>${r.score}/${r.total}</td><td>${r.percent}%</td><td>${r.attempts||1}</td></tr>`}).join('')||'<tr><td colspan="4">No CSB_101 test attempts recorded.</td></tr>';
+ const html=`<!doctype html><html><head><meta charset="utf-8"><title>Biotech Sprint — ${escapeHtml(name)}</title><style>body{font-family:Arial,sans-serif;margin:40px;color:#172033}h1{margin-bottom:4px}h2{margin-top:28px;border-bottom:1px solid #ddd;padding-bottom:6px}table{width:100%;border-collapse:collapse;margin-top:10px}th,td{padding:8px;border:1px solid #ddd;text-align:left;font-size:13px}.meta{color:#667085;font-size:13px}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.card{padding:12px;border:1px solid #ddd;border-radius:8px}.small{font-size:12px;color:#667085}</style></head><body><h1>🧬 Biotech Sprint Student Report</h1><div class="meta"><strong>Student:</strong> ${escapeHtml(name)}<br><strong>Email:</strong> ${escapeHtml(d.email||'—')}<br><strong>Generated:</strong> ${new Date().toLocaleString()}</div><h2>Overall Progress</h2><div class="cards"><div class="card"><strong>${Number(d.progress)||0}%</strong><div class="small">Overall readiness</div></div><div class="card"><strong>${Number(d.tasksDone)||0}/${Number(d.totalTasks)||20}</strong><div class="small">Tasks complete</div></div><div class="card"><strong>${habits.pomos}</strong><div class="small">Pomodoros completed</div></div><div class="card"><strong>${habits.consistency}</strong><div class="small">Engagement pattern</div></div></div><h2>Course Progress</h2><table><tr><th>Course</th><th>Tasks</th><th>Progress</th></tr>${courseRows}</table><h2>CSB_101 Test Performance</h2><table><tr><th>Lesson Test</th><th>Score</th><th>Percent</th><th>Attempts</th></tr>${tests}</table><h2>Study Habits</h2><div class="cards"><div class="card"><strong>${habits.consistency}</strong><div class="small">Overall activity consistency</div></div><div class="card"><strong>${habits.peak}</strong><div class="small">Most common activity time (from recorded activity)</div></div><div class="card"><strong>${habits.attempts}</strong><div class="small">CSB_101 test attempts</div></div><div class="card"><strong>${habits.completed}</strong><div class="small">CSB_101 tests at 70% or above</div></div></div><h2>Recent Activity</h2><ul>${(d.activityLog||[]).slice(0,20).map(a=>`<li>${escapeHtml(a.icon||'•')} ${escapeHtml(a.text||'Activity')} — ${escapeHtml(a.time||'')}</li>`).join('')||'<li>No activity recorded.</li>'}</ul><p class="small">This report is a snapshot generated from the student's recorded Biotech Sprint activity.</p></body></html>`;
+ const blob=new Blob([html],{type:'text/html'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Biotech_Sprint_${name.replace(/[^a-z0-9]+/gi,'_')}_Student_Report.html`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
 function buildCourses(){
   const grid=el('courses-grid'); grid.innerHTML='';
   courses.forEach((c,ci)=>{
@@ -1175,7 +1275,7 @@ function buildExams(){
 function buildSchedule(){
   const list=el('schedule-list');list.innerHTML='';schedule.forEach(day=>{list.insertAdjacentHTML('beforeend',`<div class="schedule-day">${day.day}</div>`);day.slots.forEach(slot=>list.insertAdjacentHTML('beforeend',`<div class="schedule-slot"><span class="slot-time">${slot.time}</span><span class="slot-name">${slot.name}</span><span class="slot-type ${slot.type}">${slot.type}</span></div>`));});
 }
-function updateStats(){el('stat-progress').textContent=overallPct()+'%';el('stat-tasks').textContent=totalDone()+'/'+totalTasks();el('stat-pomos').textContent=pomoSessionCount;const days=Math.ceil((new Date(exams[0].date)-new Date())/86400000);el('stat-days').textContent=days;el('pomo-count').textContent=pomoSessionCount;buildStudyFocusGroups();renderStudentEarlyWarning();buildLessonMockTests();}
+function updateStats(){el('stat-progress').textContent=overallPct()+'%';el('stat-tasks').textContent=totalDone()+'/'+totalTasks();el('stat-pomos').textContent=pomoSessionCount;const days=Math.ceil((new Date(exams[0].date)-new Date())/86400000);el('stat-days').textContent=days;el('pomo-count').textContent=pomoSessionCount;buildStudyFocusGroups();renderStudentEarlyWarning();buildLessonMockTests();buildCSBHub();}
 function renderActivity(){el('activity-feed').innerHTML=activityLog.slice(0,10).map(a=>`<div class="activity-item"><div class="activity-dot" style="background:${a.color}"></div><div><div class="activity-text">${a.icon} <strong>${a.text}</strong></div><div class="activity-time">${a.time}</div></div></div>`).join('');}
 
 function togglePomo(){
@@ -1189,7 +1289,7 @@ function updatePomoDisplay(){const m=Math.floor(pomoSeconds/60),s=pomoSeconds%60
 
 function toggleInstructorPanel(){if(currentRole!=='instructor'){el('instructor-panel').classList.remove('visible');return;}const panel=el('instructor-panel');panel.classList.toggle('visible');if(panel.classList.contains('visible')){updateInstructorPanel();subscribeStudents();}}
 function updateInstructorPanel(){
-  el('inst-student-name').textContent=studentName||'Instructor';el('inst-student-email').textContent=studentEmail||'—';el('inst-last-active').textContent='live directory below';
+  el('inst-student-name').textContent=trackedStudentData?.name||'Select a student';el('inst-student-email').textContent=trackedStudentData?.email||'Choose a student from the directory below';el('inst-last-active').textContent=trackedStudentData?(studentLastDate(trackedStudentData)?timeAgo(studentLastDate(trackedStudentData)):'No activity yet'):'—';el('inst-report-btn').disabled=!trackedStudentData;
   el('inst-overall-pct').textContent=overallPct()+'%';el('inst-tasks-done').textContent=totalDone()+'/'+totalTasks();el('inst-pomos-done').textContent=pomoSessionCount;
   const pct=overallPct(),done=totalDone();let alerts='';if(pct<20)alerts+=`<div class="alert-banner warning">⚠️ Student progress is low (${pct}%). Consider reaching out.</div>`;if(pomoSessionCount===0)alerts+=`<div class="alert-banner warning">⚠️ No Pomodoro sessions started yet.</div>`;if(pct>=60)alerts+=`<div class="alert-banner success">✅ Student is on track with ${pct}% readiness.</div>`;if(done>0)alerts+=`<div class="alert-banner info">📌 ${done} tasks completed across all subjects.</div>`;el('inst-alerts').innerHTML=alerts;renderInstructorEarlyWarning();
   el('inst-course-bars').innerHTML=courses.map(c=>{const p=Math.round(c.done.length/c.tasks.length*100);return `<div class="inst-progress-row"><div class="inst-prog-header"><span class="inst-prog-name">${c.code} — ${c.name}</span><span class="inst-prog-pct" style="color:${c.color}">${p}%</span></div><div class="inst-prog-bar"><div class="inst-prog-fill" style="width:${p}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div></div>`}).join('');
@@ -1230,19 +1330,19 @@ function renderProfile(s){
   el('profile-avatar').textContent=initialsFor(s.name,s.email);el('profile-name').textContent=s.name||'Student';el('profile-email').textContent=s.email||'—';
   el('profile-status').innerHTML=`<span class="status-pill ${st.key} ${active?'active':''}">${active?'<span class="live-indicator"></span>':''}${st.label}</span> <span style="font-size:9px;color:var(--muted);margin-left:8px">${last?'Last active '+timeAgo(last):'No activity yet'}</span>`;
   el('profile-courses').innerHTML=courses.map(c=>{const sc=(s.courses||[]).find(x=>x.code===c.code),done=Array.isArray(sc?.done)?sc.done:[],cp=Math.round(done.length/c.tasks.length*100);return `<div class="profile-course"><div class="profile-course-head"><strong>${escapeHtml(c.code)} — ${escapeHtml(c.name)}</strong><strong style="color:${c.color}">${cp}%</strong></div><div class="inst-prog-bar"><div class="inst-prog-fill" style="width:${cp}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div><div class="profile-course-tasks">${done.length}/${c.tasks.length} tasks completed</div></div>`}).join('');
-  el('profile-snapshot').innerHTML=`<div class="stat-row" style="grid-template-columns:1fr 1fr;margin:0"><div class="stat-card"><div class="stat-value accent">${p}%</div><div class="stat-label">Overall Progress</div></div><div class="stat-card"><div class="stat-value green">${td}/${tt}</div><div class="stat-label">Tasks</div></div><div class="stat-card"><div class="stat-value purple">${Number(s.pomoSessionCount)||0}</div><div class="stat-label">Pomodoros</div></div><div class="stat-card"><div class="stat-value amber">${active?'LIVE':'AWAY'}</div><div class="stat-label">Presence</div></div></div><div style="margin-top:14px;font-size:10px;color:var(--muted)"><strong style="color:var(--text)">Activity log</strong><div style="margin-top:8px">${(s.activityLog||[]).slice(0,8).map(a=>`<div style="padding:7px 0;border-bottom:1px solid var(--border)">${escapeHtml(a.icon||'•')} ${escapeHtml(a.text||'Activity')} <span style="float:right">${escapeHtml(a.time||'')}</span></div>`).join('')||'No recorded activity yet.'}</div></div>`;
+  const h=habitSummary(s); el('profile-snapshot').innerHTML=`<div class="stat-row" style="grid-template-columns:1fr 1fr;margin:0"><div class="stat-card"><div class="stat-value accent">${p}%</div><div class="stat-label">Overall Progress</div></div><div class="stat-card"><div class="stat-value green">${td}/${tt}</div><div class="stat-label">Tasks</div></div><div class="stat-card"><div class="stat-value purple">${Number(s.pomoSessionCount)||0}</div><div class="stat-label">Pomodoros</div></div><div class="stat-card"><div class="stat-value amber">${active?'LIVE':'AWAY'}</div><div class="stat-label">Presence</div></div></div><div class="section-label" style="margin-top:14px">Study Habits</div><div class="habit-grid"><div class="habit-item"><strong>${h.consistency}</strong><span>Engagement consistency</span></div><div class="habit-item"><strong>${h.pomos}</strong><span>Pomodoros</span></div><div class="habit-item"><strong>${h.attempts}</strong><span>CSB test attempts</span></div><div class="habit-item"><strong>${h.peak}</strong><span>Common activity time</span></div></div><div style="margin-top:14px;font-size:10px;color:var(--muted)"><strong style="color:var(--text)">Activity log</strong><div style="margin-top:8px">${(s.activityLog||[]).slice(0,8).map(a=>`<div style="padding:7px 0;border-bottom:1px solid var(--border)">${escapeHtml(a.icon||'•')} ${escapeHtml(a.text||'Activity')} <span style="float:right">${escapeHtml(a.time||'')}</span></div>`).join('')||'No recorded activity yet.'}</div></div>`;
 }
 let unsubscribeProfile=null;
 async function openStudentFromDirectory(uid){
   if(!db) return; if(unsubscribeProfile) unsubscribeProfile();
   const ref=doc(db,'students',uid);
-  unsubscribeProfile=onSnapshot(ref,snap=>{if(!snap.exists())return;const s=snap.data();renderProfile(s);el('student-profile-modal').classList.add('visible');
-    studentName=s.name||'Student';studentEmail=s.email||'';pomoSessionCount=Number(s.pomoSessionCount)||0;activityLog=Array.isArray(s.activityLog)?s.activityLog:[];resetCourseArrays();(s.courses||[]).forEach(sc=>{const c=courses.find(x=>x.code===sc.code);if(c)c.done=Array.isArray(sc.done)?sc.done:[];});updateInstructorPanel();
+  unsubscribeProfile=onSnapshot(ref,snap=>{if(!snap.exists())return;const s=snap.data();trackedStudentId=uid;trackedStudentData={id:uid,...s};renderProfile(s);el('student-profile-modal').classList.add('visible');
+    studentName=s.name||'Student';studentEmail=s.email||'';pomoSessionCount=Number(s.pomoSessionCount)||0;activityLog=Array.isArray(s.activityLog)?s.activityLog:[];csbTestResults=s.csbTestResults&&typeof s.csbTestResults==='object'?s.csbTestResults:{};resetCourseArrays();(s.courses||[]).forEach(sc=>{const c=courses.find(x=>x.code===sc.code);if(c)c.done=Array.isArray(sc.done)?sc.done:[];});updateInstructorPanel();
   },err=>console.warn(err));
 }
 function closeStudentProfile(evt){if(evt&&evt.target!==el('student-profile-modal'))return;el('student-profile-modal').classList.remove('visible');if(unsubscribeProfile){unsubscribeProfile();unsubscribeProfile=null;}}
 
-window.setRole=setRole;window.toggleAuthMode=toggleAuthMode;window.handleLogin=handleLogin;window.toggleTask=toggleTask;window.togglePomo=togglePomo;window.resetPomo=resetPomo;window.toggleInstructorPanel=toggleInstructorPanel;window.openStudentFromDirectory=openStudentFromDirectory;window.renderStudentDirectory=renderStudentDirectory;window.closeStudentProfile=closeStudentProfile;window.logout=logout;
+window.setRole=setRole;window.generateStudentReport=generateStudentReport;window.openCSBTest=openCSBTest;window.toggleAuthMode=toggleAuthMode;window.handleLogin=handleLogin;window.toggleTask=toggleTask;window.togglePomo=togglePomo;window.resetPomo=resetPomo;window.toggleInstructorPanel=toggleInstructorPanel;window.openStudentFromDirectory=openStudentFromDirectory;window.renderStudentDirectory=renderStudentDirectory;window.closeStudentProfile=closeStudentProfile;window.logout=logout;
 
 // Stars
 (function(){const canvas=el('stars'),ctx=canvas.getContext('2d');let stars=[];function resize(){canvas.width=innerWidth;canvas.height=innerHeight;stars=Array.from({length:80},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.2+.3,a:Math.random(),s:Math.random()*.003+.001}));}resize();addEventListener('resize',resize);function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);stars.forEach(s=>{s.a+=s.s;if(s.a>1)s.s=-Math.abs(s.s);if(s.a<0)s.s=Math.abs(s.s);ctx.globalAlpha=s.a*.4;ctx.fillStyle='#94a3b8';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});requestAnimationFrame(draw);}draw();})();
