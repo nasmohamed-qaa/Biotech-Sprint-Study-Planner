@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Biotech Sprint — Study Command Center</title>
+<title>Biotech Sprint — Study Command Center 2.1</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
   :root {
@@ -438,27 +438,14 @@
   .activity-text strong { color: var(--text); font-weight:500; }
   .activity-time { font-size:9px; color: var(--muted); margin-top:2px; }
 
-  /* Instructor viewing selected student UI */
-  #instructor-preview-bar{display:none;position:sticky;top:0;z-index:50;margin:0;padding:9px 18px;background:linear-gradient(90deg,#113c70,#0a7b8f);color:#fff;font-size:12px;font-weight:800;letter-spacing:.02em;box-shadow:0 4px 14px rgba(14,48,87,.16);}
-  #instructor-preview-bar .preview-inner{max-width:1500px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;}
-  #instructor-preview-bar .preview-note{opacity:.9;font-weight:600;font-size:10px;}
-  body.instructor-student-preview #instructor-preview-bar{display:block;}
-  body.instructor-student-preview #instructor-panel{display:none!important;}
-  body.instructor-student-preview #app{display:block!important;}
-
   /* ─── INSTRUCTOR VIEW OVERLAY ─── */
   #instructor-panel {
     display:none;
-    position: fixed; inset:0; z-index:2000;
+    position: fixed; inset:0; z-index:500;
     background: var(--bg);
     overflow-y:auto;
   }
-  #instructor-panel.visible { display:block!important; }
-/* HARD ROLE SEPARATION: instructor never sees the student dashboard underneath. */
-#app.instructor-hidden { display:none!important; }
-body.instructor-mode #app { display:none!important; }
-body.instructor-mode #login-screen { display:none!important; }
-body.instructor-mode #instructor-panel { display:block!important; }
+  #instructor-panel.visible { display:block; }
 
   .inst-topbar {
     display:flex; align-items:center; justify-content:space-between;
@@ -832,7 +819,7 @@ button:focus-visible,.form-input:focus-visible,.switch-view-btn:focus-visible{ou
 .student-topbar{height:92px;background:linear-gradient(100deg,#082f57,#0c4772);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 38px;gap:20px;position:sticky;top:0;z-index:120;box-shadow:0 5px 18px rgba(8,47,87,.16)}
 .student-brand{display:flex;align-items:center;gap:14px;min-width:0}.student-dna{font-size:42px;line-height:1}.student-brand-name{font:800 27px 'Syne',sans-serif;letter-spacing:-.03em}.student-brand-sub{font:12px 'DM Mono',monospace;opacity:.88;margin-top:2px}.student-brand-divider{width:1px;height:52px;background:rgba(255,255,255,.28);margin:0 6px}.student-view-title{font:800 24px 'Syne',sans-serif}.student-view-title div{font:10px 'DM Mono',monospace;font-weight:400;letter-spacing:.04em;margin-top:4px;opacity:.82}.student-header-right{display:flex;align-items:center;gap:12px}.student-identity{display:flex;align-items:center;gap:10px;background:#fff;color:#123a66;border-radius:12px;padding:8px 16px 8px 8px;min-width:235px;box-shadow:0 3px 12px rgba(0,0,0,.08)}.student-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#dcecff,#fff);color:#1769c2;display:grid;place-items:center;font:800 14px 'Syne',sans-serif}.student-identity strong{display:block;font:800 12px 'Syne',sans-serif}.student-identity span{display:block;font:9px 'DM Mono',monospace;color:#607b96;margin-top:2px}.student-header-date{font:10px 'DM Mono',monospace;white-space:nowrap}.student-header-btn{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:9px;padding:10px 13px;font:700 9px 'DM Mono',monospace;cursor:pointer}.student-header-btn:hover{background:rgba(255,255,255,.16)}.student-header-btn.logout-student{background:#1769c2;border-color:#2b82dc}
 .student-shell{display:grid;grid-template-columns:185px minmax(0,1fr);min-height:calc(100vh - 92px);background:var(--student-bg)}.student-sidebar{background:linear-gradient(180deg,#0a3158,#0a4774);color:#fff;position:sticky;top:92px;height:calc(100vh - 92px);display:flex;flex-direction:column;padding:22px 10px}.student-nav{display:flex;flex-direction:column;gap:4px}.student-nav-item{border:0;background:transparent;color:#eaf6ff;text-align:left;padding:12px 11px;border-radius:9px;font:600 11px 'DM Mono',monospace;display:flex;align-items:center;gap:12px;cursor:pointer}.student-nav-item:hover,.student-nav-item.active{background:#1975c9;color:#fff;box-shadow:0 5px 12px rgba(0,0,0,.12)}.student-nav-item span{flex:1}.student-sidebar-footer{margin-top:auto;padding:15px 13px;color:#bfe9f4;font-size:28px;line-height:1.25}.student-sidebar-footer div{font:11px 'DM Mono',monospace;line-height:1.45;margin-top:8px}
-.student-main{min-width:0;padding:0 22px 32px;max-width:1500px;width:100%;margin:0 auto}.student-welcome-banner{margin:0 -22px 14px;padding:20px 28px;background:linear-gradient(110deg,#e6f5ff,#f8fcff);border-bottom:1px solid #cbdfea;display:flex;justify-content:space-between;align-items:center}.student-welcome-title{font:800 24px 'Syne',sans-serif;color:#123d70}.student-welcome-copy>div:last-child{font-size:11px;color:#57738e;margin-top:4px}.student-welcome-banner em{font:italic 11px 'DM Mono',monospace;color:#205d91}.student-stat-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:14px}.student-stat-card{background:#fff;border:1px solid var(--student-border);border-radius:12px;min-height:90px;padding:12px;display:flex;align-items:center;gap:11px;box-shadow:0 4px 13px rgba(19,63,100,.04)}.student-stat-icon{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:24px;background:#e8f3ff;color:#1769c2}.student-stat-icon.ring-icon{background:#e7f9f0;color:#0ab879}.student-stat-icon.task-icon{background:#e8f2ff;color:#1769c2}.student-stat-icon.pomo-icon{background:#fff0f4;color:#ef476f}.student-stat-icon.exam-icon{background:#e9f3ff;color:#1769c2}.student-stat-card strong{display:block;font:800 22px 'Syne',sans-serif;color:#102f58}.student-stat-card span{display:block;font:9px 'DM Mono',monospace;text-transform:uppercase;color:#667f98;margin-top:2px}.student-stat-card small{display:block;font-size:8px;color:#0aaf75;margin-top:4px}.student-content-grid{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:14px;align-items:start}.student-left-column{display:flex;flex-direction:column;gap:14px}.student-right-column{display:flex;flex-direction:column;gap:14px}.student-panel{background:#fff;border:1px solid var(--student-border);border-radius:14px;padding:14px;box-shadow:0 6px 18px rgba(19,63,100,.045)}.student-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}.student-panel-heading h2{font:800 14px 'Syne',sans-serif;color:#123b6b;margin:0}.student-panel-heading p{font-size:9px;color:#6b8299;margin-top:3px}.student-panel-heading button,.student-panel-link{border:0;background:transparent;color:#1769c2;font:700 9px 'DM Mono',monospace;cursor:pointer}.student-two-column{display:grid;grid-template-columns:1fr 1fr;gap:14px}.focus-panel{min-height:270px}.wow-courses{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.wow-courses .course-card{padding:12px;min-height:240px;background:#fbfdff;border:1px solid #d3e3ee;border-radius:11px}.wow-courses .course-card h3{font-size:13px}.wow-courses .course-card .course-code{font-size:9px}.wow-courses .progress-bar{height:7px}.wow-courses .task-list{margin-top:8px}.wow-courses .task-item{font-size:8px}.wow-courses .course-footer{margin-top:7px}.wow-courses .course-pct{font-size:16px}.wow-focus-grid,.wow-mock-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.wow-focus-grid .focus-card,.wow-mock-grid .mock-card{background:#f7fbfe;border:1px solid #d4e4ef;border-radius:11px}.wow-csb-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.wow-csb-grid .csb-card{background:#f7fbfe;border:1px solid #d4e4ef}.student-course-badge{padding:5px 9px;border-radius:999px;background:#e7f5ff;color:#1769c2;border:1px solid #c8e2f2;font:800 8px 'DM Mono',monospace}.wow-resources{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.wow-resources .resource-card{background:#f7fbfe;border:1px solid #d4e4ef}.student-subheading{font:800 10px 'DM Mono',monospace;color:#5e7893;margin:14px 0 8px}.student-pomo-compact{display:flex;align-items:center;justify-content:center;gap:22px;min-height:205px}.student-pomo-controls{width:170px}.student-pomo-controls .pomo-course-select{width:100%;margin-bottom:10px}.pomo-ring-wrap{position:relative;flex:0 0 auto}.student-pomo-compact .pomo-ring-bg{fill:none;stroke:#dceaf3;stroke-width:8}.student-pomo-compact .pomo-ring-fill{fill:none;stroke:#0ab879;stroke-width:8;stroke-linecap:round;transform:rotate(-90deg);transform-origin:58px 58px;transition:stroke-dashoffset .3s}.student-pomo-compact .pomo-ring-fill.break{stroke:#1769c2}.student-pomo-compact .pomo-time{font:800 20px 'Syne',sans-serif;color:#123b6b}.student-pomo-compact .pomo-phase{font:8px 'DM Mono',monospace;color:#71869c;text-transform:uppercase}.student-pomo-compact .pomo-btn-row{display:flex;gap:6px}.student-pomo-compact .pomo-btn{flex:1}.schedule-panel{position:sticky;top:108px}.student-calendar-head{display:flex;justify-content:space-between;align-items:center;margin:5px 2px 10px}.student-calendar-head button{border:0;background:transparent;color:#123b6b;font-size:24px;cursor:pointer}.student-calendar-head strong{font:800 13px 'Syne',sans-serif;color:#123b6b}.student-mini-calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}.student-mini-calendar span{font:700 8px 'DM Mono',monospace;color:#728aa2;padding:4px 0}.student-mini-calendar b{font:600 9px 'DM Mono',monospace;color:#264a6d;padding:7px 0;border-radius:5px}.student-mini-calendar b.today{background:#1769c2;color:#fff}.student-mini-calendar b.muted-day{color:#b6c5d2}.student-add-schedule{width:100%;border:0;background:#1769c2;color:#fff;border-radius:8px;padding:10px;font:800 9px 'DM Mono',monospace;cursor:pointer;margin-top:10px}.wow-schedule .schedule-day{font-size:9px;color:#1769c2;margin-top:10px}.wow-schedule .schedule-slot{font-size:9px;background:#f6faff;border-color:#d8e6ef;padding:8px}.wow-exams .exam-item{border:1px solid #d8e5ee;background:#f8fbfd;border-radius:9px;margin-bottom:7px;padding:8px}.wow-activity .activity-item{padding:9px 0}.student-message-list{display:flex;flex-direction:column;gap:7px}.student-message{display:grid;grid-template-columns:30px 1fr auto;gap:9px;align-items:center;padding:9px;border:1px solid #d9e5ed;border-radius:9px;background:#f8fbfd}.msg-icon{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font:800 12px 'Syne',sans-serif}.msg-icon.amber{background:#fff0d8;color:#c27a00}.msg-icon.blue{background:#e8f3ff;color:#1769c2}.student-message strong{font:700 10px 'Syne',sans-serif;color:#123b6b}.student-message p{font-size:8px;color:#71869c;margin-top:2px}.student-message time{font:8px 'DM Mono',monospace;color:#7b91a7}.student-footer-quote{text-align:center;padding:22px 0 4px;font:italic 10px 'DM Mono',monospace;color:#6b8198}.student-footer-quote span{float:right;font-style:normal}
+.student-main{min-width:0;padding:0 22px 32px;max-width:1500px;width:100%;margin:0 auto}.student-welcome-banner{margin:0 -22px 14px;padding:20px 28px;background:linear-gradient(110deg,#e6f5ff,#f8fcff);border-bottom:1px solid #cbdfea;display:flex;justify-content:space-between;align-items:center}.student-welcome-title{font:800 24px 'Syne',sans-serif;color:#123d70}.student-welcome-copy>div:last-child{font-size:11px;color:#57738e;margin-top:4px}.student-welcome-banner em{font:italic 11px 'DM Mono',monospace;color:#205d91}.student-stat-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:14px}.student-stat-card{background:#fff;border:1px solid var(--student-border);border-radius:12px;min-height:90px;padding:12px;display:flex;align-items:center;gap:11px;box-shadow:0 4px 13px rgba(19,63,100,.04)}.student-stat-icon{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:24px;background:#e8f3ff;color:#1769c2}.student-stat-icon.ring-icon{background:#e7f9f0;color:#0ab879}.student-stat-icon.task-icon{background:#e8f2ff;color:#1769c2}.student-stat-icon.pomo-icon{background:#fff0f4;color:#ef476f}.student-stat-icon.exam-icon{background:#e9f3ff;color:#1769c2}.student-stat-card strong{display:block;font:800 22px 'Syne',sans-serif;color:#102f58}.student-stat-card span{display:block;font:9px 'DM Mono',monospace;text-transform:uppercase;color:#667f98;margin-top:2px}.student-stat-card small{display:block;font-size:8px;color:#0aaf75;margin-top:4px}.student-content-grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:14px;align-items:start}.student-left-column{display:flex;flex-direction:column;gap:14px}.student-right-column{display:flex;flex-direction:column;gap:14px}.student-panel{background:#fff;border:1px solid var(--student-border);border-radius:14px;padding:14px;box-shadow:0 6px 18px rgba(19,63,100,.045)}.student-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}.student-panel-heading h2{font:800 14px 'Syne',sans-serif;color:#123b6b;margin:0}.student-panel-heading p{font-size:9px;color:#6b8299;margin-top:3px}.student-panel-heading button,.student-panel-link{border:0;background:transparent;color:#1769c2;font:700 9px 'DM Mono',monospace;cursor:pointer}.student-two-column{display:grid;grid-template-columns:1fr 1fr;gap:14px}.focus-panel{min-height:270px}.course-mock-summary{font:600 9px 'Inter',sans-serif;color:#6b8299;margin-top:7px}.course-test-link{display:inline-flex;align-items:center;gap:5px;margin-top:8px;color:#1769c2;font:800 9px 'Inter',sans-serif;text-decoration:none}.course-test-link:hover{color:#0d4f91;text-decoration:underline}.class-schedule-list{display:flex;flex-direction:column;gap:8px}.class-day{font:800 9px 'Inter',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#6b8299;padding:7px 0 4px;border-bottom:1px solid #dce6ed}.class-slot{display:grid;grid-template-columns:78px 1fr auto;gap:10px;align-items:center;padding:10px 11px;border:1px solid #d6e3eb;border-radius:10px;background:#f8fbfd}.class-time{font:800 9px 'DM Mono',monospace;color:#1769c2}.class-name{font:800 10px 'Poppins',sans-serif;color:#173b61}.class-meta{font:500 8px 'Inter',sans-serif;color:#70869b;margin-top:2px}.class-type{font:800 8px 'Inter',sans-serif;padding:4px 7px;border-radius:999px}.class-type.lab{background:#fde9e7;color:#b42318}.class-type.lec{background:#e7f1ff;color:#1769c2}.class-type.tut{background:#fff2d6;color:#9a6500}.advisor-study-block{margin-top:12px;padding-top:12px;border-top:1px solid #dce6ed}.wow-courses{display:grid;grid-template-columns:1fr;gap:12px}.wow-courses .course-card{padding:16px;min-height:190px;background:#fbfdff;border:1px solid #d3e3ee;border-radius:11px}.wow-courses .course-card h3{font-size:13px}.wow-courses .course-card .course-code{font-size:9px}.wow-courses .progress-bar{height:7px}.wow-courses .task-list{margin-top:8px}.wow-courses .task-item{font-size:8px}.wow-courses .course-footer{margin-top:7px}.wow-courses .course-pct{font-size:16px}.wow-focus-grid,.wow-mock-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.wow-focus-grid .focus-card,.wow-mock-grid .mock-card{background:#f7fbfe;border:1px solid #d4e4ef;border-radius:11px}.wow-csb-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.wow-csb-grid .csb-card{background:#f7fbfe;border:1px solid #d4e4ef}.student-course-badge{padding:5px 9px;border-radius:999px;background:#e7f5ff;color:#1769c2;border:1px solid #c8e2f2;font:800 8px 'DM Mono',monospace}.wow-resources{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.wow-resources .resource-card{background:#f7fbfe;border:1px solid #d4e4ef}.student-subheading{font:800 10px 'DM Mono',monospace;color:#5e7893;margin:14px 0 8px}.student-pomo-compact{display:flex;align-items:center;justify-content:center;gap:22px;min-height:205px}.student-pomo-controls{width:170px}.student-pomo-controls .pomo-course-select{width:100%;margin-bottom:10px}.pomo-ring-wrap{position:relative;flex:0 0 auto}.student-pomo-compact .pomo-ring-bg{fill:none;stroke:#dceaf3;stroke-width:8}.student-pomo-compact .pomo-ring-fill{fill:none;stroke:#0ab879;stroke-width:8;stroke-linecap:round;transform:rotate(-90deg);transform-origin:58px 58px;transition:stroke-dashoffset .3s}.student-pomo-compact .pomo-ring-fill.break{stroke:#1769c2}.student-pomo-compact .pomo-time{font:800 20px 'Syne',sans-serif;color:#123b6b}.student-pomo-compact .pomo-phase{font:8px 'DM Mono',monospace;color:#71869c;text-transform:uppercase}.student-pomo-compact .pomo-btn-row{display:flex;gap:6px}.student-pomo-compact .pomo-btn{flex:1}.schedule-panel{position:sticky;top:108px}.student-calendar-head{display:flex;justify-content:space-between;align-items:center;margin:5px 2px 10px}.student-calendar-head button{border:0;background:transparent;color:#123b6b;font-size:24px;cursor:pointer}.student-calendar-head strong{font:800 13px 'Syne',sans-serif;color:#123b6b}.student-mini-calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}.student-mini-calendar span{font:700 8px 'DM Mono',monospace;color:#728aa2;padding:4px 0}.student-mini-calendar b{font:600 9px 'DM Mono',monospace;color:#264a6d;padding:7px 0;border-radius:5px}.student-mini-calendar b.today{background:#1769c2;color:#fff}.student-mini-calendar b.muted-day{color:#b6c5d2}.student-add-schedule{width:100%;border:0;background:#1769c2;color:#fff;border-radius:8px;padding:10px;font:800 9px 'DM Mono',monospace;cursor:pointer;margin-top:10px}.wow-schedule .schedule-day{font-size:9px;color:#1769c2;margin-top:10px}.wow-schedule .schedule-slot{font-size:9px;background:#f6faff;border-color:#d8e6ef;padding:8px}.wow-exams .exam-item{border:1px solid #d8e5ee;background:#f8fbfd;border-radius:9px;margin-bottom:7px;padding:8px}.wow-activity .activity-item{padding:9px 0}.student-message-list{display:flex;flex-direction:column;gap:7px}.student-message{display:grid;grid-template-columns:30px 1fr auto;gap:9px;align-items:center;padding:9px;border:1px solid #d9e5ed;border-radius:9px;background:#f8fbfd}.msg-icon{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font:800 12px 'Syne',sans-serif}.msg-icon.amber{background:#fff0d8;color:#c27a00}.msg-icon.blue{background:#e8f3ff;color:#1769c2}.student-message strong{font:700 10px 'Syne',sans-serif;color:#123b6b}.student-message p{font-size:8px;color:#71869c;margin-top:2px}.student-message time{font:8px 'DM Mono',monospace;color:#7b91a7}.student-footer-quote{text-align:center;padding:22px 0 4px;font:italic 10px 'DM Mono',monospace;color:#6b8198}.student-footer-quote span{float:right;font-style:normal}
 @media(max-width:1250px){.student-stat-grid{grid-template-columns:repeat(3,1fr)}.wow-courses{grid-template-columns:repeat(2,1fr)}.student-content-grid{grid-template-columns:1fr}.schedule-panel{position:static}.student-right-column{display:grid;grid-template-columns:1fr 1fr}.student-right-column .schedule-panel{grid-row:span 2}}
 @media(max-width:850px){.student-topbar{height:auto;min-height:82px;padding:12px 16px;flex-wrap:wrap}.student-brand-divider,.student-view-title,.student-header-date{display:none}.student-header-right{margin-left:auto}.student-shell{grid-template-columns:1fr}.student-sidebar{display:none}.student-main{padding:0 14px 28px}.student-welcome-banner{margin:0 -14px 12px;padding:16px;flex-direction:column;align-items:flex-start;gap:6px}.student-two-column,.student-right-column{grid-template-columns:1fr}.student-stat-grid{grid-template-columns:1fr 1fr}.wow-courses,.wow-focus-grid,.wow-mock-grid,.wow-csb-grid,.wow-resources{grid-template-columns:1fr}.student-pomo-compact{flex-direction:column}.student-footer-quote span{float:none;display:block;margin-top:5px}}
 @media(max-width:520px){.student-stat-grid{grid-template-columns:1fr}.student-identity{min-width:0}.student-identity span{display:none}.student-header-btn{padding:8px}.student-brand-name{font-size:21px}.student-dna{font-size:30px}}
@@ -855,10 +842,9 @@ button:focus-visible,.form-input:focus-visible,.switch-view-btn:focus-visible{ou
 .action-plan-summary{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:8px;font-size:9px;color:#607991}.action-plan-summary strong{font:800 12px 'Poppins',sans-serif;color:#123b6b}
 .advisor-feedback-list{display:flex;flex-direction:column;gap:8px}.advisor-feedback-item{border:1px solid #d8e6ef;background:#f8fbfe;border-radius:10px;padding:10px}.advisor-feedback-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.advisor-feedback-author{font:800 10px 'Poppins',sans-serif;color:#123b6b}.advisor-feedback-date{font:500 8px 'Inter',sans-serif;color:#7890a6}.advisor-feedback-text{font:500 9px/1.55 'Inter',sans-serif;color:#526d86;margin-top:5px}.advisor-feedback-empty{padding:12px;border:1px dashed #cbdbe6;border-radius:9px;background:#f6fafc;color:#7890a6;font-size:9px}
 .student-mission{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:14px;align-items:stretch;margin-bottom:14px}.student-mission-main{border-radius:15px;border:1px solid #cfe1ef;background:linear-gradient(105deg,#e4f3ff,#f8fcff);padding:16px 18px;position:relative;overflow:hidden}.student-mission-main:after{content:'🎯';position:absolute;right:22px;top:12px;font-size:42px;opacity:.12}.mission-kicker{font:800 8px 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#1769c2}.mission-title{font:800 19px 'Poppins',sans-serif;color:#082f5f;margin-top:5px}.mission-copy{font:500 10px/1.55 'Inter',sans-serif;color:#5d7690;margin-top:3px}.mission-items{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.mission-item{padding:5px 7px;border-radius:7px;background:#fff;border:1px solid #d4e5f0;font:600 8px 'Inter',sans-serif;color:#365673}.mission-start{margin-top:10px;border:0;border-radius:8px;padding:9px 12px;background:linear-gradient(90deg,#1268c4,#1688e8);color:#fff;font:800 9px 'Inter',sans-serif;cursor:pointer}.mission-side{border-radius:15px;border:1px solid #d8e5f1;background:#fff;padding:14px;box-shadow:var(--wow-shadow)}.mission-side-title{font:800 12px 'Poppins',sans-serif;color:#082f5f}.mission-side-sub{font:500 8px 'Inter',sans-serif;color:#7890a6;margin-top:2px}.mission-side-row{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid #e3ebf1}.mission-side-row:last-child{border-bottom:0}.mission-side-row strong{font:700 9px 'Inter',sans-serif;color:#123b6b}.mission-side-row span{font:500 8px 'Inter',sans-serif;color:#66809a;text-align:right}.academic-student-card{background:linear-gradient(135deg,#fff,#f6fbfe)}.academic-student-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.academic-student-stat{background:#f7fafc;border:1px solid #d8e5ee;border-radius:9px;padding:10px}.academic-student-stat span{display:block;font:700 7px 'Inter',sans-serif;text-transform:uppercase;color:#7890a8}.academic-student-stat strong{display:block;font:800 12px 'Poppins',sans-serif;color:#173b61;margin-top:4px}.student-concern-tags{margin-top:9px;display:flex;flex-wrap:wrap;gap:4px}.student-concern-tag{padding:4px 7px;border-radius:999px;background:#f1f5f8;border:1px solid #d8e3ea;color:#516d87;font:700 7px 'Inter',sans-serif}
-.instructor-action-toolbar{display:flex;justify-content:flex-end;gap:7px;margin-bottom:10px}.inst-mini-btn{border:1px solid #c7dbe8;background:#f8fbfe;color:#1769c2;border-radius:8px;padding:8px 11px;font:800 9px 'Inter',sans-serif;cursor:pointer}.inst-mini-btn.primary{background:#1268c4;color:#fff;border-color:#1268c4}.action-admin-list{display:flex;flex-direction:column;gap:9px}.action-admin-item{border:1px solid #d8e5ee;border-radius:10px;padding:11px;background:#f8fbfe;box-shadow:0 2px 6px rgba(18,52,90,.04)}.action-admin-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.action-admin-title{font:800 11px 'Poppins',sans-serif;color:#173b61;line-height:1.35}.action-admin-meta{font:500 8.5px 'Inter',sans-serif;color:#7890a6;margin-top:4px;line-height:1.45}.action-admin-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center}.action-admin-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:32px;border:1px solid #c7dbe8;background:#fff;color:#1769c2;border-radius:8px;padding:7px 11px;font:800 9px 'Inter',sans-serif;cursor:pointer;box-shadow:0 1px 2px rgba(20,60,90,.08);transition:all .15s ease}.action-admin-actions button:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(20,60,90,.12)}.action-admin-actions button.danger{color:#b42318;border-color:#efc6c6;background:#fff5f4}.action-edit-btn{color:#1769c2!important;background:#eef7ff!important;border-color:#b9d8f5!important}.action-status-btn{color:#0a7b8f!important;background:#effbfd!important;border-color:#bce7ed!important}.action-delete-btn{color:#b42318!important;background:#fff4f3!important;border-color:#efc6c6!important}.action-admin-item .action-status{flex:0 0 auto;white-space:nowrap}.advisor-comment-box{display:flex;flex-direction:column;gap:8px}.advisor-comment-item{padding:9px;border:1px solid #d8e5ee;border-radius:9px;background:#f8fbfe}.advisor-comment-item strong{font:800 9px 'Poppins',sans-serif;color:#173b61}.advisor-comment-item time{float:right;font:500 7px 'Inter',sans-serif;color:#7890a6}.advisor-comment-item p{font:500 9px/1.5 'Inter',sans-serif;color:#526d86;margin-top:4px}.inst-modal-card .full-width{grid-column:1/-1}
+.instructor-action-toolbar{display:flex;justify-content:flex-end;gap:7px;margin-bottom:9px}.inst-mini-btn{border:1px solid #c7dbe8;background:#f8fbfe;color:#1769c2;border-radius:8px;padding:7px 9px;font:800 8px 'Inter',sans-serif;cursor:pointer}.inst-mini-btn.primary{background:#1268c4;color:#fff;border-color:#1268c4}.action-admin-list{display:flex;flex-direction:column;gap:7px}.action-admin-item{border:1px solid #d8e5ee;border-radius:9px;padding:9px;background:#f8fbfe}.action-admin-top{display:flex;justify-content:space-between;gap:8px}.action-admin-title{font:700 10px 'Poppins',sans-serif;color:#173b61}.action-admin-meta{font:500 8px 'Inter',sans-serif;color:#7890a6;margin-top:3px}.action-admin-actions{display:flex;gap:5px;margin-top:7px}.action-admin-actions button{border:1px solid #c9dce8;background:#fff;color:#1769c2;border-radius:6px;padding:5px 7px;font:700 7px 'Inter',sans-serif;cursor:pointer}.action-admin-actions button.danger{color:#b42318;border-color:#efc6c6;background:#fff5f4}.advisor-comment-box{display:flex;flex-direction:column;gap:8px}.advisor-comment-item{padding:9px;border:1px solid #d8e5ee;border-radius:9px;background:#f8fbfe}.advisor-comment-item strong{font:800 9px 'Poppins',sans-serif;color:#173b61}.advisor-comment-item time{float:right;font:500 7px 'Inter',sans-serif;color:#7890a6}.advisor-comment-item p{font:500 9px/1.5 'Inter',sans-serif;color:#526d86;margin-top:4px}.inst-modal-card .full-width{grid-column:1/-1}
 @media(max-width:900px){.student-mission{grid-template-columns:1fr}.academic-student-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.academic-student-grid{grid-template-columns:1fr}.action-plan-table{min-width:650px}.action-plan-table-wrap{overflow:auto}.student-mission-main{padding:14px}}
-.support-needed-label{display:inline-block;margin-right:7px;padding:3px 7px;border-radius:999px;background:#fff2d6;border:1px solid #ead29b;color:#9a6500;font:800 8px Inter,sans-serif;vertical-align:middle}.support-ok-label{display:inline-block;margin-right:7px;padding:3px 7px;border-radius:999px;background:#e6f7ef;border:1px solid #bfe5d1;color:#16734f;font:800 8px Inter,sans-serif;vertical-align:middle}
 </style>
 
 <style id="wow-reference-theme">
@@ -1268,390 +1254,244 @@ h1,h2,h3,h4,.brand-name,.student-view-title,.inst-title,.welcome-title,
 <style id="schedule-edit-ui">
 .schedule-advisor-note{margin-top:6px;font:500 10px/1.5 Inter,Arial,sans-serif;color:#607991;background:#eef7fc;border:1px solid #d5e6f1;border-radius:8px;padding:8px 10px}.schedule-edit-btn,.schedule-delete-btn{width:25px;height:25px;border-radius:6px;cursor:pointer;font-weight:800}.schedule-edit-btn{border:1px solid #b9d7ec;background:#eaf5fc;color:#1769c2}.schedule-delete-btn{border:1px solid #efc6c6;background:#fff1f1;color:#c83b3b}.schedule-edit-btn:hover{background:#dff0fb}.schedule-delete-btn:hover{background:#ffe4e4}
 </style>
-
-
-
-
-<style id="final-layout-fixes">
-/* FINAL STUDENT LAYOUT FIXES */
-html,body{margin:0!important;padding:0!important;overflow-x:hidden!important}
-.student-topbar{overflow:hidden!important}
-
-.student-topbar{background:#fff!important;color:#123b6b!important}
-.student-topbar:before{content:'⌕  Search courses, resources, or tasks...'!important;color:#7b93aa!important;background:#fbfdff!important}
-.student-header-right{position:relative!important;z-index:5!important}
-.student-header-btn.logout-student{background:#1769c2!important;color:#fff!important;border-color:#1769c2!important}
-
-
-.student-sidebar{overflow:hidden!important}
-.student-sidebar .student-nav{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding-bottom:8px!important;scrollbar-width:none!important}
-.student-sidebar .student-nav::-webkit-scrollbar{display:none!important}
-.student-sidebar-footer{flex:0 0 auto!important;position:relative!important;z-index:3!important;min-height:190px!important;display:flex!important;flex-direction:column!important;justify-content:flex-end!important;padding:12px 12px 16px!important;margin-top:8px!important;background:linear-gradient(180deg,rgba(5,42,74,0) 0%,rgba(3,31,57,.30) 45%,rgba(3,31,57,.78) 100%)!important}
-.student-sidebar:after{z-index:1!important;height:43%!important;background-position:center 65%!important;opacity:.96!important}
-.student-sidebar:before{z-index:4!important}
-.student-nav{position:relative!important;z-index:4!important}
-.student-nav:before{margin-bottom:2px!important}
-.student-nav-item{min-height:36px!important;padding:8px 10px!important;line-height:1!important}
-
-/* Header and content alignment */
-.student-main{position:relative!important;z-index:1!important}
-.student-welcome-banner{min-height:88px!important;padding:14px 26px!important}
-.student-welcome-banner:after{z-index:1!important;width:38%!important;background-position:center 50%!important;opacity:.88!important}
-.student-welcome-copy{position:relative!important;z-index:3!important;max-width:68%!important}
-
-/* Keep the mission row balanced and prevent oversized empty areas. */
-.student-main > .student-mission{min-height:0!important}
-.student-mission-main,.student-mission .mission-side{min-height:220px!important}
-.mission-side{overflow:hidden!important}
-
-/* Make empty data cards compact but visually intentional. */
-#student-action-plan-section{min-height:0!important}
-#student-action-plan-section:has(.advisor-feedback-empty){min-height:170px!important}
-
-/* Prevent long rows/tables from stretching the page horizontally. */
-.action-plan-table-wrap,.student-panel{min-width:0!important;max-width:100%!important}
-.wow-courses{min-width:0!important}
-.wow-courses .course-card{min-width:0!important;overflow:hidden!important}
-
-/* Make right column cards align neatly at desktop widths. */
-#pomodoro-section,#lesson-test-section,#study-focus-section,#student-exams-section{min-width:0!important}
-
-/* Slightly tighter desktop sizing so the full dashboard reads as one screen. */
-@media(min-width:1181px){
-  .student-main{padding-top:68px!important}
-  .student-welcome-banner{margin-bottom:12px!important}
-  .student-stat-grid{gap:9px!important}
-  .student-panel{padding:12px!important}
-}
-
-/* Tablet */
-@media(max-width:1180px){
-  .student-welcome-copy{max-width:72%!important}
-  .student-welcome-banner:after{width:34%!important}
-}
-
-/* Mobile: no fixed/sidebar collision and readable profile. */
-@media(max-width:850px){
-  .student-topbar{left:0!important;right:0!important;width:100%!important;height:62px!important;padding:0 12px!important}
-  .student-topbar:before{width:190px!important;min-width:0!important}
-  .student-main{padding:62px 12px 24px!important}
-  .student-welcome-banner{margin:0 0 12px!important;padding:15px 16px!important;min-height:88px!important}
-  .student-welcome-copy{max-width:100%!important}
-  .student-welcome-banner:after{display:none!important}
-  .student-sidebar{display:none!important}
-}
-@media(max-width:560px){
-  .student-topbar:before{width:145px!important;font-size:8px!important;white-space:nowrap;overflow:hidden}
-  .student-header-right:before{display:none!important}
-  .student-welcome-title{font-size:21px!important;line-height:1.2!important}
-  .student-stat-grid{grid-template-columns:1fr!important}
-  .student-mission-main,.student-mission .mission-side{min-height:190px!important}
-}
+<style id="final-safe-visibility">
+/* Stable role visibility: never depend on body mode classes. */
+#login-screen{display:flex!important;}
+#login-screen.hidden{display:none!important;}
+#app{display:none;}
+#app.visible{display:block!important;}
+#instructor-panel{display:none;}
+#instructor-panel.visible{display:block!important;}
 </style>
-
-
-<style id="student-layout-final-fix">
-/* ===== FINAL STUDENT DASHBOARD LAYOUT FIX =====
-   Restore the intended two-column dashboard flow and stop nested grid
-   containers from collapsing content into narrow far-right columns. */
-html, body { overflow-x:hidden!important; }
-.student-shell{
-  display:grid!important;
-  grid-template-columns:185px minmax(0,1fr)!important;
-  min-height:100vh!important;
-  width:100%!important;
+<style id="courses-vertical-schedule-layout">
+/* Student view: stack courses vertically beside the student's schedule */
+#student-progress-section .wow-courses,
+#student-progress-section .courses-grid{
+  grid-template-columns:1fr !important;
+  display:grid !important;
+  gap:10px !important;
 }
-.student-main{
-  display:block!important;
-  grid-column:2!important;
-  width:100%!important;
-  max-width:none!important;
-  min-width:0!important;
-  box-sizing:border-box!important;
-  padding:68px 22px 34px!important;
+#student-progress-section .wow-courses .course-card,
+#student-progress-section .courses-grid .course-card{
+  width:100%;
+  min-height:unset !important;
+  display:grid;
+  grid-template-columns:54px minmax(150px,1.15fr) minmax(220px,1.8fr) auto;
+  align-items:center;
+  gap:12px;
+  padding:13px 14px !important;
 }
-.student-welcome-banner{
-  position:relative!important;
-  width:100%!important;
-  box-sizing:border-box!important;
-  margin:0 0 14px!important;
-  min-height:92px!important;
-  overflow:hidden!important;
-}
-.student-welcome-copy{position:relative!important;z-index:3!important;max-width:58%!important}
-.student-welcome-banner em{position:relative!important;z-index:3!important}
-.student-mission{
-  display:grid!important;
-  grid-template-columns:minmax(0,2fr) minmax(300px,1fr)!important;
-  gap:14px!important;
-  width:100%!important;
-  margin:0 0 14px!important;
-}
-.student-mission-main,.student-mission .mission-side{min-width:0!important;box-sizing:border-box!important}
-.student-stat-grid{
-  display:grid!important;
-  grid-template-columns:repeat(5,minmax(0,1fr))!important;
-  width:100%!important;
-  gap:10px!important;
-  margin:0 0 14px!important;
-}
-.student-stat-card{min-width:0!important}
-
-/* Main dashboard body: real left + right columns. */
+#student-progress-section .wow-courses .course-card > .wow-course-icon{grid-column:1;grid-row:1 / span 2;}
+#student-progress-section .wow-courses .course-card > .course-code{grid-column:2;grid-row:1;font-size:9px;}
+#student-progress-section .wow-courses .course-card > .course-name{grid-column:2;grid-row:2;font-size:13px;}
+#student-progress-section .wow-courses .course-card > .wow-course-progress{grid-column:3;grid-row:1 / span 2;}
+#student-progress-section .wow-courses .course-card > .wow-course-meta{grid-column:4;grid-row:1;justify-self:end;}
+#student-progress-section .wow-courses .course-card > .wow-course-actions{grid-column:4;grid-row:2;justify-self:end;}
+#student-progress-section .wow-courses .course-card > .wow-task-dots{grid-column:3 / 5;grid-row:3;}
+#student-progress-section .wow-courses .course-card .progress-bar-wrap{margin:6px 0 3px;}
+#student-progress-section .wow-courses .course-card .wow-course-progress strong{font-size:15px;}
+#student-content .student-content-grid,
 .student-content-grid{
-  display:grid!important;
-  grid-template-columns:minmax(0,1fr) 350px!important;
-  gap:14px!important;
-  width:100%!important;
-  align-items:start!important;
+  align-items:start;
 }
-.student-left-column{
-  display:flex!important;
-  flex-direction:column!important;
-  min-width:0!important;
-  width:100%!important;
-  gap:14px!important;
-}
-.student-right-column{
-  display:flex!important;
-  flex-direction:column!important;
-  min-width:0!important;
-  width:100%!important;
-  gap:14px!important;
-}
-.student-two-column{
-  display:grid!important;
-  grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  gap:14px!important;
-  width:100%!important;
-}
-.student-panel{min-width:0!important;box-sizing:border-box!important}
-
-/* Cancel old 12-column placement rules that caused the collapse. */
-#student-action-plan-section,
-#student-progress-section,
-#pomodoro-section,
-#lesson-test-section,
-#csb-learning-section,
-#study-focus-section,
-#student-progress-detail-section,
-#student-advisor-feedback-section,
-#student-early-warning-section,
-#student-academic-section,
-#student-messages,
-#student-schedule-section,
-#student-exams-section,
-#student-activity-section{
-  grid-column:auto!important;
-  grid-row:auto!important;
-  width:auto!important;
-}
-
-/* Right-column cards need one readable card per row rather than skinny columns. */
-#study-focus-section .wow-focus-grid,
-#lesson-test-section .wow-mock-grid,
-#student-exams-section .wow-exams,
-#student-activity-section .wow-activity{
-  grid-template-columns:1fr!important;
-}
-#study-focus-section .focus-card,
-#lesson-test-section .mock-card{
-  min-width:0!important;
-  width:100%!important;
-  box-sizing:border-box!important;
-}
-
-/* Keep ocean artwork visible without covering navigation/content. */
-.student-sidebar{overflow:hidden!important;position:fixed!important}
-.student-sidebar:after{z-index:1!important;pointer-events:none!important}
-.student-nav{position:relative!important;z-index:5!important}
-.student-sidebar-footer{position:absolute!important;left:10px!important;right:10px!important;bottom:0!important;z-index:6!important}
-.student-topbar > *{position:relative!important;z-index:3!important}
-.student-topbar:after{z-index:1!important}
-#pomodoro-section{position:relative!important;overflow:hidden!important}
-#pomodoro-section > *{position:relative!important;z-index:3!important}
-#pomodoro-section:after{z-index:1!important;pointer-events:none!important}
-
-/* Desktop sizing close to the reference dashboard. */
-@media (min-width:1400px){
-  .student-main{padding-left:28px!important;padding-right:28px!important}
-  .student-content-grid{grid-template-columns:minmax(0,1fr) 360px!important}
-}
-@media (max-width:1180px){
-  .student-main{padding:68px 18px 28px!important}
-  .student-mission{grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr)!important}
-  .student-stat-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
-  .student-content-grid{grid-template-columns:minmax(0,1fr) 320px!important}
-  .wow-courses{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-}
-@media (max-width:900px){
-  .student-content-grid{grid-template-columns:1fr!important}
-  .student-right-column{display:flex!important}
-  .student-two-column{grid-template-columns:1fr!important}
-  .student-mission{grid-template-columns:1fr!important}
-  .student-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-}
-@media (max-width:850px){
-  .student-shell{display:block!important}
-  .student-sidebar{display:none!important}
-  .student-main{grid-column:1!important;padding:62px 14px 26px!important}
-  .student-welcome-banner{margin:0 0 12px!important}
-  .student-welcome-copy{max-width:100%!important}
-}
-@media (max-width:560px){
-  .student-stat-grid{grid-template-columns:1fr!important}
-  .wow-courses{grid-template-columns:1fr!important}
-  .student-main{padding-left:12px!important;padding-right:12px!important}
-}
-</style>
-
-<style id="FINAL-STUDENT-LAYOUT-OVERRIDE">
-/* FINAL OVERLAP FIX: keep the 12-column visual layout intentionally,
-   but give every dashboard block an explicit home so nothing collapses into
-   skinny auto-placed columns. */
-.student-main{
-  display:grid!important;
-  grid-template-columns:repeat(12,minmax(0,1fr))!important;
-  gap:14px!important;
-  width:100%!important;
-  min-width:0!important;
-  align-content:start!important;
-}
-.student-welcome-banner,
-.student-main > .student-mission,
-.student-main > .student-stat-grid{grid-column:1/-1!important;width:100%!important;min-width:0!important}
-
-/* Top management cards */
-#student-action-plan-section{grid-column:1/span 8!important;grid-row:auto!important;min-width:0!important}
-#student-study-items-section{grid-column:9/span 4!important;grid-row:auto!important;min-width:0!important}
-
-/* The main content wrapper participates in the root 12-col layout. */
-.student-main > .student-content-grid{display:contents!important}
-.student-left-column,.student-right-column,.student-two-column{display:contents!important}
-
-/* Main two-column rhythm */
-#student-progress-section{grid-column:1/span 8!important;min-width:0!important}
-#pomodoro-section{grid-column:9/span 4!important;min-width:0!important}
-#study-focus-section{grid-column:9/span 4!important;min-width:0!important}
-#lesson-test-section{grid-column:9/span 4!important;min-width:0!important}
-#csb-learning-section{grid-column:1/span 8!important;min-width:0!important}
-#student-progress-detail-section{grid-column:1/span 4!important;min-width:0!important}
-#student-advisor-feedback-section{grid-column:5/span 4!important;min-width:0!important}
-#student-early-warning-section{grid-column:9/span 4!important;min-width:0!important}
-#student-academic-section{grid-column:1/span 6!important;min-width:0!important}
-#student-messages{grid-column:7/span 6!important;min-width:0!important}
-#student-schedule-section{grid-column:1/span 8!important;min-width:0!important;position:static!important}
-#student-exams-section{grid-column:9/span 4!important;min-width:0!important}
-#student-activity-section{grid-column:1/-1!important;min-width:0!important}
-
-/* The resources section is a child without an ID. Keep it in the left rail. */
-#student-progress-section + .student-two-column,
-#csb-learning-section ~ .student-panel:not(#student-progress-detail-section):not(#student-academic-section):not(#student-advisor-feedback-section):not(#student-messages):not(#student-early-warning-section){min-width:0!important}
-
-/* Readable widths inside right rail */
-#student-study-items-section,
-#pomodoro-section,
-#study-focus-section,
-#lesson-test-section,
-#student-early-warning-section,
-#student-exams-section{overflow:hidden!important}
-#student-study-items-section #student-study-items,
-#student-study-items-section .advisor-feedback-empty{max-width:100%!important;word-break:normal!important;overflow-wrap:anywhere!important}
-
-.wow-courses{grid-template-columns:repeat(4,minmax(0,1fr))!important}
-@media (max-width:1180px){
-  .student-main{grid-template-columns:repeat(6,minmax(0,1fr))!important}
-  #student-action-plan-section,#student-progress-section,#csb-learning-section,#student-schedule-section,#student-activity-section{grid-column:1/-1!important}
-  #student-study-items-section,#pomodoro-section,#study-focus-section,#lesson-test-section,#student-early-warning-section,#student-exams-section{grid-column:span 3!important}
-  #student-progress-detail-section,#student-advisor-feedback-section{grid-column:span 3!important}
-  #student-academic-section,#student-messages{grid-column:1/-1!important}
-  .wow-courses{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-}
-@media (max-width:850px){
-  .student-main{display:block!important;padding:62px 12px 24px!important}
-  .student-main > *,
-  #student-action-plan-section,#student-study-items-section,#student-progress-section,#pomodoro-section,#study-focus-section,#lesson-test-section,#csb-learning-section,#student-progress-detail-section,#student-advisor-feedback-section,#student-early-warning-section,#student-academic-section,#student-messages,#student-schedule-section,#student-exams-section,#student-activity-section{grid-column:auto!important;width:100%!important;margin-bottom:14px!important}
-  .wow-courses{grid-template-columns:1fr!important}
-}
-</style>
-
-<style id="action-control-clarity">
-.action-admin-actions .action-edit-btn,.action-admin-actions .action-status-btn,.action-admin-actions .action-delete-btn{min-width:92px!important;opacity:1!important;visibility:visible!important}
-@media(max-width:760px){.action-admin-actions button{flex:1 1 100%;min-width:0!important}}
-</style>
-
-<style id="final-layout-live-fix">
-/* ===== FINAL STUDENT / INSTRUCTOR LAYOUT FIX ===== */
-html,body{min-width:0;overflow-x:hidden}
-.student-shell{grid-template-columns:205px minmax(0,1fr)!important}
-.student-main{min-width:0!important;overflow:visible!important}
-.student-content-grid{grid-template-columns:minmax(0,1fr) 340px!important;align-items:start!important}
-.student-left-column,.student-right-column{min-width:0!important}
-.student-panel{min-width:0!important;overflow:visible!important}
-.student-two-column{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
-.wow-courses{grid-template-columns:repeat(4,minmax(0,1fr))!important}
-.wow-courses .course-card{min-width:0!important;overflow:hidden!important}
-.wow-courses .wow-course-actions{display:flex;gap:6px;flex-wrap:wrap}
-.wow-courses .wow-course-btn,.wow-courses .wow-course-lessons{min-width:0;flex:1}
-.wow-focus-grid,.wow-mock-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-.wow-resources{grid-template-columns:repeat(3,minmax(0,1fr))!important}
-.student-right-column{display:flex!important;flex-direction:column!important}
-.schedule-panel{position:sticky!important;top:108px!important}
-/* Instructor directory: readable cards + explicit Select action */
-.instructor-columns{grid-template-columns:320px minmax(0,1fr) 300px!important}
-.student-selector-card{min-width:0!important}
-.student-table-wrap{overflow:visible!important}
-.student-table{width:100%!important;min-width:0!important;border-collapse:separate!important}
-.student-table th,.student-table td{display:table-cell!important}
-.student-table th:nth-child(n+2),.student-table td:nth-child(n+2){display:none!important}
-.student-row{cursor:pointer!important}
-.student-row td{padding:10px 8px!important}
-.student-row:hover td{background:#eef7fd!important}
-.student-cell-name{font-size:11px!important}
-.student-cell-email{font-size:8px!important}
-.select-student-btn{display:inline-flex!important;align-items:center;justify-content:center;white-space:nowrap!important;min-width:76px!important;border:0!important;color:#fff!important;background:linear-gradient(135deg,#1769c2,#09a7d0)!important;box-shadow:0 4px 10px rgba(23,105,194,.16)!important}
-.directory-help{font:500 8px/1.45 Inter,sans-serif;color:#66809b;background:#f2f8fc;border:1px solid #d8e7ef;border-radius:8px;padding:8px;margin:8px 0 10px}.directory-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #dbe5ec}
-.directory-card:last-child{border-bottom:0}
-.directory-card-main{min-width:0;flex:1}
-.directory-card-meta{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
-.directory-card-meta span{font:700 7px 'DM Mono',monospace;color:#5c7690;background:#edf3f7;border:1px solid #d4e0e8;border-radius:999px;padding:3px 5px}
-.directory-select-btn{border:0;border-radius:7px;padding:7px 9px;background:#1769c2;color:#fff;font:800 8px 'DM Mono',monospace;cursor:pointer;white-space:nowrap}
-.directory-select-btn.live{background:linear-gradient(135deg,#087f53,#0ea77c)}
-.directory-select-btn:hover{transform:translateY(-1px)}
-.tracked-student-card{position:relative!important;min-width:0!important}
-.tracked-student-info{min-width:0!important}
-.tracked-student-info h2{word-break:break-word}
-.hero-stat-grid{min-width:0}
-.inst-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
-.action-admin-item{min-width:0!important}
-.action-admin-actions{display:flex!important;gap:7px!important;flex-wrap:wrap!important;margin-top:8px!important}
-.action-admin-actions button{display:inline-flex!important;align-items:center!important;justify-content:center!important;white-space:nowrap!important}
-/* Keep courses visible in instructor profile even when source data is partial. */
-.profile-courses{min-width:0!important}
-.profile-course{min-width:0!important}
-.profile-course-head strong{min-width:0!important;overflow-wrap:anywhere}
-
-.student-topbar:before,.student-topbar:after,.student-welcome-banner:before,.student-welcome-banner:after,.student-sidebar:before,.student-sidebar:after{content:none!important;background-image:none!important}
+.student-right-column{position:relative;}
+.student-right-column .schedule-panel{position:sticky;top:108px;}
 @media(max-width:1250px){
-  .student-content-grid{grid-template-columns:1fr 320px!important}
-  .wow-courses{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  .instructor-columns{grid-template-columns:280px minmax(0,1fr)!important}
-  .schedule-sidebar{grid-column:1/-1;position:static!important;max-height:none!important}
+  #student-progress-section .wow-courses .course-card,
+  #student-progress-section .courses-grid .course-card{
+    grid-template-columns:46px minmax(150px,1fr) minmax(180px,1.4fr);
+  }
+  #student-progress-section .wow-courses .course-card > .wow-course-meta{grid-column:2;grid-row:3;justify-self:start;}
+  #student-progress-section .wow-courses .course-card > .wow-course-actions{grid-column:3;grid-row:3;justify-self:end;}
+  #student-progress-section .wow-courses .course-card > .wow-task-dots{grid-column:2 / 4;grid-row:4;}
 }
 @media(max-width:900px){
-  .student-content-grid,.student-two-column,.student-right-column{grid-template-columns:1fr!important}
-  .student-right-column{display:grid!important}
-  .schedule-panel{position:static!important}
-  .wow-courses,.wow-focus-grid,.wow-mock-grid,.wow-resources{grid-template-columns:1fr 1fr!important}
-  .instructor-columns{grid-template-columns:1fr!important}
-}
-@media(max-width:650px){
-  .student-shell{grid-template-columns:1fr!important}
-  .wow-courses,.wow-focus-grid,.wow-mock-grid,.wow-resources{grid-template-columns:1fr!important}
-  .directory-card{align-items:flex-start}
+  .student-content-grid{grid-template-columns:1fr !important;}
+  .student-right-column .schedule-panel{position:static;}
+  #student-progress-section .wow-courses .course-card,
+  #student-progress-section .courses-grid .course-card{
+    grid-template-columns:48px 1fr;
+  }
+  #student-progress-section .wow-courses .course-card > .wow-course-progress,
+  #student-progress-section .wow-courses .course-card > .wow-course-meta,
+  #student-progress-section .wow-courses .course-card > .wow-course-actions,
+  #student-progress-section .wow-courses .course-card > .wow-task-dots{
+    grid-column:2;
+    justify-self:stretch;
+  }
+  #student-progress-section .wow-courses .course-card > .wow-course-progress{grid-row:3;}
+  #student-progress-section .wow-courses .course-card > .wow-course-meta{grid-row:4;}
+  #student-progress-section .wow-courses .course-card > .wow-course-actions{grid-row:5;}
+  #student-progress-section .wow-courses .course-card > .wow-task-dots{grid-row:6;}
 }
 </style>
 
+<style id="courses-schedule-final-fix">
+#student-progress-section .wow-courses,#student-progress-section .courses-grid{display:flex!important;flex-direction:column!important;gap:10px!important;}
+#student-progress-section .course-card{width:100%!important;min-width:0!important;}
+.student-right-column{min-width:0!important;}
+.schedule-panel{min-width:0!important;}
+.schedule-list{max-height:none!important;overflow:visible!important;}
+.schedule-panel .student-panel-heading p{margin-top:3px;color:#6b8299;font-size:9px;}
+.schedule-slot{min-height:42px!important;}
+@media(min-width:1251px){.student-content-grid{grid-template-columns:minmax(0,1fr) 360px!important;}}
+@media(max-width:1250px) and (min-width:901px){.student-content-grid{grid-template-columns:minmax(0,1fr) 330px!important;}.wow-courses{grid-template-columns:1fr!important;}}
+</style>
+
+<style id="course-study-planner-ui">
+.study-planner-details{margin-top:12px;border-top:1px solid #dbe6ee;padding-top:9px}
+.study-planner-details>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:10px;align-items:center;font:800 9px 'Inter',sans-serif;color:#17456e}
+.study-planner-details>summary::-webkit-details-marker{display:none}
+.study-planner-details>summary::after{content:'⌄';font-size:12px;color:#6f8ba4;transition:transform .2s}
+.study-planner-details[open]>summary::after{transform:rotate(180deg)}
+.study-plan-progress{height:5px;background:#e3ebf1;border-radius:99px;overflow:hidden;margin:8px 0}
+.study-plan-progress>span{display:block;height:100%;border-radius:99px;transition:width .25s ease}
+.study-plan-checklist{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px}
+.study-plan-check{display:grid;grid-template-columns:16px 1fr;align-items:center;gap:7px;padding:6px 7px;border:1px solid #dbe6ee;background:#f8fbfd;border-radius:7px;cursor:pointer;min-width:0}
+.study-plan-check input{position:absolute;opacity:0;pointer-events:none}
+.study-plan-box{width:15px;height:15px;border-radius:4px;border:1px solid #a9bfd0;background:#fff;display:grid;place-items:center;font:800 9px 'Inter',sans-serif;color:#fff}
+.study-plan-check.done .study-plan-box{background:#15966d;border-color:#15966d}
+.study-plan-text{font:600 8px/1.3 'Inter',sans-serif;color:#49667f;min-width:0}
+.study-plan-check.done .study-plan-text{color:#15966d;text-decoration:line-through;text-decoration-thickness:1px}
+@media(max-width:700px){.study-plan-checklist{grid-template-columns:1fr}}
+</style>
+
+
+<style id="study-planner-visible-fix">
+#student-progress-section .wow-courses .course-card,
+#student-progress-section .courses-grid .course-card{
+  display:block !important;
+  width:100% !important;
+  min-height:0 !important;
+  padding:18px !important;
+  box-sizing:border-box !important;
+}
+#student-progress-section .wow-courses .course-card > div,
+#student-progress-section .courses-grid .course-card > div{
+  box-sizing:border-box !important;
+}
+#student-progress-section .study-planner-details{
+  display:block !important;
+  width:100% !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:relative !important;
+  clear:both !important;
+  background:#f7fbfd !important;
+  border:1px solid #d7e6ed !important;
+  border-radius:12px !important;
+  padding:12px !important;
+  margin-top:14px !important;
+}
+#student-progress-section .study-planner-details > summary{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  width:100% !important;
+  min-height:28px !important;
+  font-size:11px !important;
+  color:#17456e !important;
+}
+#student-progress-section .study-plan-checklist{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:7px !important;
+  margin-top:10px !important;
+}
+#student-progress-section .study-plan-check{
+  display:grid !important;
+  grid-template-columns:18px minmax(0,1fr) !important;
+  align-items:center !important;
+  gap:8px !important;
+  min-height:34px !important;
+  padding:7px 9px !important;
+  background:#fff !important;
+  border:1px solid #d7e3ea !important;
+  border-radius:8px !important;
+}
+#student-progress-section .study-plan-text{
+  font:700 10px/1.35 Inter,sans-serif !important;
+  color:#405f78 !important;
+}
+#student-progress-section .study-plan-box{
+  width:17px !important;
+  height:17px !important;
+}
+@media(max-width:700px){
+  #student-progress-section .study-plan-checklist{grid-template-columns:1fr !important;}
+}
+</style>
+
+
+<style id="course-study-planner-dedicated-ui">
+#course-study-planner-section{margin-top:18px;}
+#course-study-planner{display:flex;flex-direction:column;gap:12px;}
+.course-planner-card{background:#fff;border:1px solid #cbd9e2;border-radius:15px;padding:16px;box-shadow:0 7px 20px rgba(20,37,54,.055);}
+.course-planner-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:10px;}
+.course-planner-title{display:flex;align-items:center;gap:10px;min-width:0;}
+.course-planner-icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:18px;flex:0 0 auto;}
+.course-planner-code{font:800 9px 'DM Mono',monospace;letter-spacing:.08em;color:#526575;text-transform:uppercase;}
+.course-planner-name{font:800 15px 'Syne',sans-serif;color:#142536;margin-top:2px;}
+.course-planner-pct{text-align:right;font:800 18px 'Syne',sans-serif;color:#0b7285;white-space:nowrap;}
+.course-planner-sub{font:600 9px 'Inter',sans-serif;color:#6b7f8d;}
+.course-planner-progress{height:7px;background:#e4ebef;border-radius:99px;overflow:hidden;margin:8px 0 12px;}
+.course-planner-progress span{display:block;height:100%;border-radius:99px;transition:width .2s ease;}
+.course-planner-checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;}
+.course-planner-check{display:flex;align-items:center;gap:9px;padding:9px 10px;background:#f7fafb;border:1px solid #d8e4ea;border-radius:9px;cursor:pointer;min-width:0;}
+.course-planner-check:hover{border-color:#9eb8c8;background:#f2f8fa;}
+.course-planner-check input{width:17px;height:17px;accent-color:#0b7285;flex:0 0 auto;cursor:pointer;}
+.course-planner-check span{font:600 10px/1.35 'Inter',sans-serif;color:#3d596e;}
+.course-planner-check.done{background:#effaf5;border-color:#b8ddc8;}
+.course-planner-check.done span{color:#18794e;text-decoration:line-through;}
+@media(max-width:700px){.course-planner-checklist{grid-template-columns:1fr;}.course-planner-head{align-items:flex-start;}.course-planner-pct{font-size:16px;}}
+</style>
+
+
+<style id="course-planner-final-incorporated">
+#student-progress-section .course-card{display:block!important;width:100%!important;box-sizing:border-box!important;}
+#student-progress-section .course-card-study-planner{display:block!important;width:100%!important;box-sizing:border-box!important;margin:15px 0 0!important;padding:14px!important;background:linear-gradient(180deg,#f8fbfd,#f3f8fa)!important;border:1px solid #c9dce5!important;border-radius:12px!important;clear:both!important;visibility:visible!important;opacity:1!important;}
+.course-card-study-planner-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px;}
+.course-card-study-planner-head>div{display:flex;align-items:flex-start;gap:8px;flex-direction:column;}
+.course-card-study-planner-kicker{font:800 8px 'DM Mono',monospace;letter-spacing:.14em;color:#0b7285;}
+.course-card-study-planner-head strong{font:800 12px 'Inter',sans-serif;color:#17364c;}
+.course-card-study-planner-progress{font:800 11px 'Inter',sans-serif;color:#0b7285;white-space:nowrap;}
+.course-card-study-planner-bar{height:7px;background:#dce8ed;border-radius:99px;overflow:hidden;margin:8px 0 12px;}
+.course-card-study-planner-bar span{display:block;height:100%;border-radius:99px;transition:width .2s ease;}
+.course-card-study-planner-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;}
+.course-card-study-planner .course-planner-check,.course-card-study-planner .study-plan-check{display:flex!important;align-items:center!important;gap:8px!important;min-height:34px!important;padding:7px 9px!important;background:#fff!important;border:1px solid #d4e2e8!important;border-radius:8px!important;box-sizing:border-box!important;cursor:pointer!important;}
+.course-card-study-planner .course-planner-check input{width:17px!important;height:17px!important;opacity:1!important;position:static!important;pointer-events:auto!important;accent-color:#0b7285!important;flex:0 0 auto!important;}
+.course-card-study-planner .study-plan-check input{display:none!important;}
+.course-card-study-planner .course-planner-check span,.course-card-study-planner .study-plan-text{font:600 10px/1.35 'Inter',sans-serif!important;color:#3d596e!important;}
+.course-card-study-planner .study-plan-check.done{background:#effaf5!important;border-color:#b8ddc8!important;}
+.course-card-study-planner .study-plan-check.done .study-plan-text{color:#18794e!important;text-decoration:line-through!important;}
+@media(max-width:700px){.course-card-study-planner-list{grid-template-columns:1fr!important;}}
+</style>
+<style id="course-study-planner-final">
+#student-progress-section .course-study-planner{
+  display:block!important;width:100%!important;box-sizing:border-box!important;
+  margin:16px 0 0!important;padding:15px!important;
+  background:linear-gradient(180deg,#f8fbfd 0%,#f2f8fa 100%)!important;
+  border:1px solid #c9dce5!important;border-radius:13px!important;
+  clear:both!important;visibility:visible!important;opacity:1!important;
+}
+#student-progress-section .course-study-planner-head{display:flex!important;align-items:flex-start!important;justify-content:space-between!important;gap:15px!important;margin-bottom:9px!important}
+#student-progress-section .course-study-planner-head>div:first-child{display:flex!important;flex-direction:column!important;gap:4px!important}
+#student-progress-section .course-study-planner-kicker{font:800 8px 'DM Mono',monospace!important;letter-spacing:.14em!important;color:#0b7285!important}
+#student-progress-section .course-study-planner-head strong{font:800 13px 'Inter',sans-serif!important;color:#17364c!important}
+#student-progress-section .course-study-planner-sub{font:600 9px/1.4 'Inter',sans-serif!important;color:#6b7f8d!important}
+#student-progress-section .course-study-planner-progress{font:800 13px 'Inter',sans-serif!important;color:#0b7285!important;text-align:right!important;white-space:nowrap!important}
+#student-progress-section .course-study-planner-progress small{display:block!important;font:600 8px 'Inter',sans-serif!important;color:#6b7f8d!important;margin-top:2px!important}
+#student-progress-section .course-study-planner-bar{height:7px!important;background:#dce8ed!important;border-radius:99px!important;overflow:hidden!important;margin:8px 0 12px!important}
+#student-progress-section .course-study-planner-bar span{display:block!important;height:100%!important;border-radius:99px!important;transition:width .25s ease!important}
+#student-progress-section .course-study-planner-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+#student-progress-section .course-study-plan-item{display:flex!important;align-items:center!important;gap:9px!important;min-height:36px!important;padding:8px 10px!important;background:#fff!important;border:1px solid #d4e2e8!important;border-radius:9px!important;box-sizing:border-box!important;cursor:pointer!important}
+#student-progress-section .course-study-plan-item:hover{border-color:#94b2c1!important;background:#f6fbfc!important}
+#student-progress-section .course-study-plan-item input{width:17px!important;height:17px!important;opacity:1!important;position:static!important;pointer-events:auto!important;accent-color:#0b7285!important;flex:0 0 auto!important;cursor:pointer!important}
+#student-progress-section .course-study-plan-item span{font:600 10px/1.35 'Inter',sans-serif!important;color:#3d596e!important}
+#student-progress-section .course-study-plan-item.done{background:#effaf5!important;border-color:#b8ddc8!important}
+#student-progress-section .course-study-plan-item.done span{color:#18794e!important;text-decoration:line-through!important}
+@media(max-width:700px){#student-progress-section .course-study-planner-list{grid-template-columns:1fr!important}#student-progress-section .course-study-planner-head{flex-direction:column!important}}
+</style>
 </head>
 <body>
 
@@ -1714,7 +1554,6 @@ html,body{min-width:0;overflow-x:hidden}
       <button class="student-header-btn" onclick="resetStudentData()" title="Reset this student’s saved progress">↺ Reset</button>
     </div>
   </header>
-  <div id="instructor-preview-bar"><div class="preview-inner"><span>👩‍🏫 Instructor Preview — Viewing Student: <strong id="preview-student-name">Student</strong></span><span class="preview-note">Read-only preview · changes are not saved from this view</span></div></div>
 
   <div class="student-shell">
     <aside class="student-sidebar">
@@ -1728,14 +1567,14 @@ html,body{min-width:0;overflow-x:hidden}
         <button class="student-nav-item" onclick="document.getElementById('lesson-mock-tests')?.scrollIntoView({behavior:'smooth'})">▤ <span>Lesson Tests</span></button>
         <button class="student-nav-item" onclick="document.getElementById('csb-resources')?.scrollIntoView({behavior:'smooth'})">⇩ <span>Study Resources</span></button>
         <button class="student-nav-item" onclick="document.getElementById('student-advisor-feedback-section')?.scrollIntoView({behavior:'smooth'})">💬 <span>Advisor Feedback</span></button>
-        <button class="student-nav-item" onclick="document.getElementById('student-early-warning-section')?.scrollIntoView({behavior:'smooth'})">⚠ <span>Early Warnings</span></button>
+        <button class="student-nav-item" onclick="document.getElementById('student-early-warning-section')?.scrollIntoView({behavior:'smooth'})">⚠ <span>Growth &amp; Motivation</span></button>
       </nav>
-      <div class="student-sidebar-footer">🌱<div>LEARN WITH PURPOSE<br/>GROW WITH CONFIDENCE</div></div>
+      <div class="student-sidebar-footer">🌱<div>Better<br/>Scientists<br/>Brighter<br/>Futures</div></div>
     </aside>
 
     <main class="student-main" id="student-home">
       <section class="student-welcome-banner">
-        <div class="student-welcome-copy"><div class="student-welcome-title">🌿 Welcome back, <span id="student-hero-name">Student</span>! 👋</div><div id="student-hero-message">Here’s what you should focus on today.</div><div style="margin-top:8px;font:800 10px 'DM Mono',monospace;color:#1769c2;letter-spacing:.04em">STUDENT: <span id="student-banner-name">Student</span></div></div>
+        <div class="student-welcome-copy"><div class="student-welcome-title">🌿 Welcome back, <span id="student-hero-name">Student</span>! 👋</div><div id="student-hero-message">Here’s what you should focus on today.</div></div>
         <em>“Small steps today, big discoveries tomorrow.”</em>
       </section>
 
@@ -1765,11 +1604,6 @@ html,body{min-width:0;overflow-x:hidden}
       <section class="student-panel" id="student-action-plan-section">
         <div class="student-panel-heading"><div><h2>🎯 Your Action Plan</h2><p id="student-action-plan-subtitle">Advisor: Nashwa Hamido</p></div><span class="student-panel-link">Follow your priorities</span></div>
         <div class="action-plan-table-wrap"><div id="student-action-plan"><div class="advisor-feedback-empty">No action plan has been assigned yet. Your advisor will add priorities here when needed.</div></div></div>
-      </section>
-
-      <section class="student-panel" id="student-study-items-section">
-        <div class="student-panel-heading"><div><h2>📚 Assigned Study Items</h2><p>Study activities and materials selected by your advisor</p></div><span class="student-panel-link">Updated live</span></div>
-        <div id="student-study-items"><div class="advisor-feedback-empty">No study items have been assigned yet.</div></div>
       </section>
 
       <section class="student-content-grid">
@@ -1802,11 +1636,11 @@ html,body{min-width:0;overflow-x:hidden}
 
           <section class="student-panel" id="student-messages"><div class="student-panel-heading"><h2>✉ Messages & Announcements</h2><span class="student-panel-link">Stay connected</span></div><div class="student-message-list"><div class="student-message"><span class="msg-icon amber">!</span><div><strong>Study Sprint Reminder</strong><p>Keep your current focus group active and complete your next recommended test.</p></div><time>Today</time></div><div class="student-message"><span class="msg-icon blue">✓</span><div><strong>Biotech Sprint</strong><p>Your activity and progress are synchronized securely with your account.</p></div><time>Live</time></div></div></section>
 
-          <section class="student-panel" id="student-early-warning-section"><div class="student-panel-heading"><h2>⚠ Support & Guidance</h2><span class="student-panel-link">Support, not punishment</span></div><div id="student-early-warning"></div></section>
+          <section class="student-panel" id="student-early-warning-section"><div class="student-panel-heading"><h2>✨ Growth &amp; Motivation</h2><span class="student-panel-link">Keep building momentum</span></div><div id="student-early-warning"></div></section>
         </div>
 
         <aside class="student-right-column">
-          <section class="student-panel schedule-panel" id="student-schedule-section"><div class="student-panel-heading"><h2>▦ My Study Schedule</h2><button onclick="document.getElementById('student-schedule-section')?.scrollIntoView({behavior:'smooth'})">View All →</button></div><div class="student-calendar-head"><button aria-label="Previous month">‹</button><strong id="student-calendar-month">September 2026</strong><button aria-label="Next month">›</button></div><div class="student-mini-calendar"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><b class="muted-day">30</b><b class="muted-day">31</b><b>1</b><b>2</b><b>3</b><b>4</b><b class="today">5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>10</b><b>11</b><b>12</b><b>13</b><b>14</b><b>15</b><b>16</b><b>17</b><b>18</b><b>19</b><b>20</b><b>21</b><b>22</b><b>23</b><b>24</b><b>25</b><b>26</b><b>27</b><b>28</b><b>29</b><b>30</b><b class="muted-day">1</b><b class="muted-day">2</b><b class="muted-day">3</b></div><div class="schedule-list wow-schedule" id="schedule-list"></div><div class="schedule-advisor-note">Your advisor manages this schedule. It updates automatically when a new study plan is assigned.</div></section>
+          <section class="student-panel schedule-panel" id="student-schedule-section"><div class="student-panel-heading"><div><h2>▦ My Class Schedule</h2><p id="student-schedule-subtitle">Lectures, labs, and tutorials — plus your advisor study blocks</p></div><button onclick="document.getElementById('student-schedule-section')?.scrollIntoView({behavior:'smooth'})">View All →</button></div><div class="class-schedule-list"><div class="class-day">Saturday</div><div class="class-slot"><div class="class-time">08:00–10:00</div><div><div class="class-name">CSB_101 — Computer Programming I</div><div class="class-meta">Practical / Lab</div></div><span class="class-type lab">LAB</span></div><div class="class-slot"><div class="class-time">10:00–11:00</div><div><div class="class-name">MTH_101b — Elementary Calculus</div><div class="class-meta">Tutorial</div></div><span class="class-type tut">TUT</span></div><div class="class-slot"><div class="class-time">13:00–15:00</div><div><div class="class-name">MTH_101b — Elementary Calculus</div><div class="class-meta">Lecture</div></div><span class="class-type lec">LEC</span></div><div class="class-day">Sunday</div><div class="class-slot"><div class="class-time">10:00–11:00</div><div><div class="class-name">ENG_102b — English Study Skills</div><div class="class-meta">Lecture</div></div><span class="class-type lec">LEC</span></div><div class="class-slot"><div class="class-time">12:00–14:00</div><div><div class="class-name">BCHM101 — Biochemistry 1</div><div class="class-meta">Lecture</div></div><span class="class-type lec">LEC</span></div><div class="class-day">Monday</div><div class="class-slot"><div class="class-time">09:00–11:00</div><div><div class="class-name">CSB_101 — Computer Programming I</div><div class="class-meta">Lecture</div></div><span class="class-type lec">LEC</span></div><div class="class-day">Tuesday</div><div class="class-slot"><div class="class-time">08:00–10:00</div><div><div class="class-name">BCHM101 — Biochemistry 1</div><div class="class-meta">Practical / Lab</div></div><span class="class-type lab">LAB</span></div><div class="class-slot"><div class="class-time">12:00–14:00</div><div><div class="class-name">ENG_102b — English Study Skills</div><div class="class-meta">Lecture</div></div><span class="class-type lec">LEC</span></div><div class="advisor-study-block"><div class="student-subheading" style="margin-top:0">🎯 Advisor Study Blocks</div><div class="schedule-list wow-schedule" id="schedule-list"></div><div class="schedule-advisor-note">Your advisor-assigned study items appear here and update live from Firebase.</div></div></section>
 
           <section class="student-panel" id="student-exams-section"><div class="student-panel-heading"><h2>▦ Upcoming Exams</h2><span class="student-panel-link">Be prepared</span></div><div id="exam-list" class="wow-exams"></div></section>
 
@@ -1829,7 +1663,7 @@ html,body{min-width:0;overflow-x:hidden}
         <button class="nav-item" onclick="document.getElementById('student-search')?.focus()">👥 <span>Students</span></button>
         <button class="nav-item" onclick="openScheduleModal()">▣ <span>Schedules</span></button>
         <button class="nav-item" onclick="document.getElementById('inst-course-bars')?.scrollIntoView({behavior:'smooth'})">▥ <span>Course Tracking</span></button>
-        <button class="nav-item" onclick="document.getElementById('inst-early-warning')?.scrollIntoView({behavior:'smooth'})">⚠ <span>Early Warnings</span></button>
+        <button class="nav-item" onclick="document.getElementById('inst-early-warning')?.scrollIntoView({behavior:'smooth'})">⚠ <span>Growth &amp; Motivation</span></button>
         <button class="nav-item" onclick="generateStudentReport()">▤ <span>Reports</span></button>
       </nav>
       <div class="sidebar-footer">🌱<br/><span>Better Scientists<br/>Brighter Futures</span></div>
@@ -1838,7 +1672,7 @@ html,body{min-width:0;overflow-x:hidden}
     <div class="instructor-content">
       <header class="instructor-header">
         <div><div class="inst-title">Biotech Sprint — <span>Instructor Dashboard</span></div><div class="inst-subtitle">Track · Support · Guide · Empower</div></div>
-        <div class="header-actions"><div class="advisor-chip"><strong>Advisor: Nashwa Hamido</strong></div><div class="header-date">📅 <span id="inst-current-date"></span></div><button class="switch-view-btn" onclick="toggleInstructorPanel()">← Back to Student View</button></div>
+        <div class="header-actions"><div class="advisor-chip"><strong>Advisor: Nashwa Hamido</strong></div><div class="header-date">📅 <span id="inst-current-date"></span></div><button class="switch-view-btn" onclick="enterStudentPreview()">← Student View</button></div>
       </header>
 
       <main class="instructor-main-layout">
@@ -1854,25 +1688,23 @@ html,body{min-width:0;overflow-x:hidden}
 
         <section class="instructor-columns">
           <aside class="student-selector-card">
-            <div class="card-heading">👥 <span>Select a Student</span></div><div class="directory-help">Choose a student below to open their live Firebase record. Changes will update automatically.</div>
+            <div class="card-heading">👥 <span>Select a Student</span></div>
             <input class="inst-search" id="student-search" placeholder="Search student name or email…" oninput="renderStudentDirectory()"/>
             <select class="inst-filter" id="student-filter" onchange="renderStudentDirectory()"><option value="all" selected>All Students</option><option value="ontrack">On Track</option><option value="attention">Needs Attention</option><option value="notstarted">Not Started</option><option value="active">Active Now</option></select>
-            <div id="student-directory-status" class="live-sync-badge waiting" style="margin:8px 0 10px">● Connecting to Firebase...</div>
             <div id="student-directory"></div>
           </aside>
 
           <div class="student-tracking-column">
             <section class="tracked-student-card">
               <div class="student-big-avatar" id="inst-student-avatar">👤</div>
-              <div class="tracked-student-info"><div class="eyebrow">CURRENTLY TRACKING</div><h2 id="inst-student-name">Select a student</h2><div class="student-email" id="inst-student-email">Choose a student from the directory</div><div class="student-status" id="inst-student-status">Select Student</div><div class="live-sync-badge" id="inst-live-sync">● Select a student to begin tracking</div><div class="last-seen">Last activity: <span id="inst-last-active">No activity yet</span></div></div>
+              <div class="tracked-student-info"><div class="eyebrow">CURRENTLY TRACKING</div><h2 id="inst-student-name">Select a student</h2><div class="student-email" id="inst-student-email">Choose a student from the directory</div><div class="student-status" id="inst-student-status">Select Student</div><div class="live-sync-badge" id="inst-live-sync">● Waiting for student</div><div class="last-seen">Last activity: <span id="inst-last-active">No activity yet</span></div></div>
               <button class="report-btn" id="inst-report-btn" onclick="generateStudentReport()" disabled>📄 Generate Student File</button>
               <div class="hero-stat-grid"><div><strong id="inst-overall-pct">0%</strong><span>Overall Progress</span></div><div><strong id="inst-tasks-done">0/20</strong><span>Tasks Completed</span></div><div><strong id="inst-pomos-done">0</strong><span>Pomodoro Sessions</span></div><div><strong id="inst-readiness">—</strong><span>Exam Readiness</span></div></div>
             </section>
 
             <section class="tracking-progress-card"><div class="tracking-progress-head"><h3>📈 Student Progress</h3><div class="tracking-progress-value" id="inst-progress-label">0%</div></div><div class="tracking-progress-bar"><div class="tracking-progress-fill" id="inst-overall-bar" style="width:0%"></div></div></section>
             <section class="inst-card academic-profile-card"><div class="section-label">🎓 Academic Risk & Progress Profile</div><div id="inst-academic-profile"><div class="profile-empty">Select a student to view academic profile.</div></div></section>
-            <section class="inst-card"><div class="section-label">🎯 Student Action Plan <span style="float:right;font-size:8px;color:#7890a6;font-weight:600">✎ Edit  ·  ↻ Status  ·  🗑 Delete</span></div><div class="instructor-action-toolbar"><button class="inst-mini-btn primary" onclick="openActionPlanModal()">＋ Add Action</button></div><div id="inst-action-plan"><div class="profile-empty">Select a student to view or create an action plan.</div></div></section>
-            <section class="inst-card"><div class="section-label">📚 Study Items <span style="float:right;font-size:8px;color:#7890a6;font-weight:600">Instructor controls: Add · Edit · Delete</span></div><div class="instructor-action-toolbar"><button class="inst-mini-btn primary" onclick="openStudyItemModal()">＋ Add Study Item</button></div><div id="inst-study-items"><div class="profile-empty">Select a student to view or assign study items.</div></div></section>
+            <section class="inst-card"><div class="section-label">🎯 Student Action Plan</div><div class="instructor-action-toolbar"><button class="inst-mini-btn primary" onclick="openActionPlanModal()">＋ Add Action</button></div><div id="inst-action-plan"><div class="profile-empty">Select a student to view or create an action plan.</div></div></section>
             <section class="inst-card"><div class="section-label">💬 Instructor Comments & Feedback</div><div class="instructor-action-toolbar"><button class="inst-mini-btn primary" onclick="openAdvisorCommentModal()">＋ Add Comment</button></div><div id="inst-advisor-comments"><div class="profile-empty">Select a student to view or add advisor feedback.</div></div></section>
             <section class="inst-card"><div class="section-label">Course Progress</div><div id="inst-course-bars"></div></section>
             <div class="inst-grid"><section class="inst-card"><div class="section-label">🕐 Recent Activity</div><div class="activity-feed" id="inst-activity-feed"></div></section><section class="inst-card"><div class="section-label">🧠 Study Habits</div><div id="inst-habits"></div></section></div>
@@ -1943,23 +1775,6 @@ html,body{min-width:0;overflow-x:hidden}
   </div>
 </div>
 
-<div class="inst-modal" id="study-item-modal" onclick="closeStudyItemModal(event)">
-  <div class="inst-modal-card" onclick="event.stopPropagation()">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div><div class="section-label">Study Item Management</div><h2 id="study-item-modal-title" style="font:800 22px 'Syne',sans-serif;color:#143a61">Add Study Item</h2><div class="schedule-advisor-note">Assign a focused study item, practice task, or resource to the selected student.</div></div><button class="profile-close" onclick="closeStudyItemModal()">✕</button></div>
-    <div class="inst-form-grid">
-      <label>Student<select id="study-item-student"></select></label>
-      <label>Course<select id="study-item-course"><option value="BCHM101">BCHM101 — Biochemistry 1</option><option value="MTH_101b">MTH_101b — Elementary Calculus</option><option value="ENG_102b">ENG_102b — English Study Skills</option><option value="CSB_101">CSB_101 — Computer Programming I</option></select></label>
-      <label>Type<select id="study-item-type"><option>Concept Review</option><option>Practice</option><option>Past Paper</option><option>Lab Review</option><option>Resource</option></select></label>
-      <label>Priority<select id="study-item-priority"><option>High</option><option selected>Medium</option><option>Low</option></select></label>
-      <label class="full-width">Study Item Title<input id="study-item-title" placeholder="e.g. Review Python loops and range()"/></label>
-      <label>Due Date<input id="study-item-due" type="date"/></label>
-      <label>Resource Link<input id="study-item-link" placeholder="Optional URL or resource name"/></label>
-      <label class="full-width">Instructions<textarea id="study-item-instructions" placeholder="What should the student do? Include pages, exercises, videos, or practice targets."></textarea></label>
-    </div>
-    <div class="modal-actions"><button class="inst-mini-btn" onclick="closeStudyItemModal()">Cancel</button><button class="inst-mini-btn primary" id="study-item-save-btn" onclick="saveStudyItem()">Save Study Item</button></div>
-  </div>
-</div>
-
 <div class="inst-modal" id="advisor-comment-modal" onclick="closeAdvisorCommentModal(event)">
   <div class="inst-modal-card" onclick="event.stopPropagation()">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div><div class="section-label">Instructor Feedback</div><h2 style="font:800 22px 'Syne',sans-serif;color:#143a61">Add Advisor Comment</h2><div class="schedule-advisor-note">Comments are saved as a dated history. Previous feedback is never overwritten.</div></div><button class="profile-close" onclick="closeAdvisorCommentModal()">✕</button></div>
@@ -2014,14 +1829,9 @@ const firebaseConfig = {
 const FIREBASE_CONFIGURED = !Object.values(firebaseConfig).some(v => String(v).startsWith('PASTE_'));
 let firebaseApp = null, auth = null, db = null;
 if (FIREBASE_CONFIGURED) {
-  try {
-    firebaseApp = initializeApp(firebaseConfig);
-    auth = getAuth(firebaseApp);
-    db = getFirestore(firebaseApp);
-  } catch (initErr) {
-    console.error('Firebase initialization failed:', initErr);
-    firebaseApp = null; auth = null; db = null;
-  }
+  firebaseApp = initializeApp(firebaseConfig);
+  auth = getAuth(firebaseApp);
+  db = getFirestore(firebaseApp);
 }
 
 const courses = [
@@ -2030,6 +1840,31 @@ const courses = [
   { code:'ENG_102b', name:'English Study Skills', credits:2, color:'#059669', tasks:['Core Concepts & Definitions','Application/Case Study','Complex Problem Solving','Review of Labs/Tutorials','Past Paper Practice'], done:[] },
   { code:'CSB_101', name:'Computer Programming I', credits:3, color:'#d97706', tasks:['Core Concepts & Definitions','Application/Case Study','Complex Problem Solving','Review of Labs/Tutorials','Past Paper Practice'], done:[] }
 ];
+const studyPlannerDefaults = {
+  BCHM101: [
+    'Lecture 1','Lecture 2','Lecture 3','Lecture 4','Lecture 5',
+    'Assignment 1','Assignment 2','Lab / Tutorial','Review & Past Paper'
+  ],
+  MTH_101b: [
+    'Lecture 1','Lecture 2','Lecture 3','Lecture 4','Lecture 5',
+    'Assignment 1','Assignment 2','Tutorial / Problem Set','Review & Past Paper'
+  ],
+  ENG_102b: [
+    'Lecture 1','Lecture 2','Lecture 3','Lecture 4','Lecture 5',
+    'Assignment 1','Assignment 2','Tutorial / Practice','Review & Past Paper'
+  ],
+  CSB_101: [
+    'Lecture 1','Lecture 2','Lecture 3','Lecture 4','Lecture 5',
+    'Assignment 1','Assignment 2','Lab / Practical','Review & Past Paper'
+  ]
+};
+let studyPlannerState = {};
+function resetStudyPlannerState(){
+  studyPlannerState={};
+  Object.entries(studyPlannerDefaults).forEach(([code,items])=>{ studyPlannerState[code]=items.map(()=>false); });
+}
+resetStudyPlannerState();
+
 const exams = [
   { date:'2026-03-30', time:'09:00', code:'ENG_102b', subject:'English Study Skills' },
   { date:'2026-03-31', time:'09:00', code:'BCHM101', subject:'Biochemistry 1' },
@@ -2044,51 +1879,24 @@ const schedule = [
 ];
 
 let currentRole='student', authMode='signin';
+let instructorStudentPreview=false;
+let previewSavedStudentState=null;
 let editingScheduleId=null;
 let studentName='', studentEmail='', currentUid=null;
 let pomoSeconds=50*60, pomoPhase='focus', pomoInterval=null, pomoRunning=false, pomoSessionCount=0;
 let activityLog=[], csbTestResults={}, advisorActionPlans=[], advisorComments=[], trackedStudentId=null, trackedStudentData=null, unsubscribeStudent=null, unsubscribeDirectory=null, heartbeatTimer=null;
-let editingStudyItemId=null;
-let studentStudyItems=[];
 const FOCUS_SEC=50*60, BREAK_SEC=10*60, RING_CIRC=238.76;
 
 function el(id){ return document.getElementById(id); }
-function setLoginError(msg){ const x=el('login-error'); if(!x) return; x.textContent=msg||''; x.style.display=msg?'block':'none'; }
+function setLoginError(msg){ const x=el('login-error'); x.textContent=msg||''; x.style.display=msg?'block':'none'; }
 function resetCourseArrays(){ courses.forEach(c=>c.done=[]); }
-
-function normalizeStudentCourses(raw){
-  const out=courses.map(c=>({code:c.code,done:[]}));
-  if(Array.isArray(raw)){
-    raw.forEach(item=>{
-      const code=String(item?.code||item?.courseCode||item?.course||item?.id||'').trim();
-      const target=out.find(x=>x.code===code);
-      if(target){
-        const done=Array.isArray(item?.done)?item.done:(Array.isArray(item?.completedTasks)?item.completedTasks:[]);
-        target.done=done.map(Number).filter(n=>Number.isInteger(n)&&n>=0&&n<courses.find(c=>c.code===code).tasks.length);
-      }
-    });
-  } else if(raw && typeof raw==='object'){
-    Object.entries(raw).forEach(([code,val])=>{
-      const target=out.find(x=>x.code===code);
-      if(target){
-        const done=Array.isArray(val)?val:(Array.isArray(val?.done)?val.done:[]);
-        target.done=done.map(Number).filter(n=>Number.isInteger(n)&&n>=0&&n<courses.find(c=>c.code===code).tasks.length);
-      }
-    });
-  }
-  return out;
-}
-function applyCourseData(raw){
-  resetCourseArrays();
-  normalizeStudentCourses(raw).forEach(sc=>{const c=courses.find(x=>x.code===sc.code);if(c)c.done=sc.done.slice();});
-}
-
 function totalDone(){ return courses.reduce((a,c)=>a+c.done.length,0); }
 function totalTasks(){ return courses.reduce((a,c)=>a+c.tasks.length,0); }
 function overallPct(){ return Math.round(totalDone()/totalTasks()*100); }
 function currentState(){ return {
   name:studentName, email:studentEmail,
   courses:courses.map(c=>({code:c.code,done:c.done})),
+  studyPlanner:studyPlannerState,
   pomoSessionCount, activityLog:activityLog.slice(0,30), csbTestResults,
   progress:overallPct(), tasksDone:totalDone(), totalTasks:totalTasks()
 }; }
@@ -2102,33 +1910,41 @@ async function saveStudentState(extra={}){
 }
 
 async function loadStudentState(uid){
-  resetCourseArrays(); pomoSessionCount=0; activityLog=[];
+  resetCourseArrays(); resetStudyPlannerState(); pomoSessionCount=0; activityLog=[];
   if(!db) return;
   const snap=await getDoc(doc(db,'students',uid));
   if(!snap.exists()) return;
   const saved=snap.data();
   trackedStudentData={id:uid,...saved};
   studentName=saved.name || studentName;
-  applyCourseData(saved.courses||saved.courseProgress||{});
+  (saved.courses||[]).forEach(sc=>{
+    const c=courses.find(x=>x.code===sc.code); if(c) c.done=Array.isArray(sc.done)?sc.done:[];
+  });
+  if(saved.studyPlanner && typeof saved.studyPlanner==='object'){
+    Object.keys(studyPlannerDefaults).forEach(code=>{
+      const savedItems=Array.isArray(saved.studyPlanner[code])?saved.studyPlanner[code]:[];
+      studyPlannerState[code]=studyPlannerDefaults[code].map((_,i)=>savedItems[i]===true);
+    });
+  }
   pomoSessionCount=Number(saved.pomoSessionCount)||0;
   activityLog=Array.isArray(saved.activityLog)?saved.activityLog:[];
   csbTestResults=saved.csbTestResults&&typeof saved.csbTestResults==='object'?saved.csbTestResults:{};
   advisorActionPlans=Array.isArray(saved.actionPlans)?saved.actionPlans:[];
   advisorComments=Array.isArray(saved.advisorComments)?saved.advisorComments:[];
-  studentStudyItems=Array.isArray(saved.studyItems)?saved.studyItems:[];
 }
 
 
 async function ensureStudentDoc(user,nameOverride=''){
   const ref=doc(db,'students',user.uid), snap=await getDoc(ref);
   const fallbackName=nameOverride || user.displayName || user.email.split('@')[0];
-  const base={uid:user.uid,role:'student',name:fallbackName,email:user.email,courses:courses.map(c=>({code:c.code,done:[]})),pomoSessionCount:0,activityLog:[],progress:0,tasksDone:0,totalTasks:totalTasks(),lastActive:serverTimestamp()};
+  const base={uid:user.uid,role:'student',name:fallbackName,email:user.email,courses:courses.map(c=>({code:c.code,done:[]})),studyPlanner:studyPlannerState,pomoSessionCount:0,activityLog:[],progress:0,tasksDone:0,totalTasks:totalTasks(),lastActive:serverTimestamp()};
   if(!snap.exists()){
     studentName=fallbackName; studentEmail=user.email; await setDoc(ref,base);
   }else{
     const saved=snap.data(); studentName=saved.name||fallbackName; studentEmail=saved.email||user.email;
-    const normalized=normalizeStudentCourses(saved.courses||saved.courseProgress||{});
-    await setDoc(ref,{uid:user.uid,role:'student',name:studentName,email:studentEmail,courses:normalized,totalTasks:totalTasks()},{merge:true});
+    const existing=Array.isArray(saved.courses)?saved.courses:[];
+    const normalized=courses.map(c=>{const found=existing.find(x=>x.code===c.code);return {code:c.code,done:Array.isArray(found?.done)?found.done:[]};});
+    await setDoc(ref,{uid:user.uid,role:'student',name:studentName,email:studentEmail,courses:normalized,studyPlanner:saved.studyPlanner||studyPlannerState,totalTasks:totalTasks()},{merge:true});
   }
 }
 
@@ -2174,86 +1990,64 @@ async function handleLogin(){
     const instructorSnap=await getDoc(doc(db,'instructors',user.uid));
     currentRole=instructorSnap.exists()?'instructor':'student';
     setRole(currentRole);
-    if(currentRole==='student') await ensureStudentDoc(user,name); else studentName='Advisor: Nashwa Hamido';
+    if(currentRole==='student') await ensureStudentDoc(user,name); else studentName='Instructor';
     await openDashboard(user);
   }catch(err){
     const messages={
       'auth/invalid-credential':'Incorrect email or password.',
       'auth/email-already-in-use':'An account already exists. Switch to Sign In.',
       'auth/invalid-email':'Please enter a valid email address.',
-      'auth/weak-password':'Password must be at least 6 characters.',
-      'permission-denied':'Firebase is connected, but Firestore denied this account. Please check the instructors/student rules and the instructor UID document.',
-      'unavailable':'Firebase is temporarily unavailable. Please try again in a moment.'
+      'auth/weak-password':'Password must be at least 6 characters.'
     };
-    setLoginError(messages[err.code] || (err.code==='permission-denied' ? messages['permission-denied'] : (err.message || 'Could not sign in.')));
-    console.error('Login/Firebase error:', err);
+    setLoginError(messages[err.code] || err.message || 'Could not sign in.');
   }finally{ el('login-btn').disabled=false; }
 }
 
 async function openDashboard(user){
-  // Always cleanly separate the two dashboards. An instructor must never see
-  // the student interface underneath the instructor dashboard.
-  if(currentRole==='instructor'){
-    stopHeartbeat();
-    if(unsubscribeCurrentStudent){ unsubscribeCurrentStudent(); unsubscribeCurrentStudent=null; }
-    trackedStudentId=null;
-    trackedStudentData=null;
-    studentName='Advisor: Nashwa Hamido';
+  // Explicitly switch between the three top-level screens.
+  const loginScreen=el('login-screen');
+  const app=el('app');
+  const instructorPanel=el('instructor-panel');
+  if(loginScreen) loginScreen.classList.add('hidden');
+  if(app){ app.classList.toggle('visible',currentRole==='student'); app.style.display=currentRole==='student'?'block':'none'; }
+  if(instructorPanel){ instructorPanel.classList.toggle('visible',currentRole==='instructor'); instructorPanel.style.display=currentRole==='instructor'?'block':'none'; }
 
-    // Switch the visible surface FIRST. This prevents any instructor-side
-    // rendering error from leaving the login screen stranded on top.
-    document.body.classList.remove('instructor-student-preview');
-    document.body.classList.add('instructor-mode');
-    const login=el('login-screen'); if(login) login.classList.add('hidden');
-    const app=el('app'); if(app){ app.classList.add('instructor-hidden'); app.classList.remove('visible'); }
-    const panel=el('instructor-panel'); if(panel) panel.classList.add('visible');
-
-    try{
-      updateInstructorDate();
-      const studentFilter=el('student-filter'); if(studentFilter) studentFilter.value='all';
-      const studentSearch=el('student-search'); if(studentSearch && !studentSearch.dataset.bound){studentSearch.addEventListener('input',renderStudentDirectory);studentSearch.dataset.bound='1';}
-      if(studentFilter && !studentFilter.dataset.bound){studentFilter.addEventListener('change',renderStudentDirectory);studentFilter.dataset.bound='1';}
-      updateInstructorPanel();
-      subscribeStudents();
-    }catch(err){
-      console.error('Instructor dashboard initialization failed',err);
-      const msg=el('student-directory');
-      if(msg) msg.innerHTML=`<div class="alert-banner warning">⚠️ The instructor dashboard loaded, but one dashboard component failed to initialize.<br><small>${escapeHtml(err?.message||String(err))}</small><br><br>Please refresh the page and sign in again.</div>`;
-    }
-    return;
-  }
-
-  // Student mode: explicitly hide the instructor dashboard first.
-  document.body.classList.remove('instructor-mode','instructor-student-preview');
-  el('instructor-panel').classList.remove('visible');
-  el('app').classList.remove('instructor-hidden');
-
-  await loadStudentState(user.uid);
-  await saveStudentState({name:studentName,email:user.email});
-  subscribeCurrentStudent(user.uid);
-
-  const initials=initialsFor(studentName,user.email);
-  el('user-avatar').textContent=initials;
-  el('user-chip-name').textContent=studentName;
+  const initials=((studentName||'Student').split(' ').map(w=>w[0]||'').join('').slice(0,2)).toUpperCase()||user.email[0].toUpperCase();
+  const avatar=el('user-avatar'); if(avatar) avatar.textContent=initials;
+  const chip=el('user-chip-name'); if(chip) chip.textContent=studentName||user.email||'Student';
   const badge=el('view-badge');
   if(badge){
-    badge.textContent='Student View';
-    badge.classList.remove('instructor');
+    badge.textContent=currentRole==='instructor'?'Instructor View':'Student View';
+    badge.classList.toggle('instructor',currentRole==='instructor');
   }
-  el('switch-btn').style.display='none';
-  el('login-screen').classList.add('hidden');
-  el('app').classList.add('visible');
-  buildCourses(); buildExams(); buildSchedule(); updateStats();
-  buildStudyFocusGroups(); renderActivity(); updatePomoDisplay();
-  startHeartbeat();
+  const switchBtn=el('switch-btn'); if(switchBtn) switchBtn.style.display='none';
+
+  if(currentRole==='student'){
+    try{ await loadStudentState(user.uid); }catch(e){ console.warn('Student Firestore load skipped:',e); }
+    try{ await saveStudentState({name:studentName,email:user.email}); }catch(e){ console.warn('Student Firestore save skipped:',e); }
+    try{ subscribeCurrentStudent(user.uid); }catch(e){ console.warn('Student listener skipped:',e); }
+    try{ buildCourses(); }catch(e){ console.warn('Courses render skipped:',e); }
+    try{ buildExams(); }catch(e){ console.warn('Exam render skipped:',e); }
+    try{ buildSchedule(); }catch(e){ console.warn('Schedule render skipped:',e); }
+    try{ updateStats(); }catch(e){ console.warn('Stats render skipped:',e); }
+    try{ buildStudyFocusGroups(); }catch(e){ console.warn('Focus groups render skipped:',e); }
+    try{ renderActivity(); }catch(e){ console.warn('Activity render skipped:',e); }
+    try{ updatePomoDisplay(); }catch(e){ console.warn('Pomodoro render skipped:',e); }
+    try{ startHeartbeat(); }catch(e){ console.warn('Heartbeat skipped:',e); }
+  } else {
+    if(app) { app.classList.remove('visible'); app.style.display='none'; }
+    if(instructorPanel) { instructorPanel.classList.add('visible'); instructorPanel.style.display='block'; }
+    try{ updateInstructorPanel(); }catch(e){ console.warn('Instructor panel init skipped:',e); }
+    try{ subscribeStudents(); }catch(e){ console.warn('Instructor directory init skipped:',e); }
+  }
 }
 
 async function logout(){
   stopHeartbeat(); if(unsubscribeStudent) unsubscribeStudent(); if(unsubscribeCurrentStudent) {unsubscribeCurrentStudent(); unsubscribeCurrentStudent=null;} if(unsubscribeDirectory) unsubscribeDirectory();
   if(auth) await signOut(auth);
-  currentUid=null; currentRole='student'; authMode='signin'; studentName=''; trackedStudentId=null; trackedStudentData=null; csbTestResults={}; advisorActionPlans=[]; advisorComments=[]; studentStudyItems=[]; studentEmail=''; activityLog=[]; resetCourseArrays();
+  currentUid=null; currentRole='student'; authMode='signin'; studentName=''; trackedStudentId=null; trackedStudentData=null; csbTestResults={}; advisorActionPlans=[]; advisorComments=[]; studentEmail=''; activityLog=[]; resetCourseArrays();
   setRole('student');
-  document.body.classList.remove('instructor-mode','instructor-student-preview'); el('app').classList.remove('visible','instructor-hidden'); el('instructor-panel').classList.remove('visible'); el('login-screen').classList.remove('hidden');
+  el('app').classList.remove('visible'); el('app').style.display='none'; el('instructor-panel').classList.remove('visible'); el('instructor-panel').style.display='none'; el('login-screen').classList.remove('hidden');
 }
 
 let unsubscribeCurrentStudent=null;
@@ -2271,8 +2065,11 @@ function subscribeCurrentStudent(uid){
     csbTestResults=saved.csbTestResults&&typeof saved.csbTestResults==='object'?saved.csbTestResults:{};
     advisorActionPlans=Array.isArray(saved.actionPlans)?saved.actionPlans:[];
     advisorComments=Array.isArray(saved.advisorComments)?saved.advisorComments:[];
-  studentStudyItems=Array.isArray(saved.studyItems)?saved.studyItems:[];
-    applyCourseData(saved.courses||saved.courseProgress||{});
+    resetCourseArrays(); resetStudyPlannerState();
+    (saved.courses||[]).forEach(sc=>{const c=courses.find(x=>x.code===sc.code);if(c)c.done=Array.isArray(sc.done)?sc.done:[];});
+    if(saved.studyPlanner && typeof saved.studyPlanner==='object'){
+      Object.keys(studyPlannerDefaults).forEach(code=>{const si=Array.isArray(saved.studyPlanner[code])?saved.studyPlanner[code]:[];studyPlannerState[code]=studyPlannerDefaults[code].map((_,i)=>si[i]===true);});
+    }
     updateStudentUIFromRealtime();
   },err=>console.warn('Student live sync error',err));
 }
@@ -2280,7 +2077,7 @@ function updateStudentUIFromRealtime(){
   const initials=initialsFor(studentName,studentEmail);
   if(el('user-avatar')) el('user-avatar').textContent=initials;
   if(el('user-chip-name')) el('user-chip-name').textContent=studentName||'Student';
-  updateStats(); buildCourses(); buildSchedule(); renderActivity(); updatePomoDisplay(); renderStudentActionPlan(); renderStudentStudyItems(); renderStudentAdvisorFeedback(); renderStudentAcademicProfile(); renderStudentProgressDetail(); renderStudentTodaySchedule();
+  updateStats(); buildCourses(); buildSchedule(); renderActivity(); updatePomoDisplay(); renderStudentActionPlan(); renderStudentAdvisorFeedback(); renderStudentAcademicProfile(); renderStudentProgressDetail(); renderStudentTodaySchedule();
   if(el('student-progress-note')){const p=overallPct();el('student-progress-note').textContent=p>=75?'You’re on track!':p>=50?'Keep building!':p>0?'Keep going!':'Let’s get started!';}
 }
 
@@ -2300,9 +2097,9 @@ const focusGroups=[
 ];
 function getFocusGroup(){const p=overallPct();return p<20?focusGroups[0]:p<50?focusGroups[1]:p<75?focusGroups[2]:focusGroups[3];}
 function buildStudyFocusGroups(){const box=el('study-focus-groups');if(!box)return;const cur=getFocusGroup();box.innerHTML=focusGroups.map(g=>`<div class="focus-card" style="${g.key===cur.key?'border-color:var(--accent);box-shadow:var(--glow)':''}"><span class="focus-tag">${g.key===cur.key?'YOUR CURRENT GROUP':'FOCUS GROUP'}</span><h4>${g.icon} ${g.title}</h4><p>${g.desc}</p>${g.key===cur.key?`<button class="focus-action" onclick="addActivity('🎯','Study focus: ${g.title}','var(--accent)')">Start this focus</button>`:''}</div>`).join('');}
-function updateStudentHero(){ const name=studentName||'Student', pct=overallPct(), cur=getFocusGroup(); if(el('student-hero-name'))el('student-hero-name').textContent=name; if(el('student-banner-name'))el('student-banner-name').textContent=name; if(el('user-chip-name'))el('user-chip-name').textContent=name; if(el('user-avatar'))el('user-avatar').textContent=name.slice(0,1).toUpperCase(); if(el('student-wow-pct'))el('student-wow-pct').textContent=pct+'%'; if(el('student-wow-focus'))el('student-wow-focus').textContent=cur.title; if(el('student-wow-focus-desc'))el('student-wow-focus-desc').textContent=cur.desc; if(el('student-wow-ring'))el('student-wow-ring').style.setProperty('--pct',pct*3.6+'deg'); if(el('student-hero-message'))el('student-hero-message').textContent=pct<20?'Start with the foundations — one focused session at a time.':pct<50?'You are building momentum. Keep practicing and testing yourself.':pct<75?'You are in the exam-preparation zone. Prioritize practice and mock tests.':'Excellent momentum. Keep challenging yourself and protecting your study routine.'; }
+function updateStudentHero(){ const name=studentName||'Student', pct=overallPct(), cur=getFocusGroup(); if(el('student-hero-name'))el('student-hero-name').textContent=name; if(el('student-wow-pct'))el('student-wow-pct').textContent=pct+'%'; if(el('student-wow-focus'))el('student-wow-focus').textContent=cur.title; if(el('student-wow-focus-desc'))el('student-wow-focus-desc').textContent=cur.desc; if(el('student-wow-ring'))el('student-wow-ring').style.setProperty('--pct',pct*3.6+'deg'); if(el('student-hero-message'))el('student-hero-message').textContent=pct<20?'Start with the foundations — one focused session at a time.':pct<50?'You are building momentum. Keep practicing and testing yourself.':pct<75?'You are in the exam-preparation zone. Prioritize practice and mock tests.':'Excellent momentum. Keep challenging yourself and protecting your study routine.'; }
 function getEarlyWarnings(){const w=[],p=overallPct(),now=Date.now();if(p<20)w.push({level:'high',text:`Very low progress (${p}%). Start with Foundation Focus and complete the first lesson task.`});else if(p<50)w.push({level:'medium',text:`Progress is below 50% (${p}%). Move into Practice & Application.`});if(pomoSessionCount===0)w.push({level:'medium',text:'No completed Pomodoro sessions yet. Start one focused 50-minute session today.'});const next=exams.find(e=>new Date(`${e.date}T${e.time}`)>new Date());if(next){const hrs=(new Date(`${next.date}T${next.time}`).getTime()-now)/3600000;if(hrs<=72&&p<60)w.push({level:'high',text:`${next.code} exam is within 72 hours and readiness is ${p}%. Prioritize mock testing now.`});}return w;}
-function renderStudentEarlyWarning(){const box=el('student-early-warning');if(!box)return;const w=getEarlyWarnings();box.innerHTML=w.length?w.map(x=>`<div class="warning-box ${x.level}"><span class="support-needed-label">Support Needed</span><span>⚠️ ${x.text}</span></div>`).join(''):'<div class="warning-box good"><span class="support-ok-label">✅ All Clear</span><span>No current support alerts. Keep your study rhythm going.</span></div>'; }
+function renderStudentEarlyWarning(){const box=el('student-early-warning');if(!box)return;const w=getEarlyWarnings();box.innerHTML=w.length?w.map(x=>`<div class="warning-box ${x.level}">⚠️ ${x.text}</div>`).join(''):'<div class="warning-box good">✅ No early-warning flags right now. Keep your study rhythm going.</div>';}
 const lessonMockTests=courses.map(c=>({code:c.code,name:c.name,lessons:c.tasks.map((task,i)=>({lesson:i+1,title:task,questions:5}))}));
 function buildLessonMockTests(){const box=el('lesson-mock-tests');if(!box)return;box.innerHTML=lessonMockTests.map(c=>`<div class="mock-card"><span class="focus-tag">${c.code}</span><h4>${c.name}</h4><p>${c.lessons.length} lesson mock tests · 5 questions planned per lesson.</p><button class="mock-action" onclick="openMockTest('${c.code}')">View lesson tests →</button></div>`).join('');}
 function openMockTest(code){const c=lessonMockTests.find(x=>x.code===code);if(!c)return;el('mock-test-title').textContent=`${c.code} — ${c.name}`;el('mock-test-body').innerHTML=`<p class="mock-note">The mock-test engine is ready for your lesson question bank. The current planner contains lesson task names, not the actual lesson content, so no subject-specific questions have been invented.</p>${c.lessons.map(l=>`<div class="mock-q"><div class="mock-q-title"><strong>Lesson ${l.lesson}:</strong> ${l.title}</div><div class="mock-note" style="margin-top:5px">${l.questions}-question mock test</div><button class="mock-action" onclick="addActivity('📝','Opened mock test — ${c.code} Lesson ${l.lesson}','var(--accent)')">Open test</button></div>`).join('')}`;el('mock-test-modal').classList.add('visible');}
@@ -2549,19 +2346,107 @@ button:focus-visible,.form-input:focus-visible,.switch-view-btn:focus-visible{ou
 .live-sync-badge{display:inline-flex;align-items:center;gap:5px;width:max-content;margin-top:6px;padding:4px 8px;border-radius:999px;font:700 8px 'DM Mono',monospace;letter-spacing:.04em}.live-sync-badge.connected{color:#087f53;background:#e6f8ef;border:1px solid #a7e4c5}.live-sync-badge.waiting{color:#667085;background:#f2f4f7;border:1px solid #d8dee6}
 </style>
 
+
+<style id="courses-schedule-final-fix">
+#student-progress-section .wow-courses,#student-progress-section .courses-grid{display:flex!important;flex-direction:column!important;gap:10px!important;}
+#student-progress-section .course-card{width:100%!important;min-width:0!important;}
+.student-right-column{min-width:0!important;}
+.schedule-panel{min-width:0!important;}
+.schedule-list{max-height:none!important;overflow:visible!important;}
+.schedule-panel .student-panel-heading p{margin-top:3px;color:#6b8299;font-size:9px;}
+.schedule-slot{min-height:42px!important;}
+@media(min-width:1251px){.student-content-grid{grid-template-columns:minmax(0,1fr) 360px!important;}}
+@media(max-width:1250px) and (min-width:901px){.student-content-grid{grid-template-columns:minmax(0,1fr) 330px!important;}.wow-courses{grid-template-columns:1fr!important;}}
+</style>
 </head><body><h1>🧬 Biotech Sprint Student Report</h1><div class="meta"><strong>Student:</strong> ${escapeHtml(name)}<br><strong>Email:</strong> ${escapeHtml(d.email||'—')}<br><strong>Generated:</strong> ${new Date().toLocaleString()}</div><h2>Overall Progress</h2><div class="cards"><div class="card"><strong>${Number(d.progress)||0}%</strong><div class="small">Overall readiness</div></div><div class="card"><strong>${Number(d.tasksDone)||0}/${Number(d.totalTasks)||20}</strong><div class="small">Tasks complete</div></div><div class="card"><strong>${habits.pomos}</strong><div class="small">Pomodoros completed</div></div><div class="card"><strong>${habits.consistency}</strong><div class="small">Engagement pattern</div></div></div><h2>Course Progress</h2><table><tr><th>Course</th><th>Tasks</th><th>Progress</th></tr>${courseRows}</table><h2>CSB_101 Test Performance</h2><table><tr><th>Lesson Test</th><th>Score</th><th>Percent</th><th>Attempts</th></tr>${tests}</table><h2>Academic Risk & Progress Profile</h2><div class="cards"><div class="card"><b>Probation Level</b><br>${escapeHtml(d.probationLevel||'Not set')}</div><div class="card"><b>Academic Risk Level</b><br>${escapeHtml(d.academicRisk||'Not set')}</div><div class="card"><b>GPA</b><br>${d.gpa!==undefined&&d.gpa!==''?escapeHtml(String(d.gpa)):'Not set'}</div><div class="card"><b>Progress Trend</b><br>${escapeHtml(d.progressTrend||'Not set')}</div><div class="card"><b>Areas of Concern</b><br>${escapeHtml((Array.isArray(d.areasOfConcern)?d.areasOfConcern:[]).join(', ')||'None recorded')}</div></div><h2>Study Habits</h2><div class="cards"><div class="card"><strong>${habits.consistency}</strong><div class="small">Overall activity consistency</div></div><div class="card"><strong>${habits.peak}</strong><div class="small">Most common activity time (from recorded activity)</div></div><div class="card"><strong>${habits.attempts}</strong><div class="small">CSB_101 test attempts</div></div><div class="card"><strong>${habits.completed}</strong><div class="small">CSB_101 tests at 70% or above</div></div></div><h2>Advisor Action Plan</h2><table><tr><th>Priority</th><th>Action</th><th>Course</th><th>Due</th><th>Status</th></tr>${(Array.isArray(d.actionPlans)?d.actionPlans:[]).map(x=>`<tr><td>${escapeHtml(x.priority||'Medium')}</td><td>${escapeHtml(x.title||'Action')}</td><td>${escapeHtml(x.course||'—')}</td><td>${escapeHtml(x.dueDate||'—')}</td><td>${escapeHtml(x.status||'Not Started')}</td></tr>`).join('')||'<tr><td colspan="5">No action plan assigned.</td></tr>'}</table><h2>Advisor Feedback</h2><ul>${(Array.isArray(d.advisorComments)?d.advisorComments:[]).slice(0,20).map(c=>`<li><strong>${escapeHtml(c.author||'Nashwa Hamido')}</strong> — ${escapeHtml(formatAdvisorDate(c.timestamp))}<br>${escapeHtml(c.text||'')}</li>`).join('')||'<li>No advisor comments recorded.</li>'}</ul><h2>Recent Activity</h2><ul>${(d.activityLog||[]).slice(0,20).map(a=>`<li>${escapeHtml(a.icon||'•')} ${escapeHtml(a.text||'Activity')} — ${escapeHtml(a.time||'')}</li>`).join('')||'<li>No activity recorded.</li>'}</ul><p class="small">This report is a snapshot generated from the student's recorded Biotech Sprint activity.</p></body></html>`;
  const blob=new Blob([html],{type:'text/html'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Biotech_Sprint_${name.replace(/[^a-z0-9]+/gi,'_')}_Student_Report.html`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
+function buildCourseStudyPlanner(){
+  const box=el('course-study-planner');
+  if(!box) return;
+  const icons={CSB_101:'💻',BCHM101:'🧬',MTH_101b:'∑',ENG_102b:'📄'};
+  box.innerHTML='';
+  courses.forEach(c=>{
+    const items=studyPlannerDefaults[c.code]||[];
+    const state=studyPlannerState[c.code]||items.map(()=>false);
+    const done=items.reduce((n,_,i)=>n+(state[i]===true?1:0),0);
+    const pct=items.length?Math.round(done/items.length*100):0;
+    const card=document.createElement('div');
+    card.className='course-planner-card';
+    const checks=items.map((item,i)=>`<label class="course-planner-check ${state[i]?'done':''}"><input type="checkbox" ${state[i]?'checked':''} onchange="toggleStudyPlanner('${c.code}',${i})"><span>${escapeHtml(item)}</span></label>`).join('');
+    card.innerHTML=`<div class="course-planner-head"><div class="course-planner-title"><div class="course-planner-icon" style="background:${c.color}18;color:${c.color}">${icons[c.code]||'📚'}</div><div><div class="course-planner-code">${escapeHtml(c.code)}</div><div class="course-planner-name">${escapeHtml(c.name)}</div></div></div><div class="course-planner-pct">${pct}%<div class="course-planner-sub">${done}/${items.length} complete</div></div></div><div class="course-planner-progress"><span style="width:${pct}%;background:${c.color}"></span></div><div class="course-planner-checklist">${checks}</div>`;
+    box.appendChild(card);
+  });
+}
+
 function buildCourses(){
-  const grid=el('courses-grid'); if(!grid)return; grid.innerHTML='';
+  const grid=el('courses-grid');
+  if(!grid) return;
+  grid.innerHTML='';
   const icons={CSB_101:'💻',BCHM101:'🧬',MTH_101b:'∑',ENG_102b:'📄'};
   courses.forEach((c,ci)=>{
-    const pct=Math.round(c.done.length/c.tasks.length*100), card=document.createElement('div'); card.className='course-card fade-in';
+    const pct=c.tasks.length?Math.round(c.done.length/c.tasks.length*100):0;
+    const plannerItems=studyPlannerDefaults[c.code]||[];
+    const plannerState=Array.isArray(studyPlannerState[c.code])?studyPlannerState[c.code]:plannerItems.map(()=>false);
+    const plannerDone=plannerItems.reduce((n,_,i)=>n+(plannerState[i]===true?1:0),0);
+    const plannerPct=plannerItems.length?Math.round(plannerDone/plannerItems.length*100):0;
     const testCount=Object.keys(csbTestResults||{}).filter(k=>k.startsWith(c.code+'_')).length;
-    card.innerHTML=`<div class="wow-course-icon" style="background:${c.color}18;color:${c.color}">${icons[c.code]||'📚'}</div><div class="course-code">${c.code}</div><div class="course-name">${c.name}</div><div class="wow-course-progress"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${c.color}99,${c.color})"></div></div><strong>${pct}%</strong></div><div class="wow-course-meta"><span>${c.tasks.length} lessons</span><span>${testCount} tests</span></div><div class="wow-course-actions"><button class="wow-course-btn" onclick="document.getElementById('lesson-mock-tests')?.scrollIntoView({behavior:'smooth'})">Continue →</button><button class="wow-course-lessons" onclick="document.getElementById('courses-grid')?.scrollIntoView({behavior:'smooth'});event.stopPropagation()">Lessons</button></div><div class="wow-task-dots">${c.tasks.map((t,ti)=>`<button class="wow-task-dot ${c.done.includes(ti)?'done':''}" title="${escapeHtml(t)}" aria-label="${escapeHtml(t)} — ${c.done.includes(ti)?'completed':'not completed'}" onclick="event.stopPropagation();toggleTask(${ci},${ti})">${c.done.includes(ti)?'✓':ti+1}</button>`).join('')}</div>`;
+    const card=document.createElement('div');
+    card.className='course-card fade-in';
+    const plannerHtml=plannerItems.map((item,pi)=>{
+      const done=plannerState[pi]===true;
+      return `<label class="course-study-plan-item ${done?'done':''}">
+        <input type="checkbox" ${done?'checked':''} onchange="toggleStudyPlanner('${c.code}',${pi})">
+        <span>${escapeHtml(item)}</span>
+      </label>`;
+    }).join('');
+    card.innerHTML=`
+      <div class="course-card-header">
+        <div>
+          <div class="course-code">${c.code}</div>
+          <div class="course-name">${c.name}</div>
+        </div>
+        <div class="course-credits">${c.credits} CR</div>
+      </div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div>
+      <div class="task-list">
+        ${c.tasks.map((task,ti)=>`<div class="task-item" onclick="toggleTask(${ci},${ti})"><div class="task-check ${c.done.includes(ti)?'done':''}">${c.done.includes(ti)?'✓':''}</div><span class="task-text ${c.done.includes(ti)?'done':''}">L${ti+1}: ${escapeHtml(task)}</span></div>`).join('')}
+      </div>
+      <div class="course-footer"><div class="course-pct">${pct}%</div><div class="course-tasks-done">${c.done.length}/${c.tasks.length} tasks</div></div>
+
+      <section class="course-study-planner" aria-label="${escapeHtml(c.code)} Study Planner">
+        <div class="course-study-planner-head">
+          <div>
+            <span class="course-study-planner-kicker">STUDY PLANNER</span>
+            <strong>📋 Plan &amp; Track This Course</strong>
+            <div class="course-study-planner-sub">Lecture, assignments, practical work &amp; revision checklist</div>
+          </div>
+          <div class="course-study-planner-progress">${plannerDone}/${plannerItems.length}<small>${plannerPct}% complete</small></div>
+        </div>
+        <div class="course-study-planner-bar"><span style="width:${plannerPct}%;background:${c.color}"></span></div>
+        <div class="course-study-planner-list">${plannerHtml}</div>
+      </section>
+
+      <div class="wow-course-actions" style="margin-top:10px">
+        <button class="wow-course-btn" onclick="document.getElementById('lesson-mock-tests')?.scrollIntoView({behavior:'smooth'})">Continue →</button>
+        <a href="#lesson-test-section" class="course-test-link" onclick="event.stopPropagation();document.getElementById('lesson-test-section')?.scrollIntoView({behavior:'smooth'})">View lesson tests →</a>
+      </div>
+      <div class="wow-task-dots" style="margin-top:9px">${c.tasks.map((task,ti)=>`<button class="wow-task-dot ${c.done.includes(ti)?'done':''}" title="${escapeHtml(task)}" aria-label="${escapeHtml(task)} — ${c.done.includes(ti)?'completed':'not completed'}" onclick="event.stopPropagation();toggleTask(${ci},${ti})">${c.done.includes(ti)?'✓':ti+1}</button>`).join('')}</div>
+    `;
     grid.appendChild(card);
   });
 }
+async function toggleStudyPlanner(code,index){
+  if(currentRole!=='student') return;
+  if(!studyPlannerState[code]) resetStudyPlannerState();
+  const current=studyPlannerState[code]?.[index]===true;
+  studyPlannerState[code][index]=!current;
+  const label=(studyPlannerDefaults[code]||[])[index]||`Study item ${index+1}`;
+  await addActivity(studyPlannerState[code][index]?'✅':'↩️',`${studyPlannerState[code][index]?'Completed':'Unmarked'}: ${code} — ${label}`,'var(--accent3)');
+  buildCourses();
+  await saveStudentState();
+}
+
 async function toggleTask(ci,ti){
   if(currentRole!=='student') return;
   const c=courses[ci];
@@ -2575,11 +2460,18 @@ function buildExams(){
 }
 function buildSchedule(){
   const list=el('schedule-list'); if(!list)return; list.innerHTML='';
-  const advisorItems=Array.isArray(trackedStudentData?.schedule)?trackedStudentData.schedule.slice().sort((a,b)=>String(a.date+' '+a.time).localeCompare(String(b.date+' '+b.time))):[];
+  const advisorItems=Array.isArray(trackedStudentData?.schedule)?trackedStudentData.schedule.slice().filter(x=>x && (x.date||x.time||x.title)).sort((a,b)=>String(a.date+' '+a.time).localeCompare(String(b.date+' '+b.time))):[];
   if(advisorItems.length){
-    advisorItems.slice(0,12).forEach(x=>{list.insertAdjacentHTML('beforeend',`<div class="schedule-slot"><span class="slot-time">${escapeHtml(x.date||'')}<br>${escapeHtml(x.time||'')}</span><span class="slot-name">${escapeHtml(x.title||'Study Task')}<small style="display:block;color:#7890a6;margin-top:2px">${escapeHtml(x.course||'')}${x.notes?' · '+escapeHtml(x.notes):''}</small></span><span class="slot-type lec">Plan</span></div>`);});
+    list.insertAdjacentHTML('beforeend','<div class="schedule-day">Assigned by Advisor</div>');
+    advisorItems.slice(0,12).forEach(x=>{
+      list.insertAdjacentHTML('beforeend',`<div class="schedule-slot"><span class="slot-time">${escapeHtml(x.date||'')}<br>${escapeHtml(x.time||'')}</span><span class="slot-name"><strong>${escapeHtml(x.title||'Study Task')}</strong><small style="display:block;color:#7890a6;margin-top:2px">${escapeHtml(x.course||'')}${x.notes?' · '+escapeHtml(x.notes):''}</small></span><span class="slot-type lec">Plan</span></div>`);
+    });
   }else{
-    schedule.forEach(day=>{list.insertAdjacentHTML('beforeend',`<div class="schedule-day">${day.day}</div>`);day.slots.forEach(slot=>list.insertAdjacentHTML('beforeend',`<div class="schedule-slot"><span class="slot-time">${escapeHtml(slot.time)}</span><span class="slot-name">${escapeHtml(slot.name)}</span><span class="slot-type ${escapeHtml(slot.type)}">${escapeHtml(slot.type)}</span></div>`));});
+    // Always show the built-in weekly timetable until an advisor assigns a personalized schedule.
+    schedule.forEach(day=>{
+      list.insertAdjacentHTML('beforeend',`<div class="schedule-day">${escapeHtml(day.day)}</div>`);
+      day.slots.forEach(slot=>list.insertAdjacentHTML('beforeend',`<div class="schedule-slot"><span class="slot-time">${escapeHtml(slot.time)}</span><span class="slot-name"><strong>${escapeHtml(slot.name)}</strong><small style="display:block;color:#7890a6;margin-top:2px">${slot.type==='lab'?'Lab Session':slot.type==='tut'?'Tutorial':'Lecture'}</small></span><span class="slot-type ${escapeHtml(slot.type)}">${escapeHtml(slot.type)}</span></div>`));
+    });
   }
 }
 
@@ -2627,7 +2519,7 @@ function updateStudentMission(){
   if(el('student-mission-items'))el('student-mission-items').innerHTML=[`50-minute focus`,focus[0],nextTask].map(x=>`<span class="mission-item">${escapeHtml(x)}</span>`).join('');
   if(el('pomo-course'))el('pomo-course').value=courseCode;
 }
-function updateStats(){updateStudentHero(); if(el('student-current-focus-card')){const p=overallPct();const focus=p<30?['Foundation Focus','Build your fundamentals first.']:p<60?['Practice & Application','Strengthen application through practice.']:p<80?['Exam Sprint','Focus on tests and exam readiness.']:['High-Performance Sprint','Keep momentum and challenge yourself.'];el('student-current-focus-card').innerHTML=`<div style="display:flex;gap:12px;align-items:center"><div style="width:58px;height:58px;border-radius:14px;background:#e7f2ff;display:grid;place-items:center;font-size:28px">🎯</div><div><strong style="font:800 13px Syne,sans-serif;color:#123b6b">${focus[0]}</strong><p style="font-size:9px;color:#71869c;margin-top:4px">${focus[1]}</p></div></div><button class="student-add-schedule" style="margin-top:14px" onclick="document.getElementById('courses-grid')?.scrollIntoView({behavior:'smooth'})">Continue Studying →</button>`;}el('stat-progress').textContent=overallPct()+'%';el('stat-tasks').textContent=totalDone()+'/'+totalTasks();el('stat-pomos').textContent=pomoSessionCount;if(el('stat-courses'))el('stat-courses').textContent='4 / 4';const days=Math.ceil((new Date(exams[0].date)-new Date())/86400000);el('stat-days').textContent=days;el('pomo-count').textContent=pomoSessionCount;buildStudyFocusGroups();renderStudentEarlyWarning();buildLessonMockTests();buildCSBHub();; renderStudentActionPlan(); renderStudentStudyItems(); renderStudentAdvisorFeedback(); renderStudentAcademicProfile(); renderStudentProgressDetail(); renderStudentTodaySchedule(); updateStudentMission(); }
+function updateStats(){updateStudentHero(); if(el('student-current-focus-card')){const p=overallPct();const focus=p<30?['Foundation Focus','Build your fundamentals first.']:p<60?['Practice & Application','Strengthen application through practice.']:p<80?['Exam Sprint','Focus on tests and exam readiness.']:['High-Performance Sprint','Keep momentum and challenge yourself.'];el('student-current-focus-card').innerHTML=`<div style="display:flex;gap:12px;align-items:center"><div style="width:58px;height:58px;border-radius:14px;background:#e7f2ff;display:grid;place-items:center;font-size:28px">🎯</div><div><strong style="font:800 13px Syne,sans-serif;color:#123b6b">${focus[0]}</strong><p style="font-size:9px;color:#71869c;margin-top:4px">${focus[1]}</p></div></div><button class="student-add-schedule" style="margin-top:14px" onclick="document.getElementById('courses-grid')?.scrollIntoView({behavior:'smooth'})">Continue Studying →</button>`;}el('stat-progress').textContent=overallPct()+'%';el('stat-tasks').textContent=totalDone()+'/'+totalTasks();el('stat-pomos').textContent=pomoSessionCount;if(el('stat-courses'))el('stat-courses').textContent='4 / 4';const days=Math.ceil((new Date(exams[0].date)-new Date())/86400000);el('stat-days').textContent=days;el('pomo-count').textContent=pomoSessionCount;buildStudyFocusGroups();renderStudentEarlyWarning();buildLessonMockTests();buildCSBHub();; renderStudentActionPlan(); renderStudentAdvisorFeedback(); renderStudentAcademicProfile(); renderStudentProgressDetail(); renderStudentTodaySchedule(); updateStudentMission(); }
 function renderActivity(){el('activity-feed').innerHTML=activityLog.slice(0,10).map(a=>`<div class="activity-item"><div class="activity-dot" style="background:${a.color}"></div><div><div class="activity-text">${a.icon} <strong>${a.text}</strong></div><div class="activity-time">${a.time}</div></div></div>`).join('');}
 
 function togglePomo(){
@@ -2639,100 +2531,88 @@ function togglePomo(){
 function resetPomo(){clearInterval(pomoInterval);pomoRunning=false;pomoPhase='focus';pomoSeconds=FOCUS_SEC;el('pomo-start-btn').textContent='▶ Start';updatePomoDisplay();}
 function updatePomoDisplay(){const m=Math.floor(pomoSeconds/60),s=pomoSeconds%60;el('pomo-display').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el('pomo-phase').textContent=pomoPhase==='focus'?'Focus':'Break';const ratio=pomoSeconds/(pomoPhase==='focus'?FOCUS_SEC:BREAK_SEC);el('pomo-ring').style.strokeDashoffset=RING_CIRC*(1-ratio);el('pomo-ring').classList.toggle('break',pomoPhase==='break');el('pomo-display').classList.toggle('break-time',pomoPhase==='break');}
 
-function applyInstructorStudentPreview(student){
-  const s=student||{};
-  resetCourseArrays();
-  studentName=s.name||s.email||'Student';
-  studentEmail=s.email||'';
-  pomoSessionCount=Number(s.pomoSessionCount)||0;
-  activityLog=Array.isArray(s.activityLog)?s.activityLog.slice(0,30):[];
-  csbTestResults=s.csbTestResults&&typeof s.csbTestResults==='object'?s.csbTestResults:{};
-  advisorActionPlans=Array.isArray(s.actionPlans)?s.actionPlans.slice():[];
-  advisorComments=Array.isArray(s.advisorComments)?s.advisorComments.slice():[];
-  studentStudyItems=Array.isArray(s.studyItems)?s.studyItems.slice():[];
-  applyCourseData(s.courses||s.courseProgress||{});
-  buildCourses(); buildExams(); buildSchedule();
-  updateStats(); renderActivity(); updatePomoDisplay();
-  updateStudentHero();
-  const initials=initialsFor(studentName,studentEmail);
-  if(el('user-avatar'))el('user-avatar').textContent=initials;
-  if(el('user-chip-name'))el('user-chip-name').textContent=studentName;
-  if(el('student-current-date'))updateStudentDate();
-  if(el('preview-student-name'))el('preview-student-name').textContent=studentName;
-  const sb=el('switch-btn');
-  if(sb){sb.style.display='inline-flex';sb.textContent='← Instructor Dashboard';}
-  const resetBtn=document.querySelector('.logout-student + .student-header-btn');
-  if(resetBtn)resetBtn.style.display='none';
-}
-
-function enterInstructorStudentPreview(){
-  if(currentRole!=='instructor') return;
-  if(!trackedStudentData){
-    alert('Please select a student first, then open Student View.');
-    return;
-  }
-  stopHeartbeat();
-  document.body.classList.add('instructor-student-preview');
-  document.body.classList.remove('instructor-mode');
-  if(el('instructor-panel'))el('instructor-panel').classList.remove('visible');
-  if(el('login-screen'))el('login-screen').classList.add('hidden');
-  if(el('app')){el('app').classList.remove('instructor-hidden');el('app').classList.add('visible');}
-  applyInstructorStudentPreview(trackedStudentData);
-}
-
-function exitInstructorStudentPreview(){
-  document.body.classList.remove('instructor-student-preview');
-  document.body.classList.add('instructor-mode');
-  if(el('app')){el('app').classList.add('instructor-hidden');el('app').classList.remove('visible');}
-  if(el('instructor-panel'))el('instructor-panel').classList.add('visible');
-  if(el('switch-btn'))el('switch-btn').style.display='none';
-  const resetBtn=document.querySelector('.logout-student + .student-header-btn');
-  if(resetBtn)resetBtn.style.display='inline-flex';
-  updateInstructorPanel();
-}
-
 function toggleInstructorPanel(){
   if(currentRole!=='instructor') return;
-  const preview=document.body.classList.contains('instructor-student-preview');
-  if(preview){ exitInstructorStudentPreview(); return; }
-  enterInstructorStudentPreview();
+  exitStudentPreview();
+  const panel=el('instructor-panel');
+  if(panel){ panel.classList.add('visible'); panel.style.display='block'; }
+  const app=el('app'); if(app){ app.classList.remove('visible'); app.style.display='none'; }
+  try{ updateInstructorPanel(); subscribeStudents(); }catch(e){ console.warn('Instructor dashboard refresh skipped:',e); }
+}
+
+function enterStudentPreview(){
+  if(currentRole!=='instructor' || !trackedStudentData){ alert('Select a student first.'); return; }
+  if(instructorStudentPreview) return;
+  instructorStudentPreview=true;
+  previewSavedStudentState={studentName,studentEmail,pomoSessionCount,activityLog,csbTestResults,advisorActionPlans,advisorComments,courses:courses.map(c=>({code:c.code,done:[...c.done]}))};
+  const d=trackedStudentData;
+  studentName=d.name||d.email||'Student';
+  studentEmail=d.email||'';
+  pomoSessionCount=Number(d.pomoSessionCount)||0;
+  activityLog=Array.isArray(d.activityLog)?d.activityLog:[];
+  csbTestResults=d.csbTestResults&&typeof d.csbTestResults==='object'?d.csbTestResults:{};
+  advisorActionPlans=Array.isArray(d.actionPlans)?d.actionPlans:[];
+  advisorComments=Array.isArray(d.advisorComments)?d.advisorComments:[];
+  resetCourseArrays();
+  (d.courses||[]).forEach(sc=>{ const c=courses.find(x=>x.code===sc.code); if(c)c.done=Array.isArray(sc.done)?sc.done:[]; });
+  const app=el('app'), panel=el('instructor-panel');
+  if(panel){panel.classList.remove('visible');panel.style.display='none';}
+  if(app){app.classList.add('visible');app.style.display='block';}
+  const badge=el('view-badge'); if(badge){badge.textContent='Instructor Preview';badge.classList.add('instructor');}
+  const switchBtn=el('switch-btn'); if(switchBtn){switchBtn.style.display='inline-flex';switchBtn.textContent='← Back to Instructor Dashboard';switchBtn.onclick=exitStudentPreview;}
+  const previewName=el('student-hero-name'); if(previewName)previewName.textContent=studentName;
+  try{ buildCourses(); buildExams(); buildSchedule(); updateStats(); buildStudyFocusGroups(); renderActivity(); updatePomoDisplay(); }catch(e){ console.warn('Student preview render issue:',e); }
+}
+
+function exitStudentPreview(){
+  if(!instructorStudentPreview) return;
+  instructorStudentPreview=false;
+  const saved=previewSavedStudentState; previewSavedStudentState=null;
+  if(saved){
+    studentName=saved.studentName; studentEmail=saved.studentEmail; pomoSessionCount=saved.pomoSessionCount; activityLog=saved.activityLog; csbTestResults=saved.csbTestResults; advisorActionPlans=saved.advisorActionPlans; advisorComments=saved.advisorComments;
+    resetCourseArrays();
+    saved.courses.forEach(sc=>{const c=courses.find(x=>x.code===sc.code);if(c)c.done=sc.done;});
+  }
+  const app=el('app'), panel=el('instructor-panel');
+  if(app){app.classList.remove('visible');app.style.display='none';}
+  if(panel){panel.classList.add('visible');panel.style.display='block';}
+  const switchBtn=el('switch-btn'); if(switchBtn){switchBtn.style.display='none';switchBtn.textContent='📊 Instructor View';switchBtn.onclick=toggleInstructorPanel;}
+  const badge=el('view-badge'); if(badge){badge.textContent='Instructor View';badge.classList.add('instructor');}
+  try{ updateInstructorPanel(); subscribeStudents(); }catch(e){ console.warn('Instructor restore skipped:',e); }
 }
 function formatActivityDate(a){
   if(a?.timestamp){const d=new Date(a.timestamp);if(!isNaN(d))return d.toLocaleString([], {year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
   return a?.time||'Time not recorded';
 }
-function setInstructorText(id,value){const n=el(id);if(n)n.textContent=value??'';}
 function updateInstructorPanel(){
   const d=trackedStudentData;
-  setInstructorText('inst-student-name',d?.name||'Select a student');
-  setInstructorText('inst-student-email',d?.email||'Choose a student from the directory below');
+  el('inst-student-name').textContent=d?.name||'Select a student';
+  el('inst-student-email').textContent=d?.email||'Choose a student from the directory below';
   const last=d?studentLastDate(d):null, active=d?isStudentActive(d):false, st=d?studentStatus(d):{key:'notstarted',label:'Select Student'};
-  setInstructorText('inst-student-status',d?(st.label + (active?' · Active Now':'')):'Select Student');
-  if(el('inst-live-sync')){el('inst-live-sync').textContent=d?'● Live Firebase tracking':'● Select a student to begin tracking';el('inst-live-sync').className='live-sync-badge '+(d?'connected':'waiting');}
-  if(el('inst-student-status'))el('inst-student-status').className='student-status '+st.key;
-  setInstructorText('inst-last-active',last?(formatActivityDate({timestamp:last.toISOString()})+' · '+timeAgo(last)):'No activity yet');
-  if(el('inst-report-btn'))el('inst-report-btn').disabled=!d;
-  renderTrackedSchedule(d); renderAcademicProfile(d); renderInstructorActionPlan(d); renderInstructorStudyItems(d); renderInstructorComments(d); if(el('inst-habits')){ const h=habitSummary(d||{}); el('inst-habits').innerHTML=`<div class="habit-grid"><div class="habit-item"><strong>${h.consistency}</strong><span>Consistency</span></div><div class="habit-item"><strong>${h.pomos}</strong><span>Pomodoros</span></div><div class="habit-item"><strong>${h.attempts}</strong><span>CSB test attempts</span></div><div class="habit-item"><strong>${h.peak}</strong><span>Common activity time</span></div></div>`; }
+  el('inst-student-status').textContent=d?(st.label + (active?' · Active Now':'')):'Select Student'; if(el('inst-live-sync')){el('inst-live-sync').textContent=d?'● Live Firebase tracking':'● Waiting for student';el('inst-live-sync').className='live-sync-badge '+(d?'connected':'waiting');}
+  el('inst-student-status').className='student-status '+st.key;
+  el('inst-last-active').textContent=last?(formatActivityDate({timestamp:last.toISOString()})+' · '+timeAgo(last)):'No activity yet';
+  el('inst-report-btn').disabled=!d; renderTrackedSchedule(d); renderAcademicProfile(d); renderInstructorActionPlan(d); renderInstructorComments(d); if(el('inst-habits')){ const h=habitSummary(d||{}); el('inst-habits').innerHTML=`<div class="habit-grid"><div class="habit-item"><strong>${h.consistency}</strong><span>Consistency</span></div><div class="habit-item"><strong>${h.pomos}</strong><span>Pomodoros</span></div><div class="habit-item"><strong>${h.attempts}</strong><span>CSB test attempts</span></div><div class="habit-item"><strong>${h.peak}</strong><span>Common activity time</span></div></div>`; }
   const metrics=studentMetrics(d); const pctValue=metrics.progress;
-  setInstructorText('inst-overall-pct',pctValue+'%'); setInstructorText('inst-progress-label',pctValue+'%'); if(el('inst-overall-bar'))el('inst-overall-bar').style.width=Math.min(100,Math.max(0,pctValue))+'%';
-  const td=metrics.done, tt=metrics.total; setInstructorText('inst-tasks-done',td+'/'+tt); setInstructorText('inst-pomos-done',Number(d?.pomoSessionCount)||0); const readiness=pctValue>=75?'READY':pctValue>=50?'NEARLY READY':pctValue>0?'BUILDING':'—'; if(el('inst-readiness'))el('inst-readiness').textContent=readiness; if(el('inst-student-avatar'))el('inst-student-avatar').textContent=initialsFor(d?.name,d?.email);
+  el('inst-overall-pct').textContent=pctValue+'%'; el('inst-progress-label').textContent=pctValue+'%'; el('inst-overall-bar').style.width=Math.min(100,Math.max(0,pctValue))+'%';
+  const td=metrics.done, tt=metrics.total; el('inst-tasks-done').textContent=td+'/'+tt; el('inst-pomos-done').textContent=Number(d?.pomoSessionCount)||0; const readiness=pctValue>=75?'READY':pctValue>=50?'NEARLY READY':pctValue>0?'BUILDING':'—'; if(el('inst-readiness'))el('inst-readiness').textContent=readiness; if(el('inst-student-avatar'))el('inst-student-avatar').textContent=initialsFor(d?.name,d?.email);
   let alerts='';
   if(pctValue<20)alerts+=`<div class="alert-banner warning">⚠️ Student progress is low (${pctValue}%). Consider reaching out.</div>`;
   if((Number(d?.pomoSessionCount)||0)===0)alerts+=`<div class="alert-banner warning">⚠️ No Pomodoro sessions completed yet.</div>`;
   if(pctValue>=60)alerts+=`<div class="alert-banner success">✅ Student is on track with ${pctValue}% readiness.</div>`;
   if(td>0)alerts+=`<div class="alert-banner info">📌 ${td} tasks completed across all subjects.</div>`;
-  if(el('inst-alerts'))el('inst-alerts').innerHTML=alerts; renderInstructorEarlyWarning();
-  const normalizedTrackedCourses=normalizeStudentCourses(d?.courses||d?.courseProgress||{});
-  if(el('inst-course-bars'))el('inst-course-bars').innerHTML=courses.map(c=>{const sc=normalizedTrackedCourses.find(x=>x.code===c.code)||{done:[]},done=sc.done||[],p=Math.round(done.length/c.tasks.length*100);return `<div class="inst-progress-row"><div class="inst-prog-header"><span class="inst-prog-name">${c.code} — ${c.name}</span><span class="inst-prog-pct" style="color:${c.color}">${p}%</span></div><div class="inst-prog-bar"><div class="inst-prog-fill" style="width:${p}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div></div>`}).join('');
+  el('inst-alerts').innerHTML=alerts; renderInstructorEarlyWarning();
+  const studentCourses=d?.courses||[];
+  el('inst-course-bars').innerHTML=courses.map(c=>{const sc=studentCourses.find(x=>x.code===c.code),done=Array.isArray(sc?.done)?sc.done:[],p=Math.round(done.length/c.tasks.length*100);return `<div class="inst-progress-row"><div class="inst-prog-header"><span class="inst-prog-name">${c.code} — ${c.name}</span><span class="inst-prog-pct" style="color:${c.color}">${p}%</span></div><div class="inst-prog-bar"><div class="inst-prog-fill" style="width:${p}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div></div>`}).join('');
   const logs=Array.isArray(d?.activityLog)?d.activityLog:[];
-  if(el('inst-activity-feed'))el('inst-activity-feed').innerHTML=logs.slice(0,8).map(a=>`<div class="activity-item"><div class="activity-dot" style="background:${a.color||'var(--accent)'}"></div><div><div class="activity-text">${a.icon||'•'} <strong>${escapeHtml(a.text||'Activity')}</strong></div><div class="activity-time">${escapeHtml(formatActivityDate(a))}${a.timestamp?' · '+escapeHtml(timeAgo(new Date(a.timestamp))):''}</div></div></div>`).join('') || '<div style="padding:12px;color:var(--muted);font-size:11px">No recorded activity yet.</div>';
-  const now=new Date(); if(el('inst-timeline'))el('inst-timeline').innerHTML=exams.map((e,i)=>{const days=Math.ceil((new Date(e.date)-now)/86400000);return `<div class="tl-item"><div class="tl-left"><div class="tl-dot ${days<=10?'warn':''} filled"></div>${i<exams.length-1?'<div class="tl-line"></div>':''}</div><div class="tl-content"><div class="tl-date">${e.date} ${e.time}</div><div class="tl-event">${e.code} — ${e.subject}</div><span class="tl-tag exam">${days<0?'Exam completed':`Exam in ${days} days`}</span></div></div>`}).join('');
+  el('inst-activity-feed').innerHTML=logs.slice(0,8).map(a=>`<div class="activity-item"><div class="activity-dot" style="background:${a.color||'var(--accent)'}"></div><div><div class="activity-text">${a.icon||'•'} <strong>${escapeHtml(a.text||'Activity')}</strong></div><div class="activity-time">${escapeHtml(formatActivityDate(a))}${a.timestamp?' · '+escapeHtml(timeAgo(new Date(a.timestamp))):''}</div></div></div>`).join('') || '<div style="padding:12px;color:var(--muted);font-size:11px">No recorded activity yet.</div>';
+  const now=new Date();el('inst-timeline').innerHTML=exams.map((e,i)=>{const days=Math.ceil((new Date(e.date)-now)/86400000);return `<div class="tl-item"><div class="tl-left"><div class="tl-dot ${days<=10?'warn':''} filled"></div>${i<exams.length-1?'<div class="tl-line"></div>':''}</div><div class="tl-content"><div class="tl-date">${e.date} ${e.time}</div><div class="tl-event">${e.code} — ${e.subject}</div><span class="tl-tag exam">${days<0?'Exam completed':`Exam in ${days} days`}</span></div></div>`}).join('');
 }
 
 function studentMetrics(s){
-  const normalized=normalizeStudentCourses(s?.courses||s?.courseProgress||{});
+  const list=Array.isArray(s?.courses)?s.courses:[];
   let done=0,total=0;
-  normalized.forEach(sc=>{const c=courses.find(x=>x.code===sc.code);if(c){total+=c.tasks.length;done+=sc.done.length;}});
+  list.forEach(sc=>{ const c=courses.find(x=>x.code===sc.code); if(c){ total+=c.tasks.length; done+=Array.isArray(sc.done)?sc.done.length:0; } });
   const fallbackTotal=Number(s?.totalTasks)||totalTasks();
   const finalTotal=total||fallbackTotal;
   const finalDone=total?done:Number(s?.tasksDone)||0;
@@ -2767,18 +2647,8 @@ function subscribeStudents(){
   unsubscribeDirectory=onSnapshot(studentsRef, snap=>{
     directoryStudents=snap.docs
       .map(d=>({id:d.id,...d.data()}))
-      .filter(s=>{
-        const role=String(s.role||'student').trim().toLowerCase();
-        return role==='student' || (!s.role && !!(s.uid||s.email||s.name));
-      })
-      .filter((s,i,arr)=>arr.findIndex(x=>String(x.id)===String(s.id)||((s.uid||'') && String(x.uid||'')===String(s.uid)))===i)
+      .filter(s=>String(s.role||'student').toLowerCase()==='student')
       .sort((a,b)=>(studentLastDate(b)?.getTime()||0)-(studentLastDate(a)?.getTime()||0));
-
-    const status=el('student-directory-status');
-    if(status){
-      status.className='live-sync-badge connected';
-      status.textContent=`● Firebase connected · Tracking ${directoryStudents.length} student${directoryStudents.length===1?'':'s'}`;
-    }
 
     const selected=trackedStudentId ? directoryStudents.find(s=>s.id===trackedStudentId) : null;
     if(selected && !unsubscribeProfile){
@@ -2789,6 +2659,11 @@ function subscribeStudents(){
     renderStudentDirectory();
     renderInstructorEarlyWarning();
 
+    const status=el('student-directory-status');
+    if(status){
+      status.className='live-sync-badge connected';
+      status.textContent=`● Live · ${directoryStudents.length} student record${directoryStudents.length===1?'':'s'}`;
+    }
   },err=>{
     console.error('STUDENT DIRECTORY FIRESTORE ERROR',err);
     const status=el('student-directory-status');
@@ -2811,120 +2686,43 @@ function refreshStudentDirectory(){
   subscribeStudents();
 }
 function renderStudentDirectory(){
-  const search=(el('student-search')?.value||'').trim().toLowerCase();
-  const filter=el('student-filter')?.value||'all';
-  let list=directoryStudents.filter(s=>{
-    const st=studentStatus(s),active=isStudentActive(s);
-    const text=((s.name||'')+' '+(s.email||'')).toLowerCase();
-    return (!search||text.includes(search)) && (filter==='all'||(filter==='active'?active:st.key===filter));
-  });
-  const counts={
-    total:directoryStudents.length,
-    active:directoryStudents.filter(isStudentActive).length,
-    ontrack:directoryStudents.filter(s=>studentStatus(s).key==='ontrack').length,
-    attention:directoryStudents.filter(s=>studentStatus(s).key==='attention').length
-  };
+  const search=(el('student-search')?.value||'').trim().toLowerCase(), filter=el('student-filter')?.value||'all';
+  let list=directoryStudents.filter(s=>{const st=studentStatus(s),active=isStudentActive(s);const text=((s.name||'')+' '+(s.email||'')).toLowerCase();return (!search||text.includes(search))&&(filter==='all'||(filter==='active'?active:st.key===filter));});
+  const counts={total:directoryStudents.length,active:directoryStudents.filter(isStudentActive).length,ontrack:directoryStudents.filter(s=>studentStatus(s).key==='ontrack').length,attention:directoryStudents.filter(s=>studentStatus(s).key==='attention').length};
   ['total','active','track','attention'].forEach(k=>{const node=el('dir-'+k);if(node)node.textContent=k==='track'?counts.ontrack:counts[k];});
-  const dir=el('student-directory'); if(!dir)return;
+  const dir=el('student-directory');
   if(!list.length){
     if(directoryStudents.length===0){
-      dir.innerHTML=`<div class="alert-banner info" style="margin:0">👥 <strong>No student records are currently in this Firebase project.</strong><br>Once students sign in, their records will appear here automatically.<br><button class="select-student-btn" style="margin-top:10px" onclick="refreshStudentDirectory()">↻ Refresh Student Directory</button></div>`;
+      dir.innerHTML=`<div class="alert-banner info" style="margin:0">
+        👥 <strong>No student records are currently in this Firebase project.</strong><br>
+        The four courses in Biotech Sprint are <strong>not four student accounts</strong>. Each real student must sign in/create an account so Firebase creates <code>/students/{UID}</code>. Once an account exists, it will appear here automatically.
+        <br><button class="select-student-btn" style="margin-top:10px" onclick="refreshStudentDirectory()">↻ Refresh Student Directory</button>
+      </div>`;
     }else{
-      const label=filter==='active'?'active right now':filter==='ontrack'?'on-track':filter==='attention'?'needing attention':'matching your search';
-      dir.innerHTML=`<div class="alert-banner info" style="margin:0">No students are ${label}.<br><small>${filter==='active'?'Active Now means activity within the last 10 minutes. Use All Students to select any student.':'Try All Students or clear the search box.'}</small></div>`;
+      dir.innerHTML='<div style="padding:18px;font-size:11px;color:var(--muted)">No students match this view.</div>';
     }
     return;
   }
-  dir.innerHTML=`<div class="directory-list">${list.map(s=>{
-    const st=studentStatus(s),active=isStudentActive(s),metrics=studentMetrics(s),selected=trackedStudentId===s.id;
-    const meta=[`${metrics.progress}% progress`,`${metrics.done}/${metrics.total} tasks`,`${Number(s.pomoSessionCount)||0} Pomodoros`];
-    if(s.academicRisk)meta.push(String(s.academicRisk));
-    return `<div class="directory-card ${selected?'selected':''}" data-uid="${escapeHtml(String(s.id))}" style="${selected?'background:#eef8fc;border-radius:10px;padding:10px;border:1px solid #a9d7e8;':''}">
-      <div class="directory-card-main"><div class="student-cell-name">${escapeHtml(s.name||'Student')}</div><div class="student-cell-email">${escapeHtml(s.email||'')}</div><div class="directory-card-meta">${meta.map(x=>`<span>${escapeHtml(x)}</span>`).join('')}</div></div>
-      <button type="button" class="directory-select-btn ${active?'live':''}" data-select-uid="${escapeHtml(String(s.id))}">${active?'● Live · Select':'Select'}</button>
-    </div>`;
-  }).join('')}</div>`;
-  dir.querySelectorAll('[data-select-uid]').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();openStudentFromDirectory(btn.getAttribute('data-select-uid'));}));
-  dir.querySelectorAll('.directory-card').forEach(card=>card.addEventListener('click',()=>openStudentFromDirectory(card.getAttribute('data-uid'))));
+  dir.innerHTML=`<table class="student-table"><thead><tr><th>Student</th><th>Status</th><th>Progress</th><th>Tasks</th><th>Pomodoros</th><th>Last Active</th><th></th></tr></thead><tbody>${list.map(s=>{
+    const st=studentStatus(s), active=isStudentActive(s), last=studentLastDate(s), metrics=studentMetrics(s), p=metrics.progress, td=metrics.done, tt=metrics.total;
+    return `<tr class="student-row ${trackedStudentId===s.id?'selected':''}" onclick="openStudentFromDirectory('${s.id}')"><td><div class="student-cell-name">${escapeHtml(s.name||'Student')}</div><div class="student-cell-email">${escapeHtml(s.email||'')}</div><div class="student-academic-mini">${s.probationLevel?`<span>${escapeHtml(s.probationLevel)}</span>`:''}${s.academicRisk?`<span class="mini-risk-${String(s.academicRisk).toLowerCase().split(' ')[0]}">${escapeHtml(s.academicRisk)}</span>`:''}${s.gpa!==undefined&&s.gpa!==''?`<span>GPA ${escapeHtml(String(s.gpa))}</span>`:''}${s.progressTrend?`<span class="mini-trend">${escapeHtml(s.progressTrend)}</span>`:''}</div></td><td><span class="status-pill ${st.key} ${active?'active':''}">${active?'<span class="live-indicator"></span>':''}${st.label}</span></td><td><div style="display:flex;align-items:center;gap:8px"><div class="mini-progress"><span style="width:${Math.min(100,Math.max(0,p))}%"></span></div><strong>${p}%</strong></div></td><td>${td}/${tt}</td><td>${Number(s.pomoSessionCount)||0}</td><td>${last?timeAgo(last):'—'}</td><td><button class="select-student-btn" onclick="event.stopPropagation();openStudentFromDirectory('${s.id}')">Select</button></td></tr>`;
+  }).join('')}</tbody></table>`;
 }
-
 function renderProfile(s){
   const st=studentStatus(s), active=isStudentActive(s), last=studentLastDate(s), metrics=studentMetrics(s), p=metrics.progress, td=metrics.done, tt=metrics.total;
   el('profile-avatar').textContent=initialsFor(s.name,s.email);el('profile-name').textContent=s.name||'Student';el('profile-email').textContent=s.email||'—';
   el('profile-status').innerHTML=`<span class="status-pill ${st.key} ${active?'active':''}">${active?'<span class="live-indicator"></span>':''}${st.label}</span> <span style="font-size:9px;color:var(--muted);margin-left:8px">${last?'Last active '+timeAgo(last):'No activity yet'}</span>`;
-  const normalizedCourses=normalizeStudentCourses(s?.courses||s?.courseProgress||{}); el('profile-courses').innerHTML=courses.map(c=>{const sc=normalizedCourses.find(x=>x.code===c.code)||{done:[]},done=sc.done||[],cp=Math.round(done.length/c.tasks.length*100);return `<div class="profile-course"><div class="profile-course-head"><strong>${escapeHtml(c.code)} — ${escapeHtml(c.name)}</strong><strong style="color:${c.color}">${cp}%</strong></div><div class="inst-prog-bar"><div class="inst-prog-fill" style="width:${cp}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div><div class="profile-course-tasks">${done.length}/${c.tasks.length} tasks completed</div></div>`}).join('');
+  el('profile-courses').innerHTML=courses.map(c=>{const sc=(s.courses||[]).find(x=>x.code===c.code),done=Array.isArray(sc?.done)?sc.done:[],cp=Math.round(done.length/c.tasks.length*100);return `<div class="profile-course"><div class="profile-course-head"><strong>${escapeHtml(c.code)} — ${escapeHtml(c.name)}</strong><strong style="color:${c.color}">${cp}%</strong></div><div class="inst-prog-bar"><div class="inst-prog-fill" style="width:${cp}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div><div class="profile-course-tasks">${done.length}/${c.tasks.length} tasks completed</div></div>`}).join('');
   const h=habitSummary(s); el('profile-snapshot').innerHTML=`<div class="stat-row" style="grid-template-columns:1fr 1fr;margin:0"><div class="stat-card"><div class="stat-value accent">${p}%</div><div class="stat-label">Overall Progress</div></div><div class="stat-card"><div class="stat-value green">${td}/${tt}</div><div class="stat-label">Tasks</div></div><div class="stat-card"><div class="stat-value purple">${Number(s.pomoSessionCount)||0}</div><div class="stat-label">Pomodoros</div></div><div class="stat-card"><div class="stat-value amber">${active?'LIVE':'AWAY'}</div><div class="stat-label">Presence</div></div></div><div class="section-label" style="margin-top:14px">Study Habits</div><div class="habit-grid"><div class="habit-item"><strong>${h.consistency}</strong><span>Engagement consistency</span></div><div class="habit-item"><strong>${h.pomos}</strong><span>Pomodoros</span></div><div class="habit-item"><strong>${h.attempts}</strong><span>CSB test attempts</span></div><div class="habit-item"><strong>${h.peak}</strong><span>Common activity time</span></div></div><div style="margin-top:14px;font-size:10px;color:var(--muted)"><strong style="color:var(--text)">Activity log</strong><div style="margin-top:8px">${(s.activityLog||[]).slice(0,8).map(a=>`<div style="padding:7px 0;border-bottom:1px solid var(--border)">${escapeHtml(a.icon||'•')} ${escapeHtml(a.text||'Activity')} <span style="float:right">${escapeHtml(a.time||'')}</span></div>`).join('')||'No recorded activity yet.'}</div></div>`;
 }
 let unsubscribeProfile=null;
 
 function renderInstructorActionPlan(s){
-  const box=el('inst-action-plan');
-  if(!box)return;
-  if(!s){
-    box.innerHTML='<div class="profile-empty">Select a student to view or create an action plan.</div>';
-    return;
-  }
-  const arr=Array.isArray(s.actionPlans)
-    ? s.actionPlans.slice().sort((a,b)=>String(a.dueDate||'9999').localeCompare(String(b.dueDate||'9999')))
-    : [];
-  if(!arr.length){
-    box.innerHTML='<div class="profile-empty">No actions assigned yet. Click <strong>＋ Add Action</strong> to create the first priority.</div>';
-    return;
-  }
-  box.innerHTML=`<div class="action-admin-list">${arr.map(x=>{
-    const actionId=String(x.id||'');
-    const safeId=escapeHtml(actionId);
-    return `<div class="action-admin-item">
-      <div class="action-admin-top">
-        <div>
-          <div class="action-admin-title">${escapeHtml(x.title||'Action')}</div>
-          <div class="action-admin-meta">${escapeHtml(x.course||'—')} · Due ${escapeHtml(x.dueDate||'—')} · ${escapeHtml(x.priority||'Medium')}</div>
-        </div>
-        <span class="action-status ${actionPlanStatusClass(x.status)}">${escapeHtml(x.status||'Not Started')}</span>
-      </div>
-      ${x.activity?`<div class="action-admin-meta"><strong>Activity:</strong> ${escapeHtml(x.activity)}</div>`:''}
-      ${x.instructions?`<div class="action-admin-meta"><strong>Instructor note:</strong> ${escapeHtml(x.instructions)}</div>`:''}
-      <div class="action-admin-actions">
-        <button type="button" class="action-edit-btn" title="Edit this action" data-action-id="${safeId}">✎ Edit</button>
-        <button type="button" class="action-status-btn" title="Change action status" data-action-id="${safeId}">↻ Status</button>
-        <button type="button" class="action-delete-btn" title="Delete this action" data-action-id="${safeId}">🗑 Delete</button>
-      </div>
-    </div>`;
-  }).join('')}</div>`;
-  box.querySelectorAll('.action-edit-btn').forEach(btn=>btn.addEventListener('click',()=>editActionPlan(btn.dataset.actionId||'')));
-  box.querySelectorAll('.action-status-btn').forEach(btn=>btn.addEventListener('click',()=>cycleActionPlanStatus(btn.dataset.actionId||'')));
-  box.querySelectorAll('.action-delete-btn').forEach(btn=>btn.addEventListener('click',()=>deleteActionPlan(btn.dataset.actionId||'')));
+  const box=el('inst-action-plan');if(!box)return;if(!s){box.innerHTML='<div class="profile-empty">Select a student to view or create an action plan.</div>';return;}
+  const arr=Array.isArray(s.actionPlans)?s.actionPlans.slice().sort((a,b)=>String(a.dueDate||'9999').localeCompare(String(b.dueDate||'9999'))):[];
+  if(!arr.length){box.innerHTML='<div class="profile-empty">No actions assigned yet. Click “Add Action” to create the first priority.</div>';return;}
+  box.innerHTML=`<div class="action-admin-list">${arr.map(x=>`<div class="action-admin-item"><div class="action-admin-top"><div><div class="action-admin-title">${escapeHtml(x.title||'Action')}</div><div class="action-admin-meta">${escapeHtml(x.course||'—')} · Due ${escapeHtml(x.dueDate||'—')} · ${escapeHtml(x.priority||'Medium')}</div></div><span class="action-status ${actionPlanStatusClass(x.status)}">${escapeHtml(x.status||'Not Started')}</span></div>${x.instructions?`<div class="action-admin-meta">${escapeHtml(x.instructions)}</div>`:''}<div class="action-admin-actions"><button onclick="editActionPlan('${escapeHtml(x.id||'')}')">✎ Edit</button><button onclick="cycleActionPlanStatus('${escapeHtml(x.id||'')}')">↻ Status</button><button class="danger" onclick="deleteActionPlan('${escapeHtml(x.id||'')}')">× Delete</button></div></div>`).join('')}</div>`;
 }
-function renderStudentStudyItems(){
-  const box=el('student-study-items'); if(!box)return;
-  const arr=Array.isArray(studentStudyItems)?studentStudyItems.slice().sort((a,b)=>String(a.dueDate||'9999').localeCompare(String(b.dueDate||'9999'))):[];
-  if(!arr.length){box.innerHTML='<div class="advisor-feedback-empty">No study items have been assigned yet.</div>';return;}
-  box.innerHTML=arr.map(x=>`<div class="action-admin-item"><div class="action-admin-top"><div><div class="action-admin-title">${escapeHtml(x.title||'Study Item')}</div><div class="action-admin-meta">${escapeHtml(x.course||'—')} · ${escapeHtml(x.type||'Study')} · Due ${escapeHtml(x.dueDate||'—')}</div></div><span class="action-status ${x.priority==='High'?'status-high':x.priority==='Low'?'status-low':'status-medium'}">${escapeHtml(x.priority||'Medium')}</span></div>${x.instructions?`<div class="action-admin-meta">${escapeHtml(x.instructions)}</div>`:''}${x.link?`<div style="margin-top:5px"><a href="${escapeHtml(x.link)}" target="_blank" rel="noopener" style="font-size:9px;color:#1769c2">Open resource →</a></div>`:''}</div>`).join('');
-}
-function renderInstructorStudyItems(s){
-  const box=el('inst-study-items');if(!box)return;if(!s){box.innerHTML='<div class="profile-empty">Select a student to view or assign study items.</div>';return;}
-  const arr=Array.isArray(s.studyItems)?s.studyItems.slice().sort((a,b)=>String(a.dueDate||'9999').localeCompare(String(b.dueDate||'9999'))):[];
-  if(!arr.length){box.innerHTML='<div class="profile-empty">No study items assigned yet. Click “Add Study Item”.</div>';return;}
-  box.innerHTML=`<div class="action-admin-list">${arr.map(x=>`<div class="action-admin-item"><div class="action-admin-top"><div><div class="action-admin-title">${escapeHtml(x.title||'Study Item')}</div><div class="action-admin-meta">${escapeHtml(x.course||'—')} · ${escapeHtml(x.type||'Study')} · Due ${escapeHtml(x.dueDate||'—')} · ${escapeHtml(x.priority||'Medium')}</div></div></div>${x.instructions?`<div class="action-admin-meta">${escapeHtml(x.instructions)}</div>`:''}<div class="action-admin-actions"><button class="action-edit-btn" onclick="editStudyItem('${escapeHtml(x.id||'')}')">✎ Edit</button><button class="action-delete-btn danger" onclick="deleteStudyItem('${escapeHtml(x.id||'')}')">🗑 Delete</button></div></div>`).join('')}</div>`;
-}
-function populateStudyItemStudents(){const sel=el('study-item-student');if(!sel)return;sel.innerHTML=directoryStudents.map(s=>`<option value="${escapeHtml(s.id)}">${escapeHtml(s.name||s.email||'Student')}</option>`).join('');if(trackedStudentId)sel.value=trackedStudentId;}
-function openStudyItemModal(id=''){
-  if(currentRole!=='instructor'||!db)return;populateStudyItemStudents();editingStudyItemId=id||null;const s=trackedStudentData;
-  if(s)el('study-item-student').value=trackedStudentId;
-  const item=id&&s&&Array.isArray(s.studyItems)?s.studyItems.find(x=>String(x.id)===String(id)):null;
-  if(item){el('study-item-course').value=item.course||'CSB_101';el('study-item-type').value=item.type||'Practice';el('study-item-priority').value=item.priority||'Medium';el('study-item-title').value=item.title||'';el('study-item-due').value=item.dueDate||'';el('study-item-link').value=item.link||'';el('study-item-instructions').value=item.instructions||'';el('study-item-modal-title').textContent='Edit Study Item';el('study-item-save-btn').textContent='Save Changes';}
-  else{el('study-item-course').value='CSB_101';el('study-item-type').value='Practice';el('study-item-priority').value='Medium';el('study-item-title').value='';el('study-item-due').value=new Date().toISOString().slice(0,10);el('study-item-link').value='';el('study-item-instructions').value='';el('study-item-modal-title').textContent='Add Study Item';el('study-item-save-btn').textContent='Save Study Item';}
-  el('study-item-modal').classList.add('visible');
-}
-function closeStudyItemModal(evt){if(evt&&evt.target!==el('study-item-modal'))return;el('study-item-modal').classList.remove('visible');editingStudyItemId=null;}
-function editStudyItem(id){openStudyItemModal(id);}
-async function saveStudyItem(){
-  if(currentRole!=='instructor'||!db)return;const sid=el('study-item-student')?.value;if(!sid)return;const target=directoryStudents.find(s=>s.id===sid)||(trackedStudentId===sid?trackedStudentData:null);const arr=Array.isArray(target?.studyItems)?target.studyItems.slice():[];
-  const item={id:editingStudyItemId||Date.now().toString(),title:el('study-item-title').value.trim()||'Study Item',course:el('study-item-course').value,type:el('study-item-type').value,priority:el('study-item-priority').value,dueDate:el('study-item-due').value,link:el('study-item-link').value.trim(),instructions:el('study-item-instructions').value.trim(),advisor:'Nashwa Hamido',updatedAt:new Date().toISOString()};
-  const idx=arr.findIndex(x=>String(x.id)===String(editingStudyItemId));if(idx>=0)arr[idx]=item;else arr.push(item);
-  try{await updateDoc(doc(db,'students',sid),{studyItems:arr});if(trackedStudentId===sid){trackedStudentData={...trackedStudentData,studyItems:arr};studentStudyItems=arr.slice();renderInstructorStudyItems(trackedStudentData);renderStudentStudyItems();}closeStudyItemModal();}catch(e){alert('Could not save the study item. Please check your Firestore permissions.');console.warn(e);}
-}
-async function deleteStudyItem(id){if(currentRole!=='instructor'||!db||!trackedStudentId||!confirm('Delete this study item?'))return;const arr=Array.isArray(trackedStudentData?.studyItems)?trackedStudentData.studyItems.filter(x=>String(x.id)!==String(id)):[];try{await updateDoc(doc(db,'students',trackedStudentId),{studyItems:arr});trackedStudentData={...trackedStudentData,studyItems:arr};studentStudyItems=arr.slice();renderInstructorStudyItems(trackedStudentData);renderStudentStudyItems();}catch(e){alert('Could not delete the study item.');console.warn(e);}}
 function renderInstructorComments(s){
   const box=el('inst-advisor-comments');if(!box)return;if(!s){box.innerHTML='<div class="profile-empty">Select a student to view or add advisor feedback.</div>';return;}
   const arr=Array.isArray(s.advisorComments)?s.advisorComments.slice().sort((a,b)=>String(b.timestamp||'').localeCompare(String(a.timestamp||''))):[];
@@ -3066,17 +2864,23 @@ async function deleteStudentSchedule(id){
 
 async function openStudentFromDirectory(uid){
   if(!db || currentRole!=='instructor' || !uid) return;
-  trackedStudentId=String(uid);
-  const target=directoryStudents.find(s=>String(s.id)===String(uid));
+
+  trackedStudentId=uid;
+
+  // Immediately show the directory copy, then replace it with the authoritative
+  // Firestore document as soon as it arrives.
+  const target=directoryStudents.find(s=>s.id===uid);
   if(target){
     trackedStudentData={id:uid,...target};
     updateInstructorPanel();
     renderStudentDirectory();
   }
-  if(unsubscribeProfile){unsubscribeProfile();unsubscribeProfile=null;}
+
+  if(unsubscribeProfile) { unsubscribeProfile(); unsubscribeProfile=null; }
+
   const ref=doc(db,'students',uid);
-  const status=el('inst-live-sync');
-  if(status){status.textContent='● Loading student record…';status.className='live-sync-badge waiting';}
+
+  // A one-time read gives a clear error when the instructor cannot read the doc.
   try{
     const first=await getDoc(ref);
     if(first.exists()){
@@ -3084,30 +2888,48 @@ async function openStudentFromDirectory(uid){
       trackedStudentData={id:uid,...s};
       updateInstructorPanel();
       renderStudentDirectory();
-      if(status){status.textContent='● Live Firebase tracking';status.className='live-sync-badge connected';}
     }else{
-      if(status){status.textContent='● Student record not found';status.className='live-sync-badge waiting';}
-      return;
+      console.warn('Student document not found:',uid);
+      const status=el('inst-live-sync');
+      if(status){
+        status.textContent='● Student record not found';
+        status.className='live-sync-badge waiting';
+      }
     }
   }catch(e){
     console.error('Student initial read error',e);
-    if(status){status.textContent=`● Firebase error: ${e.code||'read failed'}`;status.className='live-sync-badge waiting';}
-    return;
+    const status=el('inst-live-sync');
+    if(status){
+      status.textContent=`● Firebase error: ${e.code||'read failed'}`;
+      status.className='live-sync-badge waiting';
+    }
   }
+
+  // Dedicated real-time listener for the selected student.
   unsubscribeProfile=onSnapshot(ref,snap=>{
-    if(!snap.exists())return;
+    if(!snap.exists()){
+      console.warn('Selected student document disappeared:',uid);
+      return;
+    }
     const s=snap.data();
-    trackedStudentId=String(uid);
+    trackedStudentId=uid;
     trackedStudentData={id:uid,...s};
-    const idx=directoryStudents.findIndex(x=>String(x.id)===String(uid));
-    if(idx>=0)directoryStudents[idx]={id:uid,...s};
     renderProfile(s);
     updateInstructorPanel();
     renderStudentDirectory();
-    if(status){status.textContent='● Live Firebase tracking';status.className='live-sync-badge connected';}
+
+    const status=el('inst-live-sync');
+    if(status){
+      status.textContent='● Live Firebase tracking';
+      status.className='live-sync-badge connected';
+    }
   },err=>{
     console.error('Student tracking error',err);
-    if(status){status.textContent=`● Firebase error: ${err.code||'read failed'}`;status.className='live-sync-badge waiting';}
+    const status=el('inst-live-sync');
+    if(status){
+      status.textContent=`● Firebase error: ${err.code||'read failed'}`;
+      status.className='live-sync-badge waiting';
+    }
   });
 }
 
@@ -3115,7 +2937,7 @@ function closeStudentProfile(evt){if(evt&&evt.target!==el('student-profile-modal
 
 function updateInstructorDate(){const n=el('inst-current-date');if(n)n.textContent=new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date());}
 setInterval(updateInstructorDate,30000); updateInstructorDate();
-window.setRole=setRole;window.generateStudentReport=generateStudentReport;window.openCSBTest=openCSBTest;window.toggleAuthMode=toggleAuthMode;window.handleLogin=handleLogin;window.toggleTask=toggleTask;window.togglePomo=togglePomo;window.resetPomo=resetPomo;window.toggleInstructorPanel=toggleInstructorPanel;window.openStudentFromDirectory=openStudentFromDirectory;window.renderStudentDirectory=renderStudentDirectory;window.closeStudentProfile=closeStudentProfile;window.logout=logout;window.openScheduleModal=openScheduleModal;window.closeScheduleModal=closeScheduleModal;window.saveStudentSchedule=saveStudentSchedule;window.refreshStudentDirectory=refreshStudentDirectory;window.openAcademicProfileModal=openAcademicProfileModal;window.closeAcademicProfileModal=closeAcademicProfileModal;window.saveAcademicProfile=saveAcademicProfile;window.openActionPlanModal=openActionPlanModal;window.closeActionPlanModal=closeActionPlanModal;window.saveActionPlan=saveActionPlan;window.editActionPlan=editActionPlan;window.cycleActionPlanStatus=cycleActionPlanStatus;window.deleteActionPlan=deleteActionPlan;window.openStudyItemModal=openStudyItemModal;window.closeStudyItemModal=closeStudyItemModal;window.editStudyItem=editStudyItem;window.saveStudyItem=saveStudyItem;window.deleteStudyItem=deleteStudyItem;window.openAdvisorCommentModal=openAdvisorCommentModal;window.closeAdvisorCommentModal=closeAdvisorCommentModal;window.saveAdvisorComment=saveAdvisorComment;window.deleteAdvisorComment=deleteAdvisorComment;
+window.setRole=setRole;window.generateStudentReport=generateStudentReport;window.openCSBTest=openCSBTest;window.toggleAuthMode=toggleAuthMode;window.handleLogin=handleLogin;window.toggleTask=toggleTask;window.togglePomo=togglePomo;window.resetPomo=resetPomo;window.toggleInstructorPanel=toggleInstructorPanel;window.enterStudentPreview=enterStudentPreview;window.exitStudentPreview=exitStudentPreview;window.openStudentFromDirectory=openStudentFromDirectory;window.renderStudentDirectory=renderStudentDirectory;window.closeStudentProfile=closeStudentProfile;window.logout=logout;window.openScheduleModal=openScheduleModal;window.closeScheduleModal=closeScheduleModal;window.saveStudentSchedule=saveStudentSchedule;window.refreshStudentDirectory=refreshStudentDirectory;window.openAcademicProfileModal=openAcademicProfileModal;window.closeAcademicProfileModal=closeAcademicProfileModal;window.saveAcademicProfile=saveAcademicProfile;window.openActionPlanModal=openActionPlanModal;window.closeActionPlanModal=closeActionPlanModal;window.saveActionPlan=saveActionPlan;window.editActionPlan=editActionPlan;window.cycleActionPlanStatus=cycleActionPlanStatus;window.deleteActionPlan=deleteActionPlan;window.openAdvisorCommentModal=openAdvisorCommentModal;window.closeAdvisorCommentModal=closeAdvisorCommentModal;window.saveAdvisorComment=saveAdvisorComment;window.deleteAdvisorComment=deleteAdvisorComment;
 
 // Stars
 (function(){const canvas=el('stars'),ctx=canvas.getContext('2d');let stars=[];function resize(){canvas.width=innerWidth;canvas.height=innerHeight;stars=Array.from({length:80},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.2+.3,a:Math.random(),s:Math.random()*.003+.001}));}resize();addEventListener('resize',resize);function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);stars.forEach(s=>{s.a+=s.s;if(s.a>1)s.s=-Math.abs(s.s);if(s.a<0)s.s=Math.abs(s.s);ctx.globalAlpha=s.a*.4;ctx.fillStyle='#94a3b8';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});requestAnimationFrame(draw);}draw();})();
@@ -3124,20 +2946,30 @@ window.setRole=setRole;window.generateStudentReport=generateStudentReport;window
 function updateStudentDate(){const n=el('student-current-date');if(n)n.textContent=new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date());}
 setInterval(updateStudentDate,30000); updateStudentDate();
 
-if(!FIREBASE_CONFIGURED) setLoginError('Firebase setup needed: paste your Web App config into firebaseConfig before using the live version.');
-else if(!auth || !db) setLoginError('Firebase could not be initialized. Check the Firebase Web App configuration in this file.');
+if(!FIREBASE_CONFIGURED) setLoginError('Firebase setup needed: paste your Firebase Web App config into firebaseConfig before using the live version.');
+// Firebase may remember a previous session, but never auto-route to a dashboard.
+// The user must explicitly choose Student or Instructor and click Sign In.
+if(auth){ onAuthStateChanged(auth, user=>{
+  const loginScreen=el('login-screen');
+  if(user && loginScreen && !loginScreen.classList.contains('hidden')){
+    const input=el('email-input');
+    if(input && !input.value) input.value=user.email||'';
+  }
+}); }
 
-// IMPORTANT: Do not auto-enter a dashboard from a persisted Firebase session.
-// The user must always see the Student / Instructor choice and explicitly sign in.
-// Firebase remains connected; handleLogin() performs authentication and then opens
-// the correct dashboard after verifying the UID against /instructors/{uid}.
-setRole('student');
-updateAuthUI();
-buildExams();
-buildSchedule();
-updateStats();
-updatePomoDisplay();
+// Stable initial render. The login UI is always visible until a successful, explicit sign-in.
+const loginScreenInit=el('login-screen');
+if(loginScreenInit){ loginScreenInit.classList.remove('hidden'); loginScreenInit.style.display='flex'; }
+const appInit=el('app');
+if(appInit){ appInit.classList.remove('visible'); appInit.style.display='none'; }
+const instInit=el('instructor-panel');
+if(instInit){ instInit.classList.remove('visible'); instInit.style.display='none'; }
+setRole('student');updateAuthUI();
+try{ buildExams(); }catch(e){ console.warn('Exam display init skipped',e); }
+try{ buildSchedule(); }catch(e){ console.warn('Schedule display init skipped',e); }
+try{ updateStats(); }catch(e){ console.warn('Stats display init skipped',e); }
+try{ updatePomoDisplay(); }catch(e){ console.warn('Pomodoro display init skipped',e); }
 </script>
-<!-- Biotech Sprint Instructor Role Fix v2026-09-05.3 -->
 </body>
 </html>
+
