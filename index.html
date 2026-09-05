@@ -692,6 +692,28 @@
 
 </style>
 
+<style id="instructor-course-planner-ui">
+.instructor-course-planner-card{margin-top:10px}
+.inst-planner-note{font-size:9px;color:#70879b;margin:-4px 0 12px;line-height:1.45}
+.inst-planner-course{border:1px solid #d6e3eb;border-radius:12px;background:#f9fbfd;padding:12px;margin-bottom:10px}
+.inst-planner-course:last-child{margin-bottom:0}
+.inst-planner-course-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px}
+.inst-planner-course-title{display:flex;align-items:center;gap:8px;min-width:0}
+.inst-planner-course-icon{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto;font-size:15px}
+.inst-planner-course-code{font:800 9px 'DM Mono',monospace;color:#0b7285;letter-spacing:.05em}
+.inst-planner-course-name{font:800 13px 'Syne',sans-serif;color:#183b61;margin-top:1px}
+.inst-planner-course-pct{font:800 18px 'Syne',sans-serif;color:#08a9cb;text-align:right;white-space:nowrap}
+.inst-planner-course-sub{font:700 7px 'DM Mono',monospace;color:#6c8195;text-transform:uppercase;letter-spacing:.05em;margin-top:1px}
+.inst-planner-progress{height:7px;background:#dfe9ef;border-radius:99px;overflow:hidden;margin:7px 0 10px}
+.inst-planner-progress>span{display:block;height:100%;border-radius:99px}
+.inst-planner-checklist{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.inst-planner-check{display:flex;align-items:center;gap:8px;padding:8px 9px;background:#fff;border:1px solid #d5e1e8;border-radius:8px;min-width:0}
+.inst-planner-check-box{width:15px;height:15px;border-radius:4px;border:1.5px solid #9eb3c2;background:#fff;display:grid;place-items:center;flex:0 0 auto;font:800 9px Inter,sans-serif}
+.inst-planner-check.done .inst-planner-check-box{background:#18794e;border-color:#18794e;color:#fff}
+.inst-planner-check-text{font:700 9px/1.35 Inter,sans-serif;color:#46627a}
+.inst-planner-check.done .inst-planner-check-text{color:#18794e;text-decoration:line-through}
+@media(max-width:700px){.inst-planner-checklist{grid-template-columns:1fr}}
+</style>
 <style id="refined-ui">
 /* BIOTECH SPRINT — REFINED VISUAL SYSTEM */
 :root{
@@ -1692,6 +1714,7 @@ h1,h2,h3,h4,.brand-name,.student-view-title,.inst-title,.welcome-title,
             <section class="inst-card"><div class="section-label">🎯 Student Action Plan</div><div class="instructor-action-toolbar"><button class="inst-mini-btn primary" onclick="openActionPlanModal()">＋ Add Action</button></div><div id="inst-action-plan"><div class="profile-empty">Select a student to view or create an action plan.</div></div></section>
             <section class="inst-card"><div class="section-label">💬 Instructor Comments & Feedback</div><div class="instructor-action-toolbar"><button class="inst-mini-btn primary" onclick="openAdvisorCommentModal()">＋ Add Comment</button></div><div id="inst-advisor-comments"><div class="profile-empty">Select a student to view or add advisor feedback.</div></div></section>
             <section class="inst-card"><div class="section-label">Course Progress</div><div id="inst-course-bars"></div></section>
+            <section class="inst-card instructor-course-planner-card"><div class="section-label">📚 Courses &amp; Course Planner</div><p class="inst-planner-note">Live view of the student's course checklist and study planner.</p><div id="inst-course-planner"><div class="profile-empty">Select a student to view the course planner.</div></div></section>
             <div class="inst-grid"><section class="inst-card"><div class="section-label">🕐 Recent Activity</div><div class="activity-feed" id="inst-activity-feed"></div></section><section class="inst-card"><div class="section-label">🧠 Study Habits</div><div id="inst-habits"></div></section></div>
             <section class="inst-card"><div class="section-label">⚠️ Early Warning System</div><div id="inst-early-warning"></div><div id="inst-alerts"></div></section>
             <div class="inst-grid"><section class="inst-card"><div class="section-label">⏰ Exam Timeline</div><div class="timeline" id="inst-timeline"></div></section><section class="inst-card"><div class="section-label">🎯 Sprint Strategy</div><div class="alert-banner info">📌 <strong>Study Strategy:</strong> Follow the student's current Study Focus Group.</div><div class="alert-banner warning">🧠 <strong>50/10:</strong> Use focused study followed by a short break.</div></section></div>
@@ -1874,12 +1897,7 @@ const FOCUS_SEC=50*60, BREAK_SEC=10*60, RING_CIRC=238.76;
 
 function el(id){ return document.getElementById(id); }
 function escapeHtml(value){
-  return String(value ?? '')
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/\"/g,'&quot;')
-    .replace(/'/g,'&#39;');
+  return String(value ?? '').replace(/[&<>\"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]));
 }
 function setLoginError(msg){ const x=el('login-error'); x.textContent=msg||''; x.style.display=msg?'block':'none'; }
 function resetCourseArrays(){ courses.forEach(c=>c.done=[]); }
@@ -2524,7 +2542,7 @@ function enterStudentPreview(){
   if(currentRole!=='instructor' || !trackedStudentData){ alert('Select a student first.'); return; }
   if(instructorStudentPreview) return;
   instructorStudentPreview=true;
-  previewSavedStudentState={studentName,studentEmail,pomoSessionCount,activityLog,csbTestResults,advisorActionPlans,advisorComments,courses:courses.map(c=>({code:c.code,done:[...c.done]}))};
+  previewSavedStudentState={studentName,studentEmail,pomoSessionCount,activityLog,csbTestResults,advisorActionPlans,advisorComments,studyPlannerState:JSON.parse(JSON.stringify(studyPlannerState)),courses:courses.map(c=>({code:c.code,done:[...c.done]}))};
   const d=trackedStudentData;
   studentName=d.name||d.email||'Student';
   studentEmail=d.email||'';
@@ -2533,6 +2551,8 @@ function enterStudentPreview(){
   csbTestResults=d.csbTestResults&&typeof d.csbTestResults==='object'?d.csbTestResults:{};
   advisorActionPlans=Array.isArray(d.actionPlans)?d.actionPlans:[];
   advisorComments=Array.isArray(d.advisorComments)?d.advisorComments:[];
+  resetStudyPlannerState();
+  if(d.studyPlanner && typeof d.studyPlanner==='object'){ Object.keys(studyPlannerDefaults).forEach(code=>{ const si=Array.isArray(d.studyPlanner[code])?d.studyPlanner[code]:[]; studyPlannerState[code]=studyPlannerDefaults[code].map((_,i)=>si[i]===true); }); }
   resetCourseArrays();
   (d.courses||[]).forEach(sc=>{ const c=courses.find(x=>x.code===sc.code); if(c)c.done=Array.isArray(sc.done)?sc.done:[]; });
   const app=el('app'), panel=el('instructor-panel');
@@ -2549,7 +2569,7 @@ function exitStudentPreview(){
   instructorStudentPreview=false;
   const saved=previewSavedStudentState; previewSavedStudentState=null;
   if(saved){
-    studentName=saved.studentName; studentEmail=saved.studentEmail; pomoSessionCount=saved.pomoSessionCount; activityLog=saved.activityLog; csbTestResults=saved.csbTestResults; advisorActionPlans=saved.advisorActionPlans; advisorComments=saved.advisorComments;
+    studentName=saved.studentName; studentEmail=saved.studentEmail; pomoSessionCount=saved.pomoSessionCount; activityLog=saved.activityLog; csbTestResults=saved.csbTestResults; advisorActionPlans=saved.advisorActionPlans; advisorComments=saved.advisorComments; studyPlannerState=JSON.parse(JSON.stringify(saved.studyPlannerState||{})); resetStudyPlannerState(); Object.keys(studyPlannerDefaults).forEach(code=>{const si=Array.isArray(saved.studyPlannerState?.[code])?saved.studyPlannerState[code]:[];studyPlannerState[code]=studyPlannerDefaults[code].map((_,i)=>si[i]===true);});
     resetCourseArrays();
     saved.courses.forEach(sc=>{const c=courses.find(x=>x.code===sc.code);if(c)c.done=sc.done;});
   }
@@ -2564,6 +2584,32 @@ function formatActivityDate(a){
   if(a?.timestamp){const d=new Date(a.timestamp);if(!isNaN(d))return d.toLocaleString([], {year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
   return a?.time||'Time not recorded';
 }
+function renderInstructorCoursePlanner(d){
+  const box=el('inst-course-planner');
+  if(!box)return;
+  if(!d){box.innerHTML='<div class="profile-empty">Select a student to view the course planner.</div>';return;}
+  const saved=d.studyPlanner&&typeof d.studyPlanner==='object'?d.studyPlanner:{};
+  const icons={CSB_101:'💻',BCHM101:'🧬',MTH_101b:'∑',ENG_102b:'📄'};
+  box.innerHTML=courses.map(c=>{
+    const items=studyPlannerDefaults[c.code]||[];
+    const state=Array.isArray(saved[c.code])?saved[c.code]:[];
+    const done=items.reduce((n,_,i)=>n+(state[i]===true?1:0),0);
+    const pct=items.length?Math.round(done/items.length*100):0;
+    const checks=items.map((item,i)=>{
+      const isDone=state[i]===true;
+      return `<div class="inst-planner-check ${isDone?'done':''}"><span class="inst-planner-check-box">${isDone?'✓':''}</span><span class="inst-planner-check-text">${escapeHtml(item)}</span></div>`;
+    }).join('');
+    return `<div class="inst-planner-course">
+      <div class="inst-planner-course-head">
+        <div class="inst-planner-course-title"><div class="inst-planner-course-icon" style="background:${c.color}18;color:${c.color}">${icons[c.code]||'📚'}</div><div><div class="inst-planner-course-code">${escapeHtml(c.code)}</div><div class="inst-planner-course-name">${escapeHtml(c.name)}</div></div></div>
+        <div><div class="inst-planner-course-pct">${pct}%</div><div class="inst-planner-course-sub">${done}/${items.length} complete</div></div>
+      </div>
+      <div class="inst-planner-progress"><span style="width:${pct}%;background:${c.color}"></span></div>
+      <div class="inst-planner-checklist">${checks}</div>
+    </div>`;
+  }).join('');
+}
+
 function updateInstructorPanel(){
   const d=trackedStudentData;
   el('inst-student-name').textContent=d?.name||'Select a student';
@@ -2572,7 +2618,7 @@ function updateInstructorPanel(){
   el('inst-student-status').textContent=d?(st.label + (active?' · Active Now':'')):'Select Student'; if(el('inst-live-sync')){el('inst-live-sync').textContent=d?'● Live Firebase tracking':'● Waiting for student';el('inst-live-sync').className='live-sync-badge '+(d?'connected':'waiting');}
   el('inst-student-status').className='student-status '+st.key;
   el('inst-last-active').textContent=last?(formatActivityDate({timestamp:last.toISOString()})+' · '+timeAgo(last)):'No activity yet';
-  el('inst-report-btn').disabled=!d; renderTrackedSchedule(d); renderAcademicProfile(d); renderInstructorActionPlan(d); renderInstructorComments(d); if(el('inst-habits')){ const h=habitSummary(d||{}); el('inst-habits').innerHTML=`<div class="habit-grid"><div class="habit-item"><strong>${h.consistency}</strong><span>Consistency</span></div><div class="habit-item"><strong>${h.pomos}</strong><span>Pomodoros</span></div><div class="habit-item"><strong>${h.attempts}</strong><span>CSB test attempts</span></div><div class="habit-item"><strong>${h.peak}</strong><span>Common activity time</span></div></div>`; }
+  el('inst-report-btn').disabled=!d; renderTrackedSchedule(d); renderAcademicProfile(d); renderInstructorActionPlan(d); renderInstructorComments(d); renderInstructorCoursePlanner(d); if(el('inst-habits')){ const h=habitSummary(d||{}); el('inst-habits').innerHTML=`<div class="habit-grid"><div class="habit-item"><strong>${h.consistency}</strong><span>Consistency</span></div><div class="habit-item"><strong>${h.pomos}</strong><span>Pomodoros</span></div><div class="habit-item"><strong>${h.attempts}</strong><span>CSB test attempts</span></div><div class="habit-item"><strong>${h.peak}</strong><span>Common activity time</span></div></div>`; }
   const metrics=studentMetrics(d); const pctValue=metrics.progress;
   el('inst-overall-pct').textContent=pctValue+'%'; el('inst-progress-label').textContent=pctValue+'%'; el('inst-overall-bar').style.width=Math.min(100,Math.max(0,pctValue))+'%';
   const td=metrics.done, tt=metrics.total; el('inst-tasks-done').textContent=td+'/'+tt; el('inst-pomos-done').textContent=Number(d?.pomoSessionCount)||0; const readiness=pctValue>=75?'READY':pctValue>=50?'NEARLY READY':pctValue>0?'BUILDING':'—'; if(el('inst-readiness'))el('inst-readiness').textContent=readiness; if(el('inst-student-avatar'))el('inst-student-avatar').textContent=initialsFor(d?.name,d?.email);
@@ -2917,7 +2963,7 @@ function closeStudentProfile(evt){if(evt&&evt.target!==el('student-profile-modal
 
 function updateInstructorDate(){const n=el('inst-current-date');if(n)n.textContent=new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date());}
 setInterval(updateInstructorDate,30000); updateInstructorDate();
-window.setRole=setRole;window.generateStudentReport=generateStudentReport;window.openCSBTest=openCSBTest;window.toggleAuthMode=toggleAuthMode;window.handleLogin=handleLogin;window.toggleTask=toggleTask;window.togglePomo=togglePomo;window.resetPomo=resetPomo;window.toggleInstructorPanel=toggleInstructorPanel;window.enterStudentPreview=enterStudentPreview;window.exitStudentPreview=exitStudentPreview;window.openStudentFromDirectory=openStudentFromDirectory;window.renderStudentDirectory=renderStudentDirectory;window.closeStudentProfile=closeStudentProfile;window.logout=logout;window.openScheduleModal=openScheduleModal;window.closeScheduleModal=closeScheduleModal;window.saveStudentSchedule=saveStudentSchedule;window.refreshStudentDirectory=refreshStudentDirectory;window.openAcademicProfileModal=openAcademicProfileModal;window.closeAcademicProfileModal=closeAcademicProfileModal;window.saveAcademicProfile=saveAcademicProfile;window.openActionPlanModal=openActionPlanModal;window.closeActionPlanModal=closeActionPlanModal;window.saveActionPlan=saveActionPlan;window.editActionPlan=editActionPlan;window.cycleActionPlanStatus=cycleActionPlanStatus;window.deleteActionPlan=deleteActionPlan;window.openAdvisorCommentModal=openAdvisorCommentModal;window.closeAdvisorCommentModal=closeAdvisorCommentModal;window.saveAdvisorComment=saveAdvisorComment;window.deleteAdvisorComment=deleteAdvisorComment;
+window.setRole=setRole;window.generateStudentReport=generateStudentReport;window.toggleStudyPlanner=toggleStudyPlanner;window.openCSBTest=openCSBTest;window.toggleAuthMode=toggleAuthMode;window.handleLogin=handleLogin;window.toggleTask=toggleTask;window.togglePomo=togglePomo;window.resetPomo=resetPomo;window.toggleInstructorPanel=toggleInstructorPanel;window.enterStudentPreview=enterStudentPreview;window.exitStudentPreview=exitStudentPreview;window.openStudentFromDirectory=openStudentFromDirectory;window.renderStudentDirectory=renderStudentDirectory;window.closeStudentProfile=closeStudentProfile;window.logout=logout;window.openScheduleModal=openScheduleModal;window.closeScheduleModal=closeScheduleModal;window.saveStudentSchedule=saveStudentSchedule;window.refreshStudentDirectory=refreshStudentDirectory;window.openAcademicProfileModal=openAcademicProfileModal;window.closeAcademicProfileModal=closeAcademicProfileModal;window.saveAcademicProfile=saveAcademicProfile;window.openActionPlanModal=openActionPlanModal;window.closeActionPlanModal=closeActionPlanModal;window.saveActionPlan=saveActionPlan;window.editActionPlan=editActionPlan;window.cycleActionPlanStatus=cycleActionPlanStatus;window.deleteActionPlan=deleteActionPlan;window.openAdvisorCommentModal=openAdvisorCommentModal;window.closeAdvisorCommentModal=closeAdvisorCommentModal;window.saveAdvisorComment=saveAdvisorComment;window.deleteAdvisorComment=deleteAdvisorComment;
 
 // Stars
 (function(){const canvas=el('stars'),ctx=canvas.getContext('2d');let stars=[];function resize(){canvas.width=innerWidth;canvas.height=innerHeight;stars=Array.from({length:80},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.2+.3,a:Math.random(),s:Math.random()*.003+.001}));}resize();addEventListener('resize',resize);function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);stars.forEach(s=>{s.a+=s.s;if(s.a>1)s.s=-Math.abs(s.s);if(s.a<0)s.s=Math.abs(s.s);ctx.globalAlpha=s.a*.4;ctx.fillStyle='#94a3b8';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});requestAnimationFrame(draw);}draw();})();
@@ -2952,3 +2998,4 @@ try{ updatePomoDisplay(); }catch(e){ console.warn('Pomodoro display init skipped
 </script>
 </body>
 </html>
+
