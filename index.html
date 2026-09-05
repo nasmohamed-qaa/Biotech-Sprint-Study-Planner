@@ -1269,38 +1269,20 @@ h1,h2,h3,h4,.brand-name,.student-view-title,.inst-title,.welcome-title,
 .schedule-advisor-note{margin-top:6px;font:500 10px/1.5 Inter,Arial,sans-serif;color:#607991;background:#eef7fc;border:1px solid #d5e6f1;border-radius:8px;padding:8px 10px}.schedule-edit-btn,.schedule-delete-btn{width:25px;height:25px;border-radius:6px;cursor:pointer;font-weight:800}.schedule-edit-btn{border:1px solid #b9d7ec;background:#eaf5fc;color:#1769c2}.schedule-delete-btn{border:1px solid #efc6c6;background:#fff1f1;color:#c83b3b}.schedule-edit-btn:hover{background:#dff0fb}.schedule-delete-btn:hover{background:#ffe4e4}
 </style>
 
-<style id="orca-visual-enhancement">
-.student-topbar{position:sticky;overflow:hidden;background:linear-gradient(100deg,#082f57 0%,#0b4774 68%,#0b5f8e 100%)}
-.student-topbar:after{content:"";position:absolute;right:0;top:0;width:46%;height:92px;background-image:linear-gradient(90deg,rgba(8,47,87,.96) 0%,rgba(8,47,87,.20) 45%,rgba(8,47,87,0) 100%),url('assets/orca_banner.jpg');background-position:center 42%;background-size:cover;opacity:.96;pointer-events:none}
-.student-topbar>*{position:relative;z-index:2}
-.student-welcome-banner{position:relative;overflow:hidden;background:linear-gradient(110deg,#e5f6ff 0%,#f7fcff 58%,#e7f7ff 100%);min-height:112px}
-.student-welcome-banner:after{content:"";position:absolute;right:0;top:0;width:42%;height:100%;background-image:linear-gradient(90deg,rgba(229,246,255,.98) 0%,rgba(229,246,255,.24) 38%,rgba(229,246,255,0) 100%),url('assets/orca_banner.jpg');background-position:center 55%;background-size:cover;opacity:.95;pointer-events:none}
-.student-welcome-banner>*{position:relative;z-index:2}
-.student-sidebar{position:sticky;overflow:hidden;background:linear-gradient(180deg,#082f5f 0%,#0b4778 52%,#07365f 100%)}
-.student-sidebar:after{content:"";position:absolute;left:0;right:0;bottom:0;height:48%;background-image:linear-gradient(180deg,rgba(8,47,95,0) 0%,rgba(8,47,95,.12) 20%,rgba(7,54,95,.55) 100%),url('assets/orca_sidebar.jpg');background-size:cover;background-position:center bottom;opacity:.93;pointer-events:none}
-.student-sidebar>*{position:relative;z-index:2}
-.student-sidebar-footer{background:linear-gradient(180deg,rgba(7,54,95,0),rgba(3,35,65,.55));margin-left:-10px;margin-right:-10px;padding-left:22px;padding-right:22px}
-.student-identity{min-width:260px}
-.student-identity strong{font-size:14px}
-.student-welcome-title{font-size:28px}
-.student-panel,.student-stat-card{box-shadow:0 8px 22px rgba(15,67,105,.055)}
-.student-panel-heading h2{color:#0d3c70}
-@media(max-width:900px){.student-topbar:after{width:30%;opacity:.5}.student-welcome-banner:after{width:36%;opacity:.65}}
-@media(max-width:650px){.student-topbar:after,.student-welcome-banner:after{display:none}.student-identity{min-width:0}}
-</style>
+
 
 
 <style id="final-layout-fixes">
 /* FINAL STUDENT LAYOUT FIXES */
 html,body{margin:0!important;padding:0!important;overflow-x:hidden!important}
 .student-topbar{overflow:hidden!important}
-/* Keep the top header clean; the orca belongs to the welcome banner/sidebar artwork. */
+
 .student-topbar{background:#fff!important;color:#123b6b!important}
 .student-topbar:before{content:'⌕  Search courses, resources, or tasks...'!important;color:#7b93aa!important;background:#fbfdff!important}
 .student-header-right{position:relative!important;z-index:5!important}
 .student-header-btn.logout-student{background:#1769c2!important;color:#fff!important;border-color:#1769c2!important}
 
-/* Sidebar: prevent navigation from colliding with the orca footer artwork. */
+
 .student-sidebar{overflow:hidden!important}
 .student-sidebar .student-nav{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding-bottom:8px!important;scrollbar-width:none!important}
 .student-sidebar .student-nav::-webkit-scrollbar{display:none!important}
@@ -1597,6 +1579,79 @@ html, body { overflow-x:hidden!important; }
 .action-admin-actions .action-edit-btn,.action-admin-actions .action-status-btn,.action-admin-actions .action-delete-btn{min-width:92px!important;opacity:1!important;visibility:visible!important}
 @media(max-width:760px){.action-admin-actions button{flex:1 1 100%;min-width:0!important}}
 </style>
+
+<style id="final-layout-live-fix">
+/* ===== FINAL STUDENT / INSTRUCTOR LAYOUT FIX ===== */
+html,body{min-width:0;overflow-x:hidden}
+.student-shell{grid-template-columns:205px minmax(0,1fr)!important}
+.student-main{min-width:0!important;overflow:visible!important}
+.student-content-grid{grid-template-columns:minmax(0,1fr) 340px!important;align-items:start!important}
+.student-left-column,.student-right-column{min-width:0!important}
+.student-panel{min-width:0!important;overflow:visible!important}
+.student-two-column{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
+.wow-courses{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.wow-courses .course-card{min-width:0!important;overflow:hidden!important}
+.wow-courses .wow-course-actions{display:flex;gap:6px;flex-wrap:wrap}
+.wow-courses .wow-course-btn,.wow-courses .wow-course-lessons{min-width:0;flex:1}
+.wow-focus-grid,.wow-mock-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.wow-resources{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.student-right-column{display:flex!important;flex-direction:column!important}
+.schedule-panel{position:sticky!important;top:108px!important}
+/* Instructor directory: readable cards + explicit Select action */
+.instructor-columns{grid-template-columns:320px minmax(0,1fr) 300px!important}
+.student-selector-card{min-width:0!important}
+.student-table-wrap{overflow:visible!important}
+.student-table{width:100%!important;min-width:0!important;border-collapse:separate!important}
+.student-table th,.student-table td{display:table-cell!important}
+.student-table th:nth-child(n+2),.student-table td:nth-child(n+2){display:none!important}
+.student-row{cursor:pointer!important}
+.student-row td{padding:10px 8px!important}
+.student-row:hover td{background:#eef7fd!important}
+.student-cell-name{font-size:11px!important}
+.student-cell-email{font-size:8px!important}
+.select-student-btn{display:inline-flex!important;align-items:center;justify-content:center;white-space:nowrap!important;min-width:76px!important;border:0!important;color:#fff!important;background:linear-gradient(135deg,#1769c2,#09a7d0)!important;box-shadow:0 4px 10px rgba(23,105,194,.16)!important}
+.directory-help{font:500 8px/1.45 Inter,sans-serif;color:#66809b;background:#f2f8fc;border:1px solid #d8e7ef;border-radius:8px;padding:8px;margin:8px 0 10px}.directory-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #dbe5ec}
+.directory-card:last-child{border-bottom:0}
+.directory-card-main{min-width:0;flex:1}
+.directory-card-meta{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.directory-card-meta span{font:700 7px 'DM Mono',monospace;color:#5c7690;background:#edf3f7;border:1px solid #d4e0e8;border-radius:999px;padding:3px 5px}
+.directory-select-btn{border:0;border-radius:7px;padding:7px 9px;background:#1769c2;color:#fff;font:800 8px 'DM Mono',monospace;cursor:pointer;white-space:nowrap}
+.directory-select-btn.live{background:linear-gradient(135deg,#087f53,#0ea77c)}
+.directory-select-btn:hover{transform:translateY(-1px)}
+.tracked-student-card{position:relative!important;min-width:0!important}
+.tracked-student-info{min-width:0!important}
+.tracked-student-info h2{word-break:break-word}
+.hero-stat-grid{min-width:0}
+.inst-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
+.action-admin-item{min-width:0!important}
+.action-admin-actions{display:flex!important;gap:7px!important;flex-wrap:wrap!important;margin-top:8px!important}
+.action-admin-actions button{display:inline-flex!important;align-items:center!important;justify-content:center!important;white-space:nowrap!important}
+/* Keep courses visible in instructor profile even when source data is partial. */
+.profile-courses{min-width:0!important}
+.profile-course{min-width:0!important}
+.profile-course-head strong{min-width:0!important;overflow-wrap:anywhere}
+
+.student-topbar:before,.student-topbar:after,.student-welcome-banner:before,.student-welcome-banner:after,.student-sidebar:before,.student-sidebar:after{content:none!important;background-image:none!important}
+@media(max-width:1250px){
+  .student-content-grid{grid-template-columns:1fr 320px!important}
+  .wow-courses{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .instructor-columns{grid-template-columns:280px minmax(0,1fr)!important}
+  .schedule-sidebar{grid-column:1/-1;position:static!important;max-height:none!important}
+}
+@media(max-width:900px){
+  .student-content-grid,.student-two-column,.student-right-column{grid-template-columns:1fr!important}
+  .student-right-column{display:grid!important}
+  .schedule-panel{position:static!important}
+  .wow-courses,.wow-focus-grid,.wow-mock-grid,.wow-resources{grid-template-columns:1fr 1fr!important}
+  .instructor-columns{grid-template-columns:1fr!important}
+}
+@media(max-width:650px){
+  .student-shell{grid-template-columns:1fr!important}
+  .wow-courses,.wow-focus-grid,.wow-mock-grid,.wow-resources{grid-template-columns:1fr!important}
+  .directory-card{align-items:flex-start}
+}
+</style>
+
 </head>
 <body>
 
@@ -1675,7 +1730,7 @@ html, body { overflow-x:hidden!important; }
         <button class="student-nav-item" onclick="document.getElementById('student-advisor-feedback-section')?.scrollIntoView({behavior:'smooth'})">💬 <span>Advisor Feedback</span></button>
         <button class="student-nav-item" onclick="document.getElementById('student-early-warning-section')?.scrollIntoView({behavior:'smooth'})">⚠ <span>Early Warnings</span></button>
       </nav>
-      <div class="student-sidebar-footer">🐋<div>PROTECT OUR OCEANS<br/>PROTECT OUR TOMORROW</div></div>
+      <div class="student-sidebar-footer">🌱<div>LEARN WITH PURPOSE<br/>GROW WITH CONFIDENCE</div></div>
     </aside>
 
     <main class="student-main" id="student-home">
@@ -1799,7 +1854,7 @@ html, body { overflow-x:hidden!important; }
 
         <section class="instructor-columns">
           <aside class="student-selector-card">
-            <div class="card-heading">👥 <span>Select a Student</span></div>
+            <div class="card-heading">👥 <span>Select a Student</span></div><div class="directory-help">Choose a student below to open their live Firebase record. Changes will update automatically.</div>
             <input class="inst-search" id="student-search" placeholder="Search student name or email…" oninput="renderStudentDirectory()"/>
             <select class="inst-filter" id="student-filter" onchange="renderStudentDirectory()"><option value="all" selected>All Students</option><option value="ontrack">On Track</option><option value="attention">Needs Attention</option><option value="notstarted">Not Started</option><option value="active">Active Now</option></select>
             <div id="student-directory-status" class="live-sync-badge waiting" style="margin:8px 0 10px">● Connecting to Firebase...</div>
@@ -2000,6 +2055,34 @@ const FOCUS_SEC=50*60, BREAK_SEC=10*60, RING_CIRC=238.76;
 function el(id){ return document.getElementById(id); }
 function setLoginError(msg){ const x=el('login-error'); if(!x) return; x.textContent=msg||''; x.style.display=msg?'block':'none'; }
 function resetCourseArrays(){ courses.forEach(c=>c.done=[]); }
+
+function normalizeStudentCourses(raw){
+  const out=courses.map(c=>({code:c.code,done:[]}));
+  if(Array.isArray(raw)){
+    raw.forEach(item=>{
+      const code=String(item?.code||item?.courseCode||item?.course||item?.id||'').trim();
+      const target=out.find(x=>x.code===code);
+      if(target){
+        const done=Array.isArray(item?.done)?item.done:(Array.isArray(item?.completedTasks)?item.completedTasks:[]);
+        target.done=done.map(Number).filter(n=>Number.isInteger(n)&&n>=0&&n<courses.find(c=>c.code===code).tasks.length);
+      }
+    });
+  } else if(raw && typeof raw==='object'){
+    Object.entries(raw).forEach(([code,val])=>{
+      const target=out.find(x=>x.code===code);
+      if(target){
+        const done=Array.isArray(val)?val:(Array.isArray(val?.done)?val.done:[]);
+        target.done=done.map(Number).filter(n=>Number.isInteger(n)&&n>=0&&n<courses.find(c=>c.code===code).tasks.length);
+      }
+    });
+  }
+  return out;
+}
+function applyCourseData(raw){
+  resetCourseArrays();
+  normalizeStudentCourses(raw).forEach(sc=>{const c=courses.find(x=>x.code===sc.code);if(c)c.done=sc.done.slice();});
+}
+
 function totalDone(){ return courses.reduce((a,c)=>a+c.done.length,0); }
 function totalTasks(){ return courses.reduce((a,c)=>a+c.tasks.length,0); }
 function overallPct(){ return Math.round(totalDone()/totalTasks()*100); }
@@ -2026,9 +2109,7 @@ async function loadStudentState(uid){
   const saved=snap.data();
   trackedStudentData={id:uid,...saved};
   studentName=saved.name || studentName;
-  (saved.courses||[]).forEach(sc=>{
-    const c=courses.find(x=>x.code===sc.code); if(c) c.done=Array.isArray(sc.done)?sc.done:[];
-  });
+  applyCourseData(saved.courses||saved.courseProgress||{});
   pomoSessionCount=Number(saved.pomoSessionCount)||0;
   activityLog=Array.isArray(saved.activityLog)?saved.activityLog:[];
   csbTestResults=saved.csbTestResults&&typeof saved.csbTestResults==='object'?saved.csbTestResults:{};
@@ -2046,8 +2127,7 @@ async function ensureStudentDoc(user,nameOverride=''){
     studentName=fallbackName; studentEmail=user.email; await setDoc(ref,base);
   }else{
     const saved=snap.data(); studentName=saved.name||fallbackName; studentEmail=saved.email||user.email;
-    const existing=Array.isArray(saved.courses)?saved.courses:[];
-    const normalized=courses.map(c=>{const found=existing.find(x=>x.code===c.code);return {code:c.code,done:Array.isArray(found?.done)?found.done:[]};});
+    const normalized=normalizeStudentCourses(saved.courses||saved.courseProgress||{});
     await setDoc(ref,{uid:user.uid,role:'student',name:studentName,email:studentEmail,courses:normalized,totalTasks:totalTasks()},{merge:true});
   }
 }
@@ -2131,6 +2211,8 @@ async function openDashboard(user){
     try{
       updateInstructorDate();
       const studentFilter=el('student-filter'); if(studentFilter) studentFilter.value='all';
+      const studentSearch=el('student-search'); if(studentSearch && !studentSearch.dataset.bound){studentSearch.addEventListener('input',renderStudentDirectory);studentSearch.dataset.bound='1';}
+      if(studentFilter && !studentFilter.dataset.bound){studentFilter.addEventListener('change',renderStudentDirectory);studentFilter.dataset.bound='1';}
       updateInstructorPanel();
       subscribeStudents();
     }catch(err){
@@ -2190,8 +2272,7 @@ function subscribeCurrentStudent(uid){
     advisorActionPlans=Array.isArray(saved.actionPlans)?saved.actionPlans:[];
     advisorComments=Array.isArray(saved.advisorComments)?saved.advisorComments:[];
   studentStudyItems=Array.isArray(saved.studyItems)?saved.studyItems:[];
-    resetCourseArrays();
-    (saved.courses||[]).forEach(sc=>{const c=courses.find(x=>x.code===sc.code);if(c)c.done=Array.isArray(sc.done)?sc.done:[];});
+    applyCourseData(saved.courses||saved.courseProgress||{});
     updateStudentUIFromRealtime();
   },err=>console.warn('Student live sync error',err));
 }
@@ -2569,7 +2650,7 @@ function applyInstructorStudentPreview(student){
   advisorActionPlans=Array.isArray(s.actionPlans)?s.actionPlans.slice():[];
   advisorComments=Array.isArray(s.advisorComments)?s.advisorComments.slice():[];
   studentStudyItems=Array.isArray(s.studyItems)?s.studyItems.slice():[];
-  (s.courses||[]).forEach(sc=>{const c=courses.find(x=>x.code===sc.code);if(c)c.done=Array.isArray(sc.done)?sc.done.slice():[];});
+  applyCourseData(s.courses||s.courseProgress||{});
   buildCourses(); buildExams(); buildSchedule();
   updateStats(); renderActivity(); updatePomoDisplay();
   updateStudentHero();
@@ -2641,17 +2722,17 @@ function updateInstructorPanel(){
   if(pctValue>=60)alerts+=`<div class="alert-banner success">✅ Student is on track with ${pctValue}% readiness.</div>`;
   if(td>0)alerts+=`<div class="alert-banner info">📌 ${td} tasks completed across all subjects.</div>`;
   if(el('inst-alerts'))el('inst-alerts').innerHTML=alerts; renderInstructorEarlyWarning();
-  const studentCourses=d?.courses||[];
-  if(el('inst-course-bars'))el('inst-course-bars').innerHTML=courses.map(c=>{const sc=studentCourses.find(x=>x.code===c.code),done=Array.isArray(sc?.done)?sc.done:[],p=Math.round(done.length/c.tasks.length*100);return `<div class="inst-progress-row"><div class="inst-prog-header"><span class="inst-prog-name">${c.code} — ${c.name}</span><span class="inst-prog-pct" style="color:${c.color}">${p}%</span></div><div class="inst-prog-bar"><div class="inst-prog-fill" style="width:${p}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div></div>`}).join('');
+  const normalizedTrackedCourses=normalizeStudentCourses(d?.courses||d?.courseProgress||{});
+  if(el('inst-course-bars'))el('inst-course-bars').innerHTML=courses.map(c=>{const sc=normalizedTrackedCourses.find(x=>x.code===c.code)||{done:[]},done=sc.done||[],p=Math.round(done.length/c.tasks.length*100);return `<div class="inst-progress-row"><div class="inst-prog-header"><span class="inst-prog-name">${c.code} — ${c.name}</span><span class="inst-prog-pct" style="color:${c.color}">${p}%</span></div><div class="inst-prog-bar"><div class="inst-prog-fill" style="width:${p}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div></div>`}).join('');
   const logs=Array.isArray(d?.activityLog)?d.activityLog:[];
   if(el('inst-activity-feed'))el('inst-activity-feed').innerHTML=logs.slice(0,8).map(a=>`<div class="activity-item"><div class="activity-dot" style="background:${a.color||'var(--accent)'}"></div><div><div class="activity-text">${a.icon||'•'} <strong>${escapeHtml(a.text||'Activity')}</strong></div><div class="activity-time">${escapeHtml(formatActivityDate(a))}${a.timestamp?' · '+escapeHtml(timeAgo(new Date(a.timestamp))):''}</div></div></div>`).join('') || '<div style="padding:12px;color:var(--muted);font-size:11px">No recorded activity yet.</div>';
   const now=new Date(); if(el('inst-timeline'))el('inst-timeline').innerHTML=exams.map((e,i)=>{const days=Math.ceil((new Date(e.date)-now)/86400000);return `<div class="tl-item"><div class="tl-left"><div class="tl-dot ${days<=10?'warn':''} filled"></div>${i<exams.length-1?'<div class="tl-line"></div>':''}</div><div class="tl-content"><div class="tl-date">${e.date} ${e.time}</div><div class="tl-event">${e.code} — ${e.subject}</div><span class="tl-tag exam">${days<0?'Exam completed':`Exam in ${days} days`}</span></div></div>`}).join('');
 }
 
 function studentMetrics(s){
-  const list=Array.isArray(s?.courses)?s.courses:[];
+  const normalized=normalizeStudentCourses(s?.courses||s?.courseProgress||{});
   let done=0,total=0;
-  list.forEach(sc=>{ const c=courses.find(x=>x.code===sc.code); if(c){ total+=c.tasks.length; done+=Array.isArray(sc.done)?sc.done.length:0; } });
+  normalized.forEach(sc=>{const c=courses.find(x=>x.code===sc.code);if(c){total+=c.tasks.length;done+=sc.done.length;}});
   const fallbackTotal=Number(s?.totalTasks)||totalTasks();
   const finalTotal=total||fallbackTotal;
   const finalDone=total?done:Number(s?.tasksDone)||0;
@@ -2730,34 +2811,48 @@ function refreshStudentDirectory(){
   subscribeStudents();
 }
 function renderStudentDirectory(){
-  const search=(el('student-search')?.value||'').trim().toLowerCase(), filter=el('student-filter')?.value||'all';
-  let list=directoryStudents.filter(s=>{const st=studentStatus(s),active=isStudentActive(s);const text=((s.name||'')+' '+(s.email||'')).toLowerCase();return (!search||text.includes(search))&&(filter==='all'||(filter==='active'?active:st.key===filter));});
-  const counts={total:directoryStudents.length,active:directoryStudents.filter(isStudentActive).length,ontrack:directoryStudents.filter(s=>studentStatus(s).key==='ontrack').length,attention:directoryStudents.filter(s=>studentStatus(s).key==='attention').length};
+  const search=(el('student-search')?.value||'').trim().toLowerCase();
+  const filter=el('student-filter')?.value||'all';
+  let list=directoryStudents.filter(s=>{
+    const st=studentStatus(s),active=isStudentActive(s);
+    const text=((s.name||'')+' '+(s.email||'')).toLowerCase();
+    return (!search||text.includes(search)) && (filter==='all'||(filter==='active'?active:st.key===filter));
+  });
+  const counts={
+    total:directoryStudents.length,
+    active:directoryStudents.filter(isStudentActive).length,
+    ontrack:directoryStudents.filter(s=>studentStatus(s).key==='ontrack').length,
+    attention:directoryStudents.filter(s=>studentStatus(s).key==='attention').length
+  };
   ['total','active','track','attention'].forEach(k=>{const node=el('dir-'+k);if(node)node.textContent=k==='track'?counts.ontrack:counts[k];});
-  const dir=el('student-directory');
+  const dir=el('student-directory'); if(!dir)return;
   if(!list.length){
     if(directoryStudents.length===0){
-      dir.innerHTML=`<div class="alert-banner info" style="margin:0">
-        👥 <strong>No student records are currently in this Firebase project.</strong><br>
-        The four courses in Biotech Sprint are <strong>not four student accounts</strong>. Each real student must sign in/create an account so Firebase creates <code>/students/{UID}</code>. Once an account exists, it will appear here automatically.
-        <br><button class="select-student-btn" style="margin-top:10px" onclick="refreshStudentDirectory()">↻ Refresh Student Directory</button>
-      </div>`;
+      dir.innerHTML=`<div class="alert-banner info" style="margin:0">👥 <strong>No student records are currently in this Firebase project.</strong><br>Once students sign in, their records will appear here automatically.<br><button class="select-student-btn" style="margin-top:10px" onclick="refreshStudentDirectory()">↻ Refresh Student Directory</button></div>`;
     }else{
-      const filterLabel = filter==='active' ? 'active right now' : filter==='ontrack' ? 'on-track' : filter==='attention' ? 'needing attention' : 'matching your search';
-      dir.innerHTML=`<div class="alert-banner info" style="margin:0">No students are ${filterLabel}.<br><small>${filter==='active' ? 'Active Now is based on activity within the last 10 minutes. The students are still connected and being tracked.' : 'Try All Students or clear the search box.'}</small></div>`;
+      const label=filter==='active'?'active right now':filter==='ontrack'?'on-track':filter==='attention'?'needing attention':'matching your search';
+      dir.innerHTML=`<div class="alert-banner info" style="margin:0">No students are ${label}.<br><small>${filter==='active'?'Active Now means activity within the last 10 minutes. Use All Students to select any student.':'Try All Students or clear the search box.'}</small></div>`;
     }
     return;
   }
-  dir.innerHTML=`<table class="student-table"><thead><tr><th>Student</th><th>Status</th><th>Progress</th><th>Tasks</th><th>Pomodoros</th><th>Last Active</th><th></th></tr></thead><tbody>${list.map(s=>{
-    const st=studentStatus(s), active=isStudentActive(s), last=studentLastDate(s), metrics=studentMetrics(s), p=metrics.progress, td=metrics.done, tt=metrics.total;
-    return `<tr class="student-row ${trackedStudentId===s.id?'selected':''}" onclick="openStudentFromDirectory('${s.id}')"><td><div class="student-cell-name">${escapeHtml(s.name||'Student')}</div><div class="student-cell-email">${escapeHtml(s.email||'')}</div><div class="student-academic-mini">${s.probationLevel?`<span>${escapeHtml(s.probationLevel)}</span>`:''}${s.academicRisk?`<span class="mini-risk-${String(s.academicRisk).toLowerCase().split(' ')[0]}">${escapeHtml(s.academicRisk)}</span>`:''}${s.gpa!==undefined&&s.gpa!==''?`<span>GPA ${escapeHtml(String(s.gpa))}</span>`:''}${s.progressTrend?`<span class="mini-trend">${escapeHtml(s.progressTrend)}</span>`:''}</div></td><td><span class="status-pill ${st.key} ${active?'active':''}">${active?'<span class="live-indicator"></span>':''}${st.label}</span></td><td><div style="display:flex;align-items:center;gap:8px"><div class="mini-progress"><span style="width:${Math.min(100,Math.max(0,p))}%"></span></div><strong>${p}%</strong></div></td><td>${td}/${tt}</td><td>${Number(s.pomoSessionCount)||0}</td><td>${last?timeAgo(last):'—'}</td><td><button class="select-student-btn" onclick="event.stopPropagation();openStudentFromDirectory('${s.id}')">Select</button></td></tr>`;
-  }).join('')}</tbody></table>`;
+  dir.innerHTML=`<div class="directory-list">${list.map(s=>{
+    const st=studentStatus(s),active=isStudentActive(s),metrics=studentMetrics(s),selected=trackedStudentId===s.id;
+    const meta=[`${metrics.progress}% progress`,`${metrics.done}/${metrics.total} tasks`,`${Number(s.pomoSessionCount)||0} Pomodoros`];
+    if(s.academicRisk)meta.push(String(s.academicRisk));
+    return `<div class="directory-card ${selected?'selected':''}" data-uid="${escapeHtml(String(s.id))}" style="${selected?'background:#eef8fc;border-radius:10px;padding:10px;border:1px solid #a9d7e8;':''}">
+      <div class="directory-card-main"><div class="student-cell-name">${escapeHtml(s.name||'Student')}</div><div class="student-cell-email">${escapeHtml(s.email||'')}</div><div class="directory-card-meta">${meta.map(x=>`<span>${escapeHtml(x)}</span>`).join('')}</div></div>
+      <button type="button" class="directory-select-btn ${active?'live':''}" data-select-uid="${escapeHtml(String(s.id))}">${active?'● Live · Select':'Select'}</button>
+    </div>`;
+  }).join('')}</div>`;
+  dir.querySelectorAll('[data-select-uid]').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();openStudentFromDirectory(btn.getAttribute('data-select-uid'));}));
+  dir.querySelectorAll('.directory-card').forEach(card=>card.addEventListener('click',()=>openStudentFromDirectory(card.getAttribute('data-uid'))));
 }
+
 function renderProfile(s){
   const st=studentStatus(s), active=isStudentActive(s), last=studentLastDate(s), metrics=studentMetrics(s), p=metrics.progress, td=metrics.done, tt=metrics.total;
   el('profile-avatar').textContent=initialsFor(s.name,s.email);el('profile-name').textContent=s.name||'Student';el('profile-email').textContent=s.email||'—';
   el('profile-status').innerHTML=`<span class="status-pill ${st.key} ${active?'active':''}">${active?'<span class="live-indicator"></span>':''}${st.label}</span> <span style="font-size:9px;color:var(--muted);margin-left:8px">${last?'Last active '+timeAgo(last):'No activity yet'}</span>`;
-  el('profile-courses').innerHTML=courses.map(c=>{const sc=(s.courses||[]).find(x=>x.code===c.code),done=Array.isArray(sc?.done)?sc.done:[],cp=Math.round(done.length/c.tasks.length*100);return `<div class="profile-course"><div class="profile-course-head"><strong>${escapeHtml(c.code)} — ${escapeHtml(c.name)}</strong><strong style="color:${c.color}">${cp}%</strong></div><div class="inst-prog-bar"><div class="inst-prog-fill" style="width:${cp}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div><div class="profile-course-tasks">${done.length}/${c.tasks.length} tasks completed</div></div>`}).join('');
+  const normalizedCourses=normalizeStudentCourses(s?.courses||s?.courseProgress||{}); el('profile-courses').innerHTML=courses.map(c=>{const sc=normalizedCourses.find(x=>x.code===c.code)||{done:[]},done=sc.done||[],cp=Math.round(done.length/c.tasks.length*100);return `<div class="profile-course"><div class="profile-course-head"><strong>${escapeHtml(c.code)} — ${escapeHtml(c.name)}</strong><strong style="color:${c.color}">${cp}%</strong></div><div class="inst-prog-bar"><div class="inst-prog-fill" style="width:${cp}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div><div class="profile-course-tasks">${done.length}/${c.tasks.length} tasks completed</div></div>`}).join('');
   const h=habitSummary(s); el('profile-snapshot').innerHTML=`<div class="stat-row" style="grid-template-columns:1fr 1fr;margin:0"><div class="stat-card"><div class="stat-value accent">${p}%</div><div class="stat-label">Overall Progress</div></div><div class="stat-card"><div class="stat-value green">${td}/${tt}</div><div class="stat-label">Tasks</div></div><div class="stat-card"><div class="stat-value purple">${Number(s.pomoSessionCount)||0}</div><div class="stat-label">Pomodoros</div></div><div class="stat-card"><div class="stat-value amber">${active?'LIVE':'AWAY'}</div><div class="stat-label">Presence</div></div></div><div class="section-label" style="margin-top:14px">Study Habits</div><div class="habit-grid"><div class="habit-item"><strong>${h.consistency}</strong><span>Engagement consistency</span></div><div class="habit-item"><strong>${h.pomos}</strong><span>Pomodoros</span></div><div class="habit-item"><strong>${h.attempts}</strong><span>CSB test attempts</span></div><div class="habit-item"><strong>${h.peak}</strong><span>Common activity time</span></div></div><div style="margin-top:14px;font-size:10px;color:var(--muted)"><strong style="color:var(--text)">Activity log</strong><div style="margin-top:8px">${(s.activityLog||[]).slice(0,8).map(a=>`<div style="padding:7px 0;border-bottom:1px solid var(--border)">${escapeHtml(a.icon||'•')} ${escapeHtml(a.text||'Activity')} <span style="float:right">${escapeHtml(a.time||'')}</span></div>`).join('')||'No recorded activity yet.'}</div></div>`;
 }
 let unsubscribeProfile=null;
@@ -2971,23 +3066,17 @@ async function deleteStudentSchedule(id){
 
 async function openStudentFromDirectory(uid){
   if(!db || currentRole!=='instructor' || !uid) return;
-
-  trackedStudentId=uid;
-
-  // Immediately show the directory copy, then replace it with the authoritative
-  // Firestore document as soon as it arrives.
-  const target=directoryStudents.find(s=>s.id===uid);
+  trackedStudentId=String(uid);
+  const target=directoryStudents.find(s=>String(s.id)===String(uid));
   if(target){
     trackedStudentData={id:uid,...target};
     updateInstructorPanel();
     renderStudentDirectory();
   }
-
-  if(unsubscribeProfile) { unsubscribeProfile(); unsubscribeProfile=null; }
-
+  if(unsubscribeProfile){unsubscribeProfile();unsubscribeProfile=null;}
   const ref=doc(db,'students',uid);
-
-  // A one-time read gives a clear error when the instructor cannot read the doc.
+  const status=el('inst-live-sync');
+  if(status){status.textContent='● Loading student record…';status.className='live-sync-badge waiting';}
   try{
     const first=await getDoc(ref);
     if(first.exists()){
@@ -2995,48 +3084,30 @@ async function openStudentFromDirectory(uid){
       trackedStudentData={id:uid,...s};
       updateInstructorPanel();
       renderStudentDirectory();
+      if(status){status.textContent='● Live Firebase tracking';status.className='live-sync-badge connected';}
     }else{
-      console.warn('Student document not found:',uid);
-      const status=el('inst-live-sync');
-      if(status){
-        status.textContent='● Student record not found';
-        status.className='live-sync-badge waiting';
-      }
+      if(status){status.textContent='● Student record not found';status.className='live-sync-badge waiting';}
+      return;
     }
   }catch(e){
     console.error('Student initial read error',e);
-    const status=el('inst-live-sync');
-    if(status){
-      status.textContent=`● Firebase error: ${e.code||'read failed'}`;
-      status.className='live-sync-badge waiting';
-    }
+    if(status){status.textContent=`● Firebase error: ${e.code||'read failed'}`;status.className='live-sync-badge waiting';}
+    return;
   }
-
-  // Dedicated real-time listener for the selected student.
   unsubscribeProfile=onSnapshot(ref,snap=>{
-    if(!snap.exists()){
-      console.warn('Selected student document disappeared:',uid);
-      return;
-    }
+    if(!snap.exists())return;
     const s=snap.data();
-    trackedStudentId=uid;
+    trackedStudentId=String(uid);
     trackedStudentData={id:uid,...s};
+    const idx=directoryStudents.findIndex(x=>String(x.id)===String(uid));
+    if(idx>=0)directoryStudents[idx]={id:uid,...s};
     renderProfile(s);
     updateInstructorPanel();
     renderStudentDirectory();
-
-    const status=el('inst-live-sync');
-    if(status){
-      status.textContent='● Live Firebase tracking';
-      status.className='live-sync-badge connected';
-    }
+    if(status){status.textContent='● Live Firebase tracking';status.className='live-sync-badge connected';}
   },err=>{
     console.error('Student tracking error',err);
-    const status=el('inst-live-sync');
-    if(status){
-      status.textContent=`● Firebase error: ${err.code||'read failed'}`;
-      status.className='live-sync-badge waiting';
-    }
+    if(status){status.textContent=`● Firebase error: ${err.code||'read failed'}`;status.className='live-sync-badge waiting';}
   });
 }
 
@@ -3070,90 +3141,3 @@ updatePomoDisplay();
 <!-- Biotech Sprint Instructor Role Fix v2026-09-05.3 -->
 </body>
 </html>
-<style id="orca-restore-final">
-/* ORCA VISUALS RESTORED — keep the ocean identity without letting artwork cover controls */
-.student-topbar{overflow:hidden!important;position:fixed!important;background:#fff!important}
-.student-topbar:after{display:block!important;content:""!important;position:absolute!important;right:0!important;top:0!important;width:min(470px,42%)!important;height:68px!important;background-image:linear-gradient(90deg,rgba(255,255,255,1) 0%,rgba(255,255,255,.82) 22%,rgba(255,255,255,.18) 62%,rgba(255,255,255,0) 100%),url('assets/orca_banner.jpg')!important;background-position:center 46%!important;background-size:cover!important;opacity:.82!important;pointer-events:none!important;z-index:1!important}
-.student-topbar>*{position:relative!important;z-index:3!important}
-.student-header-right{position:relative!important;z-index:5!important}
-.student-welcome-banner{position:relative!important;overflow:hidden!important;background:linear-gradient(105deg,#e8f5ff 0%,#f7fcff 58%,#e8f6ff 100%)!important}
-.student-welcome-banner:after{display:block!important;content:""!important;position:absolute!important;right:0!important;top:0!important;width:42%!important;height:100%!important;background-image:linear-gradient(90deg,rgba(232,245,255,1) 0%,rgba(232,245,255,.78) 22%,rgba(232,245,255,.16) 65%,rgba(232,245,255,0) 100%),url('assets/orca_banner.jpg')!important;background-position:center 50%!important;background-size:cover!important;opacity:.95!important;pointer-events:none!important;z-index:1!important}
-.student-welcome-copy{position:relative!important;z-index:3!important;max-width:68%!important}
-.student-welcome-banner em{position:relative!important;z-index:3!important}
-.student-sidebar{position:fixed!important;overflow:hidden!important;background:linear-gradient(180deg,#082f5f 0%,#0b4778 52%,#07365f 100%)!important}
-.student-sidebar:after{content:""!important;position:absolute!important;left:0!important;right:0!important;bottom:0!important;height:47%!important;background-image:linear-gradient(180deg,rgba(8,47,95,0) 0%,rgba(8,47,95,.08) 18%,rgba(6,46,80,.40) 48%,rgba(3,31,57,.86) 100%),url('assets/orca_sidebar.jpg')!important;background-size:cover!important;background-position:center bottom!important;opacity:.98!important;pointer-events:none!important;z-index:1!important}
-.student-sidebar:before{position:relative!important;z-index:5!important}
-.student-nav{position:relative!important;z-index:5!important}
-.student-sidebar-footer{position:relative!important;z-index:6!important;background:linear-gradient(180deg,rgba(4,37,66,.06),rgba(3,28,52,.76))!important;color:#d8f4ff!important}
-#pomodoro-section{position:relative!important;overflow:hidden!important;background:linear-gradient(135deg,#fff 0%,#f5fbfe 100%)!important}
-#pomodoro-section:after{content:""!important;position:absolute!important;right:0!important;bottom:0!important;width:47%!important;height:74%!important;background-image:linear-gradient(90deg,rgba(245,251,254,1) 0%,rgba(245,251,254,.62) 35%,rgba(245,251,254,.12) 78%,rgba(245,251,254,0) 100%),url('assets/orca_focus.jpg')!important;background-position:center!important;background-size:cover!important;opacity:.82!important;pointer-events:none!important;z-index:1!important}
-#pomodoro-section>*{position:relative!important;z-index:3!important}
-#pomodoro-section .student-pomo-compact{position:relative!important;z-index:3!important}
-@media(max-width:1180px){.student-topbar:after{width:34%!important;opacity:.58!important}.student-welcome-banner:after{width:38%!important;opacity:.84!important}}
-@media(max-width:850px){.student-topbar:after{width:30%!important;opacity:.32!important}.student-welcome-banner:after{width:35%!important;opacity:.58!important}}
-@media(max-width:560px){.student-topbar:after{display:none!important}.student-welcome-banner:after{width:30%!important;opacity:.34!important}.student-welcome-copy{max-width:100%!important}}
-</style>
-<style id="student-reference-layout">
-:root{--ref-navy:#082f5f;--ref-blue:#1268c4;--ref-bg:#f3f8fc;--ref-border:#d8e5f1;--ref-text:#17385f}
-.student-topbar{position:fixed!important;left:185px!important;right:0!important;top:0!important;width:auto!important;height:68px!important;padding:0 24px!important;background:#fff!important;color:var(--ref-navy)!important;border-bottom:1px solid #dce8f1!important;box-shadow:0 2px 12px rgba(25,74,118,.06)!important;z-index:300!important}
-.student-brand,.student-view-title,.student-brand-divider{display:none!important}
-.student-topbar:before{content:'⌕   Search courses, resources, or tasks...';display:flex;align-items:center;width:min(360px,42vw);height:34px;padding:0 13px;border:1px solid #d5e2ed;border-radius:9px;background:#fbfdff;color:#8aa0b4;font:500 10px 'Inter',sans-serif}
-.student-header-right{margin-left:auto;gap:10px!important}.student-header-date{display:none!important}.student-header-btn:not(.logout-student){display:none!important}
-.student-header-right:before{content:'🔔';display:grid;place-items:center;width:34px;height:34px;border-radius:9px;color:var(--ref-navy);font-size:17px;background:#f3f8fc}
-.student-identity{min-width:190px!important;padding:6px 12px 6px 6px!important;border:1px solid #dce8f1!important;border-radius:10px!important;box-shadow:none!important}.student-avatar{width:36px!important;height:36px!important}.student-header-btn.logout-student{padding:9px 11px!important}
-.student-shell{display:grid!important;grid-template-columns:185px minmax(0,1fr)!important;min-height:100vh!important;background:var(--ref-bg)!important}
-.student-sidebar{position:fixed!important;left:0!important;top:0!important;bottom:0!important;width:185px!important;height:100vh!important;box-sizing:border-box!important;z-index:310!important;padding:0 10px 18px!important;background:linear-gradient(180deg,#082f5f,#0b4778)!important}
-.student-sidebar:before{content:'🧬  Biotech Sprint\A     STUDY  ·  LEARN  ·  SUCCEED';white-space:pre;display:block;height:80px;padding:18px 10px 0;box-sizing:border-box;color:#fff;font:800 17px/1.5 'Poppins',sans-serif;border-bottom:1px solid rgba(255,255,255,.15)}
-.student-nav{padding-top:17px!important}.student-nav:before{content:'MAIN';display:block;padding:0 10px 7px;color:#d5e9f7;font:700 8px 'Inter',sans-serif;letter-spacing:.08em}.student-nav-item{padding:10px 11px!important;font-size:10px!important}.student-sidebar-footer{padding:12px 10px!important}.student-sidebar-footer div{font-size:9px!important}
-.student-main{grid-column:2!important;min-width:0!important;max-width:none!important;padding:68px 20px 28px!important;background:var(--ref-bg)!important;display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr))!important;gap:13px!important;align-content:start!important}
-.student-welcome-banner{grid-column:1/-1!important;margin:0 -20px 13px!important;padding:14px 26px!important;min-height:70px!important;background:linear-gradient(105deg,#e8f5ff,#f9fcff)!important}
-.student-welcome-title{font-size:24px!important}.student-welcome-banner em{font-size:9px!important}
-.student-main > .student-mission{grid-column:1/-1!important;margin:0!important;display:grid!important;grid-template-columns:minmax(0,2fr) minmax(270px,1fr)!important;gap:13px!important}.student-main > .student-stat-grid{grid-column:1/-1!important;margin:0!important}
-.student-main > .student-content-grid{display:contents!important}.student-left-column,.student-right-column{display:contents!important}.student-two-column{display:contents!important}
-.student-mission-main{min-height:248px!important;padding:22px 24px!important;border-radius:14px!important;background:linear-gradient(110deg,#e6f5ff,#f8fcff 62%,#e8f6ff)!important;box-shadow:0 7px 20px rgba(25,74,118,.06)!important}.student-mission-main:after{content:'💻';right:30px;top:18px;font-size:60px;opacity:.14}.mission-title{font-size:19px!important}.mission-start{width:min(100%,520px)!important;margin-top:13px!important;padding:11px!important;font-size:10px!important}.student-mission .mission-side{min-height:248px!important}.mission-side-title{font-size:14px!important}
-.student-stat-grid{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px!important}.student-stat-card{min-height:72px!important;padding:10px!important;border-radius:12px!important}.student-stat-icon{width:40px!important;height:40px!important}.student-stat-card strong{font-size:20px!important}
-#student-action-plan-section{grid-column:1/span 8!important;margin:0!important;min-height:245px!important}#pomodoro-section{grid-column:9/span 4!important;margin:0!important}#student-progress-section{grid-column:1/span 8!important;margin:0!important}#lesson-test-section{grid-column:9/span 4!important;margin:0!important}#csb-learning-section{grid-column:1/span 8!important;margin:0!important}#study-focus-section{grid-column:9/span 4!important;margin:0!important}#student-progress-detail-section{grid-column:1/span 4!important;margin:0!important}#student-advisor-feedback-section{grid-column:5/span 4!important;margin:0!important}#student-early-warning-section{grid-column:9/span 4!important;margin:0!important}#student-academic-section{grid-column:1/span 6!important;margin:0!important}#student-messages{grid-column:7/span 6!important;margin:0!important}#student-schedule-section{grid-column:1/span 8!important;margin:0!important;position:static!important}#student-exams-section{grid-column:9/span 4!important;margin:0!important}#student-activity-section{grid-column:1/-1!important;margin:0!important}
-.wow-courses{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:9px!important}.wow-courses .course-card{min-height:205px!important;padding:11px!important}.wow-courses .course-card h3{font-size:12px!important}.wow-courses .course-pct{font-size:15px!important}
-#pomodoro-section{background:linear-gradient(135deg,#fff,#f5fbfe)!important}#pomodoro-section .student-pomo-compact{min-height:210px!important}#student-progress-detail-section,#student-advisor-feedback-section,#student-early-warning-section{min-height:210px!important}
-.student-panel{padding:13px!important;border-radius:13px!important}.student-panel-heading{margin-bottom:9px!important}.student-panel-heading h2{font-size:14px!important}
-@media(max-width:1180px){.student-main{grid-template-columns:repeat(6,minmax(0,1fr))!important}#student-action-plan-section,#student-progress-section,#csb-learning-section,#student-schedule-section{grid-column:1/-1!important}#pomodoro-section,#study-focus-section,#lesson-test-section,#student-progress-detail-section,#student-advisor-feedback-section,#student-early-warning-section,#student-exams-section{grid-column:span 3!important}#student-academic-section,#student-messages,#student-activity-section{grid-column:1/-1!important}.wow-courses{grid-template-columns:repeat(2,1fr)!important}}
-@media(max-width:850px){.student-topbar{left:0!important;height:62px!important;padding:0 12px!important}.student-topbar:before{width:180px!important}.student-sidebar{display:none!important}.student-shell{display:block!important}.student-main{padding:62px 12px 24px!important;grid-template-columns:1fr!important}.student-main > .student-welcome-banner,.student-main > .student-mission,.student-main > .student-stat-grid,#student-action-plan-section,#student-progress-section,#pomodoro-section,#study-focus-section,#lesson-test-section,#csb-learning-section,#student-progress-detail-section,#student-advisor-feedback-section,#student-early-warning-section,#student-academic-section,#student-messages,#student-schedule-section,#student-exams-section,#student-activity-section{grid-column:1/-1!important}.student-mission{grid-template-columns:1fr!important}.student-stat-grid{grid-template-columns:repeat(2,1fr)!important}.student-identity{min-width:0!important}}
-@media(max-width:560px){.student-topbar:before{width:130px!important;font-size:8px!important}.student-identity{display:none!important}.student-stat-grid,.wow-courses{grid-template-columns:1fr!important}}
-</style>
-<style id="orca-visibility-final">
-/* FINAL ORCA VISIBILITY — artwork is deliberately prominent, never hidden behind cards */
-.student-topbar:after{display:none!important}
-.student-topbar{background:#fff!important}
-.student-welcome-banner{min-height:150px!important;padding:22px 26px!important;align-items:center!important;background:linear-gradient(90deg,#e9f6ff 0%,#f7fcff 48%,#dff3ff 100%)!important}
-.student-welcome-banner:after{display:block!important;right:0!important;top:0!important;width:50%!important;height:100%!important;background-image:linear-gradient(90deg,rgba(233,246,255,1) 0%,rgba(233,246,255,.55) 28%,rgba(233,246,255,.05) 62%,rgba(233,246,255,0) 100%),url('assets/orca_banner.jpg')!important;background-position:center center!important;background-size:cover!important;opacity:1!important;z-index:1!important}
-.student-welcome-copy{z-index:5!important;max-width:56%!important}
-.student-welcome-title,.student-welcome-copy>div,.student-welcome-banner em{position:relative!important;z-index:6!important;text-shadow:0 1px 1px rgba(255,255,255,.55)}
-.student-sidebar{background:#082f5f!important}
-.student-sidebar:after{display:block!important;left:0!important;right:0!important;bottom:0!important;height:44%!important;background-image:url('assets/orca_sidebar.jpg')!important;background-repeat:no-repeat!important;background-size:cover!important;background-position:center bottom!important;opacity:1!important;z-index:1!important}
-.student-sidebar:before{z-index:6!important}
-.student-nav{z-index:7!important;background:linear-gradient(180deg,rgba(8,47,95,.98) 0%,rgba(8,47,95,.90) 66%,rgba(8,47,95,.18) 100%)!important}
-.student-sidebar-footer{z-index:8!important;background:linear-gradient(180deg,rgba(3,31,57,.05),rgba(3,31,57,.68))!important;text-shadow:0 1px 2px rgba(0,0,0,.55)}
-#pomodoro-section:after{display:block!important;opacity:1!important;width:50%!important;height:100%!important;background-image:linear-gradient(90deg,rgba(245,251,254,1) 0%,rgba(245,251,254,.72) 28%,rgba(245,251,254,.15) 66%,rgba(245,251,254,0) 100%),url('assets/orca_focus.jpg')!important;background-position:center!important;background-size:cover!important;z-index:1!important}
-#pomodoro-section>*{z-index:4!important}
-@media(max-width:850px){.student-welcome-banner{min-height:125px!important}.student-welcome-banner:after{width:52%!important;opacity:.92!important}.student-welcome-copy{max-width:60%!important}}
-@media(max-width:560px){.student-welcome-banner{min-height:140px!important}.student-welcome-copy{max-width:100%!important;background:rgba(239,248,254,.72)!important;border-radius:10px!important;padding:8px 10px!important}.student-welcome-banner:after{width:100%!important;opacity:.62!important}.student-sidebar:after{height:34%!important}}
-</style>
-
-
-<style id="FINAL-STUDENT-GRID-PLACEMENT-2">
-/* Explicit placement for previously anonymous nested cards */
-.student-left-column > .student-two-column > .focus-panel{grid-column:1/span 8!important;min-width:0!important}
-.student-left-column > .student-two-column > #pomodoro-section{grid-column:9/span 4!important;min-width:0!important}
-#csb-learning-section + .student-panel{grid-column:1/span 8!important;min-width:0!important}
-#student-study-items-section{grid-column:9/span 4!important}
-@media(max-width:1180px){
- .student-left-column > .student-two-column > .focus-panel{grid-column:1/-1!important}
- .student-left-column > .student-two-column > #pomodoro-section{grid-column:span 3!important}
- #csb-learning-section + .student-panel{grid-column:1/-1!important}
-}
-@media(max-width:850px){
- .student-left-column > .student-two-column > .focus-panel,
- .student-left-column > .student-two-column > #pomodoro-section,
- #csb-learning-section + .student-panel{grid-column:auto!important;width:100%!important}
-}
-</style>
