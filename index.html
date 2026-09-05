@@ -652,6 +652,23 @@
   .profile-card{width:min(1050px,96vw);max-height:92vh;overflow:auto;background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.25);padding:24px}
   .profile-head{display:flex;align-items:center;gap:16px;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:18px}.profile-avatar{width:58px;height:58px;border-radius:15px;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font:800 20px 'Syne',sans-serif}.profile-head-main{flex:1}.profile-head h2{font:800 20px 'Syne',sans-serif}.profile-head p{font-size:10px;color:var(--muted);margin-top:3px}.profile-close{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:8px;padding:8px 12px;cursor:pointer}.profile-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.profile-courses{display:grid;gap:10px}.profile-course{padding:12px;border:1px solid var(--border);border-radius:11px;background:var(--surface2)}.profile-course-head{display:flex;justify-content:space-between;font-size:10px;margin-bottom:7px}.profile-course-tasks{font-size:9px;color:var(--muted);margin-top:5px}.profile-live{font-size:10px;color:var(--accent3)}
   @media(max-width:900px){.inst-summary{grid-template-columns:1fr 1fr}.profile-grid{grid-template-columns:1fr}}
+  .learning-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:28px}
+  .focus-grid,.mock-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .focus-card,.mock-card{padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--surface2)}
+  .focus-card h4,.mock-card h4{font:700 13px 'Syne',sans-serif;margin-bottom:5px}
+  .focus-card p,.mock-card p{font-size:10px;color:var(--muted);line-height:1.55}
+  .focus-tag{display:inline-block;font-size:9px;padding:3px 7px;border-radius:5px;margin-bottom:8px;background:rgba(0,212,255,.08);color:var(--accent);border:1px solid rgba(0,212,255,.16)}
+  .focus-action,.mock-action{margin-top:10px;width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);font:10px 'DM Mono',monospace;cursor:pointer}
+  .focus-action:hover,.mock-action:hover{border-color:var(--accent);color:var(--accent)}
+  .warning-box{padding:12px 14px;border-radius:10px;margin-bottom:8px;font-size:10px;line-height:1.5}
+  .warning-box.high{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.22);color:var(--danger)}
+  .warning-box.medium{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.22);color:var(--warn)}
+  .warning-box.good{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.22);color:var(--accent3)}
+  .mock-modal{position:fixed;inset:0;z-index:900;background:rgba(15,23,42,.42);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
+  .mock-modal.visible{display:flex}.mock-modal-card{width:min(720px,95vw);max-height:90vh;overflow:auto;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px}
+  .mock-q{padding:14px;border:1px solid var(--border);border-radius:10px;margin:10px 0;background:var(--surface2)}
+  .mock-q-title{font-size:11px;line-height:1.5}.mock-note{font-size:10px;color:var(--muted);line-height:1.6}
+  @media(max-width:900px){.focus-grid,.mock-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -669,10 +686,7 @@
     <h1 class="login-title">Welcome to your<br/><em>Study Command Center</em></h1>
     <p class="login-sub">Track progress, manage sessions, and monitor student performance — all in one intelligent dashboard.</p>
 
-    <div class="role-tabs">
-      <button class="role-tab active" onclick="setRole('student')" id="tab-student">🎓 Student</button>
-      <button class="role-tab" onclick="setRole('instructor')" id="tab-instructor">👨‍🏫 Instructor</button>
-    </div>
+    <div class="role-tabs" id="role-tabs"><button class="role-tab active" onclick="setRole('student')" id="tab-student">🎓 Student</button><button class="role-tab" onclick="setRole('instructor')" id="tab-instructor">👨‍🏫 Instructor</button></div>
 
     <div class="form-group">
       <label class="form-label" for="email-input">Email Address</label>
@@ -755,6 +769,18 @@
       <!-- Courses -->
       <div class="section-label">Course Progress</div>
       <div class="courses-grid" id="courses-grid"></div>
+
+      <!-- Study Focus Groups -->
+      <div class="section-label">Study Focus Groups</div>
+      <div class="learning-card"><div class="focus-grid" id="study-focus-groups"></div></div>
+
+      <!-- Early Warning System -->
+      <div class="section-label">Early Warning System</div>
+      <div class="learning-card"><div id="student-early-warning"></div></div>
+
+      <!-- Lesson Mock Tests -->
+      <div class="section-label">Lesson Mock Tests</div>
+      <div class="learning-card"><div class="mock-grid" id="lesson-mock-tests"></div></div>
 
       <!-- Pomodoro -->
       <div class="section-label">Pomodoro Timer</div>
@@ -854,6 +880,9 @@
       <div class="student-table-wrap"><div id="student-directory"></div></div>
     </div>
 
+    <!-- Early Warning System -->
+    <div class="inst-card" style="margin-bottom:20px"><div class="section-label">Early Warning System</div><div id="inst-early-warning"></div></div>
+
     <!-- Alerts -->
     <div id="inst-alerts"></div>
 
@@ -894,6 +923,8 @@
 
   </div>
 </div>
+
+<div class="mock-modal" id="mock-test-modal" onclick="closeMockTest(event)"><div class="mock-modal-card" onclick="event.stopPropagation()"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px"><div><div class="section-label" style="margin-bottom:6px">Lesson Mock Test</div><h2 id="mock-test-title" style="font:800 20px 'Syne',sans-serif">Mock Test</h2></div><button class="profile-close" onclick="closeMockTest()">✕ Close</button></div><div id="mock-test-body"></div></div></div>
 
 <div class="profile-modal" id="student-profile-modal" onclick="closeStudentProfile(event)">
   <div class="profile-card" onclick="event.stopPropagation()">
@@ -1046,12 +1077,15 @@ async function handleLogin(){
   el('login-btn').disabled=true;
   try{
     let cred;
-    if(currentRole==='student' && authMode==='signup') cred=await createUserWithEmailAndPassword(auth,email,password);
+    if(authMode==='signup') cred=await createUserWithEmailAndPassword(auth,email,password);
     else cred=await signInWithEmailAndPassword(auth,email,password);
-    const user=cred.user;
-    currentUid=user.uid; studentEmail=user.email;
-    if(currentRole==='student') await ensureStudentDoc(user,name);
-    else { studentName='Instructor'; }
+    const user=cred.user; currentUid=user.uid; studentEmail=user.email;
+    // The selector is only a login preference. Firebase decides the real role.
+    // A user is an instructor only when their UID exists in /instructors.
+    const instructorSnap=await getDoc(doc(db,'instructors',user.uid));
+    currentRole=instructorSnap.exists()?'instructor':'student';
+    setRole(currentRole);
+    if(currentRole==='student') await ensureStudentDoc(user,name); else studentName='Instructor';
     await openDashboard(user);
   }catch(err){
     const messages={
@@ -1073,17 +1107,25 @@ async function openDashboard(user){
   el('user-avatar').textContent=initials; el('user-chip-name').textContent=studentName;
   const badge=el('view-badge');
   badge.textContent=currentRole==='instructor'?'Instructor View':'Student View'; badge.classList.toggle('instructor',currentRole==='instructor');
-  el('switch-btn').style.display=currentRole==='student'?'flex':'none';
+  el('switch-btn').style.display='none';
   el('login-screen').classList.add('hidden'); el('app').classList.add('visible');
   buildCourses(); buildExams(); buildSchedule(); updateStats(); renderActivity(); updatePomoDisplay();
-  if(currentRole==='instructor') setTimeout(()=>toggleInstructorPanel(),300);
-  if(currentRole==='student') startHeartbeat();
+  // Never expose the instructor panel to a student, regardless of what was selected on login.
+  if(currentRole==='instructor'){
+    el('instructor-panel').classList.remove('visible');
+    setTimeout(()=>toggleInstructorPanel(),300);
+  } else {
+    el('instructor-panel').classList.remove('visible');
+    el('switch-btn').style.display='none';
+    startHeartbeat();
+  }
 }
 
 async function logout(){
   stopHeartbeat(); if(unsubscribeStudent) unsubscribeStudent(); if(unsubscribeDirectory) unsubscribeDirectory();
   if(auth) await signOut(auth);
-  currentUid=null; studentName=''; studentEmail=''; activityLog=[]; resetCourseArrays();
+  currentUid=null; currentRole='student'; authMode='signin'; studentName=''; studentEmail=''; activityLog=[]; resetCourseArrays();
+  setRole('student');
   el('app').classList.remove('visible'); el('instructor-panel').classList.remove('visible'); el('login-screen').classList.remove('hidden');
 }
 
@@ -1094,6 +1136,23 @@ function startHeartbeat(){
 }
 function stopHeartbeat(){ if(heartbeatTimer){clearInterval(heartbeatTimer);heartbeatTimer=null;} }
 
+const focusGroups=[
+ {key:'foundation',title:'Foundation Focus',icon:'🧠',desc:'Rebuild core concepts and definitions before moving to application.',tag:'Concept Rescue'},
+ {key:'practice',title:'Practice & Application',icon:'🧪',desc:'Turn knowledge into problem-solving through cases, labs and worked examples.',tag:'Practice Builder'},
+ {key:'exam',title:'Exam Sprint',icon:'🎯',desc:'Prioritize past papers, timed practice and high-yield revision before an exam.',tag:'Exam Ready'},
+ {key:'advanced',title:'High-Performance Sprint',icon:'🚀',desc:'Maintain momentum with mixed practice, recall and challenge questions.',tag:'Keep Momentum'}
+];
+function getFocusGroup(){const p=overallPct();return p<20?focusGroups[0]:p<50?focusGroups[1]:p<75?focusGroups[2]:focusGroups[3];}
+function buildStudyFocusGroups(){const box=el('study-focus-groups');if(!box)return;const cur=getFocusGroup();box.innerHTML=focusGroups.map(g=>`<div class="focus-card" style="${g.key===cur.key?'border-color:var(--accent);box-shadow:var(--glow)':''}"><span class="focus-tag">${g.key===cur.key?'YOUR CURRENT GROUP':'FOCUS GROUP'}</span><h4>${g.icon} ${g.title}</h4><p>${g.desc}</p>${g.key===cur.key?`<button class="focus-action" onclick="addActivity('🎯','Study focus: ${g.title}','var(--accent)')">Start this focus</button>`:''}</div>`).join('');}
+function getEarlyWarnings(){const w=[],p=overallPct(),now=Date.now();if(p<20)w.push({level:'high',text:`Very low progress (${p}%). Start with Foundation Focus and complete the first lesson task.`});else if(p<50)w.push({level:'medium',text:`Progress is below 50% (${p}%). Move into Practice & Application.`});if(pomoSessionCount===0)w.push({level:'medium',text:'No completed Pomodoro sessions yet. Start one focused 50-minute session today.'});const next=exams.find(e=>new Date(`${e.date}T${e.time}`)>new Date());if(next){const hrs=(new Date(`${next.date}T${next.time}`).getTime()-now)/3600000;if(hrs<=72&&p<60)w.push({level:'high',text:`${next.code} exam is within 72 hours and readiness is ${p}%. Prioritize mock testing now.`});}return w;}
+function renderStudentEarlyWarning(){const box=el('student-early-warning');if(!box)return;const w=getEarlyWarnings();box.innerHTML=w.length?w.map(x=>`<div class="warning-box ${x.level}">⚠️ ${x.text}</div>`).join(''):'<div class="warning-box good">✅ No early-warning flags right now. Keep your study rhythm going.</div>';}
+const lessonMockTests=courses.map(c=>({code:c.code,name:c.name,lessons:c.tasks.map((task,i)=>({lesson:i+1,title:task,questions:5}))}));
+function buildLessonMockTests(){const box=el('lesson-mock-tests');if(!box)return;box.innerHTML=lessonMockTests.map(c=>`<div class="mock-card"><span class="focus-tag">${c.code}</span><h4>${c.name}</h4><p>${c.lessons.length} lesson mock tests · 5 questions planned per lesson.</p><button class="mock-action" onclick="openMockTest('${c.code}')">View lesson tests →</button></div>`).join('');}
+function openMockTest(code){const c=lessonMockTests.find(x=>x.code===code);if(!c)return;el('mock-test-title').textContent=`${c.code} — ${c.name}`;el('mock-test-body').innerHTML=`<p class="mock-note">The mock-test engine is ready for your lesson question bank. The current planner contains lesson task names, not the actual lesson content, so no subject-specific questions have been invented.</p>${c.lessons.map(l=>`<div class="mock-q"><div class="mock-q-title"><strong>Lesson ${l.lesson}:</strong> ${l.title}</div><div class="mock-note" style="margin-top:5px">${l.questions}-question mock test</div><button class="mock-action" onclick="addActivity('📝','Opened mock test — ${c.code} Lesson ${l.lesson}','var(--accent)')">Open test</button></div>`).join('')}`;el('mock-test-modal').classList.add('visible');}
+function closeMockTest(evt){if(evt&&evt.target!==el('mock-test-modal'))return;el('mock-test-modal').classList.remove('visible');}
+window.openMockTest=openMockTest;window.closeMockTest=closeMockTest;
+function instructorWarningForStudent(s){const w=[],p=Number(s.progress)||0,pomos=Number(s.pomoSessionCount)||0,last=studentLastDate(s);if(p<20)w.push({level:'high',text:`${s.name||'Student'} — readiness is ${p}%. Immediate support recommended.`});else if(p<50)w.push({level:'medium',text:`${s.name||'Student'} — readiness is ${p}%. Practice support recommended.`});if(pomos===0)w.push({level:'medium',text:`${s.name||'Student'} — no completed Pomodoro sessions recorded.`});if(last&&Date.now()-last.getTime()>24*3600000)w.push({level:'high',text:`${s.name||'Student'} — no activity recorded for more than 24 hours.`});return w;}
+function renderInstructorEarlyWarning(){const box=el('inst-early-warning');if(!box)return;if(!directoryStudents.length){box.innerHTML='<div class="warning-box good">✅ No student records to evaluate yet.</div>';return;}const w=directoryStudents.flatMap(instructorWarningForStudent);box.innerHTML=w.length?w.slice(0,12).map(x=>`<div class="warning-box ${x.level}">⚠️ ${x.text}</div>`).join(''):'<div class="warning-box good">✅ No early-warning flags across the current student list.</div>';}
 function buildCourses(){
   const grid=el('courses-grid'); grid.innerHTML='';
   courses.forEach((c,ci)=>{
@@ -1116,7 +1175,7 @@ function buildExams(){
 function buildSchedule(){
   const list=el('schedule-list');list.innerHTML='';schedule.forEach(day=>{list.insertAdjacentHTML('beforeend',`<div class="schedule-day">${day.day}</div>`);day.slots.forEach(slot=>list.insertAdjacentHTML('beforeend',`<div class="schedule-slot"><span class="slot-time">${slot.time}</span><span class="slot-name">${slot.name}</span><span class="slot-type ${slot.type}">${slot.type}</span></div>`));});
 }
-function updateStats(){el('stat-progress').textContent=overallPct()+'%';el('stat-tasks').textContent=totalDone()+'/'+totalTasks();el('stat-pomos').textContent=pomoSessionCount;const days=Math.ceil((new Date(exams[0].date)-new Date())/86400000);el('stat-days').textContent=days;el('pomo-count').textContent=pomoSessionCount;}
+function updateStats(){el('stat-progress').textContent=overallPct()+'%';el('stat-tasks').textContent=totalDone()+'/'+totalTasks();el('stat-pomos').textContent=pomoSessionCount;const days=Math.ceil((new Date(exams[0].date)-new Date())/86400000);el('stat-days').textContent=days;el('pomo-count').textContent=pomoSessionCount;buildStudyFocusGroups();renderStudentEarlyWarning();buildLessonMockTests();}
 function renderActivity(){el('activity-feed').innerHTML=activityLog.slice(0,10).map(a=>`<div class="activity-item"><div class="activity-dot" style="background:${a.color}"></div><div><div class="activity-text">${a.icon} <strong>${a.text}</strong></div><div class="activity-time">${a.time}</div></div></div>`).join('');}
 
 function togglePomo(){
@@ -1128,11 +1187,11 @@ function togglePomo(){
 function resetPomo(){clearInterval(pomoInterval);pomoRunning=false;pomoPhase='focus';pomoSeconds=FOCUS_SEC;el('pomo-start-btn').textContent='▶ Start';updatePomoDisplay();}
 function updatePomoDisplay(){const m=Math.floor(pomoSeconds/60),s=pomoSeconds%60;el('pomo-display').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el('pomo-phase').textContent=pomoPhase==='focus'?'Focus':'Break';const ratio=pomoSeconds/(pomoPhase==='focus'?FOCUS_SEC:BREAK_SEC);el('pomo-ring').style.strokeDashoffset=RING_CIRC*(1-ratio);el('pomo-ring').classList.toggle('break',pomoPhase==='break');el('pomo-display').classList.toggle('break-time',pomoPhase==='break');}
 
-function toggleInstructorPanel(){const panel=el('instructor-panel');panel.classList.toggle('visible');if(panel.classList.contains('visible')){updateInstructorPanel();subscribeStudents();}}
+function toggleInstructorPanel(){if(currentRole!=='instructor'){el('instructor-panel').classList.remove('visible');return;}const panel=el('instructor-panel');panel.classList.toggle('visible');if(panel.classList.contains('visible')){updateInstructorPanel();subscribeStudents();}}
 function updateInstructorPanel(){
   el('inst-student-name').textContent=studentName||'Instructor';el('inst-student-email').textContent=studentEmail||'—';el('inst-last-active').textContent='live directory below';
   el('inst-overall-pct').textContent=overallPct()+'%';el('inst-tasks-done').textContent=totalDone()+'/'+totalTasks();el('inst-pomos-done').textContent=pomoSessionCount;
-  const pct=overallPct(),done=totalDone();let alerts='';if(pct<20)alerts+=`<div class="alert-banner warning">⚠️ Student progress is low (${pct}%). Consider reaching out.</div>`;if(pomoSessionCount===0)alerts+=`<div class="alert-banner warning">⚠️ No Pomodoro sessions started yet.</div>`;if(pct>=60)alerts+=`<div class="alert-banner success">✅ Student is on track with ${pct}% readiness.</div>`;if(done>0)alerts+=`<div class="alert-banner info">📌 ${done} tasks completed across all subjects.</div>`;el('inst-alerts').innerHTML=alerts;
+  const pct=overallPct(),done=totalDone();let alerts='';if(pct<20)alerts+=`<div class="alert-banner warning">⚠️ Student progress is low (${pct}%). Consider reaching out.</div>`;if(pomoSessionCount===0)alerts+=`<div class="alert-banner warning">⚠️ No Pomodoro sessions started yet.</div>`;if(pct>=60)alerts+=`<div class="alert-banner success">✅ Student is on track with ${pct}% readiness.</div>`;if(done>0)alerts+=`<div class="alert-banner info">📌 ${done} tasks completed across all subjects.</div>`;el('inst-alerts').innerHTML=alerts;renderInstructorEarlyWarning();
   el('inst-course-bars').innerHTML=courses.map(c=>{const p=Math.round(c.done.length/c.tasks.length*100);return `<div class="inst-progress-row"><div class="inst-prog-header"><span class="inst-prog-name">${c.code} — ${c.name}</span><span class="inst-prog-pct" style="color:${c.color}">${p}%</span></div><div class="inst-prog-bar"><div class="inst-prog-fill" style="width:${p}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div></div>`}).join('');
   el('inst-activity-feed').innerHTML=activityLog.slice(0,8).map(a=>`<div class="activity-item"><div class="activity-dot" style="background:${a.color}"></div><div><div class="activity-text">${a.icon} <strong>${a.text}</strong></div><div class="activity-time">${a.time}</div></div></div>`).join('');
   const now=new Date();el('inst-timeline').innerHTML=exams.map((e,i)=>{const days=Math.ceil((new Date(e.date)-now)/86400000);return `<div class="tl-item"><div class="tl-left"><div class="tl-dot ${days<=10?'warn':''} filled"></div>${i<exams.length-1?'<div class="tl-line"></div>':''}</div><div class="tl-content"><div class="tl-date">${e.date} ${e.time}</div><div class="tl-event">${e.code} — ${e.subject}</div><span class="tl-tag exam">${days<0?'Exam completed':`Exam in ${days} days`}</span></div></div>`}).join('');
@@ -1152,7 +1211,7 @@ function subscribeStudents(){
   if(!db || currentRole!=='instructor') return;
   if(unsubscribeDirectory) unsubscribeDirectory();
   const q=query(collection(db,'students'),orderBy('lastActive','desc'),limit(200));
-  unsubscribeDirectory=onSnapshot(q,snap=>{directoryStudents=snap.docs.map(d=>({id:d.id,...d.data()}));renderStudentDirectory();},err=>{console.warn(err);el('student-directory').innerHTML='<div class="alert-banner warning">⚠️ Could not load the student directory. Check Firestore Security Rules.</div>';});
+  unsubscribeDirectory=onSnapshot(q,snap=>{directoryStudents=snap.docs.map(d=>({id:d.id,...d.data()}));renderStudentDirectory();renderInstructorEarlyWarning();},err=>{console.warn(err);el('student-directory').innerHTML='<div class="alert-banner warning">⚠️ Could not load the student directory. Check Firestore Security Rules.</div>';});
 }
 function renderStudentDirectory(){
   const search=(el('student-search')?.value||'').trim().toLowerCase(), filter=el('student-filter')?.value||'all';
