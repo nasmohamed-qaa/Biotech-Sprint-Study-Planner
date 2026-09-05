@@ -1447,6 +1447,17 @@ h1,h2,h3,h4,.brand-name,.student-view-title,.inst-title,.welcome-title,
 </style>
 
 
+<style id="courses-checklist-integrated-ui">
+#student-progress-section .course-card{display:block!important;width:100%!important;box-sizing:border-box!important;}
+.course-original-checklist{display:flex!important;flex-direction:column!important;gap:5px!important;margin:12px 0 0!important;padding:0!important;}
+.course-original-check{display:flex!important;align-items:center!important;gap:10px!important;padding:6px 8px!important;border-radius:8px!important;cursor:pointer!important;box-sizing:border-box!important;}
+.course-original-check:hover{background:#f4f8fb!important;}
+.course-original-check input{width:18px!important;height:18px!important;margin:0!important;accent-color:#0b7285!important;flex:0 0 auto!important;cursor:pointer!important;}
+.course-original-check span{font:600 11px/1.35 'DM Mono',monospace!important;color:#687d98!important;}
+.course-original-check.done span{color:#18794e!important;text-decoration:line-through!important;}
+.course-original-checklist-divider{height:1px;background:#dbe5ec;margin:9px 0 0;}
+#student-progress-section .course-card-study-planner{margin-top:12px!important;}
+</style>
 <style id="course-planner-final-incorporated">
 #student-progress-section .course-card{display:block!important;width:100%!important;box-sizing:border-box!important;}
 #student-progress-section .course-card-study-planner{display:block!important;width:100%!important;box-sizing:border-box!important;margin:15px 0 0!important;padding:14px!important;background:linear-gradient(180deg,#f8fbfd,#f3f8fa)!important;border:1px solid #c9dce5!important;border-radius:12px!important;clear:both!important;visibility:visible!important;opacity:1!important;}
@@ -1465,32 +1476,6 @@ h1,h2,h3,h4,.brand-name,.student-view-title,.inst-title,.welcome-title,
 .course-card-study-planner .study-plan-check.done{background:#effaf5!important;border-color:#b8ddc8!important;}
 .course-card-study-planner .study-plan-check.done .study-plan-text{color:#18794e!important;text-decoration:line-through!important;}
 @media(max-width:700px){.course-card-study-planner-list{grid-template-columns:1fr!important;}}
-</style>
-<style id="course-study-planner-final">
-#student-progress-section .course-study-planner{
-  display:block!important;width:100%!important;box-sizing:border-box!important;
-  margin:16px 0 0!important;padding:15px!important;
-  background:linear-gradient(180deg,#f8fbfd 0%,#f2f8fa 100%)!important;
-  border:1px solid #c9dce5!important;border-radius:13px!important;
-  clear:both!important;visibility:visible!important;opacity:1!important;
-}
-#student-progress-section .course-study-planner-head{display:flex!important;align-items:flex-start!important;justify-content:space-between!important;gap:15px!important;margin-bottom:9px!important}
-#student-progress-section .course-study-planner-head>div:first-child{display:flex!important;flex-direction:column!important;gap:4px!important}
-#student-progress-section .course-study-planner-kicker{font:800 8px 'DM Mono',monospace!important;letter-spacing:.14em!important;color:#0b7285!important}
-#student-progress-section .course-study-planner-head strong{font:800 13px 'Inter',sans-serif!important;color:#17364c!important}
-#student-progress-section .course-study-planner-sub{font:600 9px/1.4 'Inter',sans-serif!important;color:#6b7f8d!important}
-#student-progress-section .course-study-planner-progress{font:800 13px 'Inter',sans-serif!important;color:#0b7285!important;text-align:right!important;white-space:nowrap!important}
-#student-progress-section .course-study-planner-progress small{display:block!important;font:600 8px 'Inter',sans-serif!important;color:#6b7f8d!important;margin-top:2px!important}
-#student-progress-section .course-study-planner-bar{height:7px!important;background:#dce8ed!important;border-radius:99px!important;overflow:hidden!important;margin:8px 0 12px!important}
-#student-progress-section .course-study-planner-bar span{display:block!important;height:100%!important;border-radius:99px!important;transition:width .25s ease!important}
-#student-progress-section .course-study-planner-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
-#student-progress-section .course-study-plan-item{display:flex!important;align-items:center!important;gap:9px!important;min-height:36px!important;padding:8px 10px!important;background:#fff!important;border:1px solid #d4e2e8!important;border-radius:9px!important;box-sizing:border-box!important;cursor:pointer!important}
-#student-progress-section .course-study-plan-item:hover{border-color:#94b2c1!important;background:#f6fbfc!important}
-#student-progress-section .course-study-plan-item input{width:17px!important;height:17px!important;opacity:1!important;position:static!important;pointer-events:auto!important;accent-color:#0b7285!important;flex:0 0 auto!important;cursor:pointer!important}
-#student-progress-section .course-study-plan-item span{font:600 10px/1.35 'Inter',sans-serif!important;color:#3d596e!important}
-#student-progress-section .course-study-plan-item.done{background:#effaf5!important;border-color:#b8ddc8!important}
-#student-progress-section .course-study-plan-item.done span{color:#18794e!important;text-decoration:line-through!important}
-@media(max-width:700px){#student-progress-section .course-study-planner-list{grid-template-columns:1fr!important}#student-progress-section .course-study-planner-head{flex-direction:column!important}}
 </style>
 </head>
 <body>
@@ -1609,7 +1594,7 @@ h1,h2,h3,h4,.brand-name,.student-view-title,.inst-title,.welcome-title,
       <section class="student-content-grid">
         <div class="student-left-column">
           <section class="student-panel" id="student-progress-section">
-            <div class="student-panel-heading"><h2>📚 My Courses</h2><button onclick="document.getElementById('courses-grid')?.scrollIntoView({behavior:'smooth'})">View All →</button></div>
+            <div class="student-panel-heading"><h2>📚 Courses &amp; Course Planner</h2><button onclick="document.getElementById('courses-grid')?.scrollIntoView({behavior:'smooth'})">View All →</button></div>
             <div class="courses-grid wow-courses" id="courses-grid"></div>
           </section>
 
@@ -1888,6 +1873,14 @@ let activityLog=[], csbTestResults={}, advisorActionPlans=[], advisorComments=[]
 const FOCUS_SEC=50*60, BREAK_SEC=10*60, RING_CIRC=238.76;
 
 function el(id){ return document.getElementById(id); }
+function escapeHtml(value){
+  return String(value ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/\"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
 function setLoginError(msg){ const x=el('login-error'); x.textContent=msg||''; x.style.display=msg?'block':'none'; }
 function resetCourseArrays(){ courses.forEach(c=>c.done=[]); }
 function totalDone(){ return courses.reduce((a,c)=>a+c.done.length,0); }
@@ -2380,62 +2373,49 @@ function buildCourseStudyPlanner(){
 }
 
 function buildCourses(){
-  const grid=el('courses-grid');
-  if(!grid) return;
+  const grid=el('courses-grid'); if(!grid)return;
   grid.innerHTML='';
   const icons={CSB_101:'💻',BCHM101:'🧬',MTH_101b:'∑',ENG_102b:'📄'};
   courses.forEach((c,ci)=>{
-    const pct=c.tasks.length?Math.round(c.done.length/c.tasks.length*100):0;
-    const plannerItems=studyPlannerDefaults[c.code]||[];
-    const plannerState=Array.isArray(studyPlannerState[c.code])?studyPlannerState[c.code]:plannerItems.map(()=>false);
-    const plannerDone=plannerItems.reduce((n,_,i)=>n+(plannerState[i]===true?1:0),0);
-    const plannerPct=plannerItems.length?Math.round(plannerDone/plannerItems.length*100):0;
-    const testCount=Object.keys(csbTestResults||{}).filter(k=>k.startsWith(c.code+'_')).length;
+    const pct=Math.round(c.done.length/c.tasks.length*100);
     const card=document.createElement('div');
     card.className='course-card fade-in';
+    const testCount=Object.keys(csbTestResults||{}).filter(k=>k.startsWith(c.code+'_')).length;
+    const lessonSummary=`${c.tasks.length} lesson mock tests · 5 questions planned per lesson.`;
+    const plannerItems=studyPlannerDefaults[c.code]||[];
+    const plannerDone=plannerItems.reduce((n,_,i)=>n+(studyPlannerState[c.code]?.[i]===true?1:0),0);
+    const plannerPct=plannerItems.length?Math.round(plannerDone/plannerItems.length*100):0;
+    const originalChecklist=c.tasks.map((task,ti)=>{
+      const done=c.done.includes(ti);
+      return `<label class="course-original-check ${done?'done':''}"><input type="checkbox" ${done?'checked':''} onchange="toggleTask(${ci},${ti})"><span>L${ti+1}: ${escapeHtml(task)}</span></label>`;
+    }).join('');
     const plannerHtml=plannerItems.map((item,pi)=>{
-      const done=plannerState[pi]===true;
-      return `<label class="course-study-plan-item ${done?'done':''}">
-        <input type="checkbox" ${done?'checked':''} onchange="toggleStudyPlanner('${c.code}',${pi})">
-        <span>${escapeHtml(item)}</span>
-      </label>`;
+      const done=studyPlannerState[c.code]?.[pi]===true;
+      return `<label class="study-plan-check ${done?'done':''}"><input type="checkbox" ${done?'checked':''} onchange="toggleStudyPlanner('${c.code}',${pi})"><span class="study-plan-box">${done?'✓':''}</span><span class="study-plan-text">${escapeHtml(item)}</span></label>`;
     }).join('');
     card.innerHTML=`
-      <div class="course-card-header">
-        <div>
-          <div class="course-code">${c.code}</div>
-          <div class="course-name">${c.name}</div>
+      <div style="display:grid;grid-template-columns:46px minmax(0,1fr) auto;gap:12px;align-items:start">
+        <div class="wow-course-icon" style="background:${c.color}18;color:${c.color}">${icons[c.code]||'📚'}</div>
+        <div><div class="course-code">${escapeHtml(c.code)}</div><div class="course-name">${escapeHtml(c.name)}</div><div class="course-mock-summary">${lessonSummary}</div></div>
+        <div class="course-pct">${pct}%</div>
+      </div>
+      <div class="wow-course-progress" style="margin-top:12px"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${c.color}99,${c.color})"></div></div></div>
+      <div class="course-original-checklist">${originalChecklist}</div>
+      <div class="course-original-checklist-divider"></div>
+      <div class="wow-course-meta" style="margin-top:8px"><span>${c.tasks.length} lessons</span><span>${testCount||0} tests attempted</span></div>
+      <div class="course-card-study-planner">
+        <div class="course-card-study-planner-head">
+          <div><span class="course-card-study-planner-kicker">COURSE STUDY PLANNER</span><strong>📋 Course Study Planner</strong></div>
+          <span class="course-card-study-planner-progress">${plannerPct}% · ${plannerDone}/${plannerItems.length} complete</span>
         </div>
-        <div class="course-credits">${c.credits} CR</div>
+        <div class="course-card-study-planner-bar"><span style="width:${plannerPct}%;background:${c.color}"></span></div>
+        <div class="course-card-study-planner-list">${plannerHtml}</div>
       </div>
-      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${c.color}88,${c.color})"></div></div>
-      <div class="task-list">
-        ${c.tasks.map((task,ti)=>`<div class="task-item" onclick="toggleTask(${ci},${ti})"><div class="task-check ${c.done.includes(ti)?'done':''}">${c.done.includes(ti)?'✓':''}</div><span class="task-text ${c.done.includes(ti)?'done':''}">L${ti+1}: ${escapeHtml(task)}</span></div>`).join('')}
-      </div>
-      <div class="course-footer"><div class="course-pct">${pct}%</div><div class="course-tasks-done">${c.done.length}/${c.tasks.length} tasks</div></div>
-
-      <section class="course-study-planner" aria-label="${escapeHtml(c.code)} Study Planner">
-        <div class="course-study-planner-head">
-          <div>
-            <span class="course-study-planner-kicker">STUDY PLANNER</span>
-            <strong>📋 Plan &amp; Track This Course</strong>
-            <div class="course-study-planner-sub">Lecture, assignments, practical work &amp; revision checklist</div>
-          </div>
-          <div class="course-study-planner-progress">${plannerDone}/${plannerItems.length}<small>${plannerPct}% complete</small></div>
-        </div>
-        <div class="course-study-planner-bar"><span style="width:${plannerPct}%;background:${c.color}"></span></div>
-        <div class="course-study-planner-list">${plannerHtml}</div>
-      </section>
-
-      <div class="wow-course-actions" style="margin-top:10px">
-        <button class="wow-course-btn" onclick="document.getElementById('lesson-mock-tests')?.scrollIntoView({behavior:'smooth'})">Continue →</button>
-        <a href="#lesson-test-section" class="course-test-link" onclick="event.stopPropagation();document.getElementById('lesson-test-section')?.scrollIntoView({behavior:'smooth'})">View lesson tests →</a>
-      </div>
-      <div class="wow-task-dots" style="margin-top:9px">${c.tasks.map((task,ti)=>`<button class="wow-task-dot ${c.done.includes(ti)?'done':''}" title="${escapeHtml(task)}" aria-label="${escapeHtml(task)} — ${c.done.includes(ti)?'completed':'not completed'}" onclick="event.stopPropagation();toggleTask(${ci},${ti})">${c.done.includes(ti)?'✓':ti+1}</button>`).join('')}</div>
-    `;
+      <div class="wow-course-actions" style="margin-top:10px"><button class="wow-course-btn" onclick="document.getElementById('lesson-mock-tests')?.scrollIntoView({behavior:'smooth'})">Continue →</button><a href="#lesson-test-section" class="course-test-link" onclick="event.stopPropagation();document.getElementById('lesson-test-section')?.scrollIntoView({behavior:'smooth'})">View lesson tests →</a></div>`;
     grid.appendChild(card);
   });
 }
+
 async function toggleStudyPlanner(code,index){
   if(currentRole!=='student') return;
   if(!studyPlannerState[code]) resetStudyPlannerState();
@@ -2972,4 +2952,3 @@ try{ updatePomoDisplay(); }catch(e){ console.warn('Pomodoro display init skipped
 </script>
 </body>
 </html>
-
