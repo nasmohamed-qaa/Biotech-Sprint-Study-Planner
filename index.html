@@ -678,6 +678,13 @@
   .mock-q-title{font-size:11px;line-height:1.5}.mock-note{font-size:10px;color:var(--muted);line-height:1.6}
   @media(max-width:900px){.focus-grid,.mock-grid{grid-template-columns:1fr}}
 
+
+/* ===== Advisor student selection improvements ===== */
+.student-row{cursor:pointer;transition:background .15s ease,transform .15s ease}
+.student-row:hover{background:rgba(22,114,199,.06)}
+.student-row.selected{background:rgba(22,114,199,.10);box-shadow:inset 3px 0 0 #1672c7}
+.select-student-btn{cursor:pointer}
+
 /* ===== Instructor dashboard visual system ===== */
 .instructor-app{display:grid;grid-template-columns:210px minmax(0,1fr);min-height:100vh;background:#eef4f8;color:#12345a}
 .instructor-sidebar{background:linear-gradient(180deg,#0b3157,#0b4772);color:#fff;padding:22px 14px;display:flex;flex-direction:column;min-height:100vh;position:sticky;top:0;height:100vh}
@@ -2707,49 +2714,94 @@ function renderDirectoryPermissionError(err,diagnostic){
   </div>`;
 }
 
-function subscribeStudents(){
-  if(!db || currentRole!=='instructor') return;
-  if(unsubscribeDirectory){ unsubscribeDirectory(); unsubscribeDirectory=null; }
-
-  // Always enter the advisor directory in the unfiltered "All Students" view.
-  const filter=el('student-filter');
-  if(filter) filter.value='all';
-  const search=el('student-search');
-  if(search) search.value='';
-  directoryReadError=null;
-  setDirectoryStatus('waiting','● Connecting to Firebase…');
-
-  const studentsRef=collection(db,'students');
-  unsubscribeDirectory=onSnapshot(studentsRef, async snap=>{
+async function loadInstructorStudentsOnce(){
+  if(!db || currentRole!=='instructor') return false;
+  const status=el('student-directory-status');
+  const dir=el('student-directory');
+  setDirectoryStatus('waiting','● Reading enrolled students…');
+  try{
+    // First do a direct read. This gives the advisor an immediate result and
+    // makes Firestore permission problems explicit instead of leaving the UI
+    // stuck on "Connecting to Firebase…".
+    const snap=await getDocs(collection(db,'students'));
     directoryStudents=snap.docs
       .map(d=>({id:d.id,...d.data()}))
       .filter(s=>String(s.role||'student').toLowerCase()==='student')
       .sort((a,b)=>(studentLastDate(b)?.getTime()||0)-(studentLastDate(a)?.getTime()||0));
 
-    const selected=trackedStudentId ? directoryStudents.find(s=>s.id===trackedStudentId) : null;
-    if(selected && !unsubscribeProfile){
-      trackedStudentData=selected;
-      updateInstructorPanel();
-    }
-
     renderStudentDirectory();
     renderInstructorEarlyWarning();
     setDirectoryStatus('connected',`● Live · ${directoryStudents.length} student record${directoryStudents.length===1?'':'s'}`);
-  },async err=>{
-    console.error('STUDENT DIRECTORY FIRESTORE ERROR',err);
+    return true;
+  }catch(err){
+    console.error('STUDENT DIRECTORY GETDOCS ERROR',err);
     directoryReadError=err;
-    setDirectoryStatus('waiting','● Firebase permission error');
-    const diagnostic=await checkInstructorAccess();
+    setDirectoryStatus('waiting',`● Firebase error: ${err.code||'read failed'}`);
+    let diagnostic={ok:false,uid:auth?.currentUser?.uid||'',detail:''};
+    try{ diagnostic=await checkInstructorAccess(); }catch(diagErr){ console.warn('Instructor diagnostic failed',diagErr); }
     renderDirectoryPermissionError(err,diagnostic);
-
-    // Clear metrics so the advisor never sees a misleading student count.
     ['total','active','track','attention'].forEach(k=>{ const node=el('dir-'+k); if(node) node.textContent='—'; });
+    return false;
+  }
+}
+
+function subscribeStudents(){
+  if(!db || currentRole!=='instructor') return;
+  if(unsubscribeDirectory){ unsubscribeDirectory(); unsubscribeDirectory=null; }
+
+  // Always enter the advisor directory in the unfiltered "All Students" view.
+  const filter=el('student-filter'); if(filter) filter.value='all';
+  const search=el('student-search'); if(search) search.value='';
+  directoryReadError=null;
+
+  // Do an explicit first read so the directory cannot remain indefinitely on
+  // "Connecting to Firebase…". The live listener then keeps it synchronized.
+  loadInstructorStudentsOnce().then(()=>{
+    if(!db || currentRole!=='instructor') return;
+    try{
+      const studentsRef=collection(db,'students');
+      unsubscribeDirectory=onSnapshot(studentsRef,snap=>{
+        try{
+          directoryStudents=snap.docs
+            .map(d=>({id:d.id,...d.data()}))
+            .filter(s=>String(s.role||'student').toLowerCase()==='student')
+            .sort((a,b)=>(studentLastDate(b)?.getTime()||0)-(studentLastDate(a)?.getTime()||0));
+
+          const selected=trackedStudentId ? directoryStudents.find(s=>s.id===trackedStudentId) : null;
+          if(selected && !unsubscribeProfile) trackedStudentData=selected;
+
+          // Render inside a guarded block so one malformed student record can
+          // never leave the advisor UI frozen on the loading state.
+          renderStudentDirectory();
+          renderInstructorEarlyWarning();
+          if(selected && !unsubscribeProfile) updateInstructorPanel();
+          setDirectoryStatus('connected',`● Live · ${directoryStudents.length} student record${directoryStudents.length===1?'':'s'}`);
+        }catch(renderErr){
+          console.error('STUDENT DIRECTORY RENDER ERROR',renderErr);
+          directoryReadError=renderErr;
+          setDirectoryStatus('waiting','● Student directory render error');
+          if(dir){ dir.innerHTML=`<div class="student-directory-diagnostic"><strong>⚠️ Student directory could not be rendered.</strong><br><small>${escapeHtml(renderErr?.message||String(renderErr))}</small><div style="margin-top:10px"><button class="directory-help-btn" type="button" onclick="loadInstructorStudentsOnce()">↻ Try Again</button></div></div>`; }
+        }
+      },async err=>{
+        console.error('STUDENT DIRECTORY FIRESTORE ERROR',err);
+        directoryReadError=err;
+        setDirectoryStatus('waiting',`● Firebase error: ${err.code||'permission-denied'}`);
+        let diagnostic={ok:false,uid:auth?.currentUser?.uid||'',detail:''};
+        try{ diagnostic=await checkInstructorAccess(); }catch(diagErr){ console.warn('Instructor diagnostic failed',diagErr); }
+        renderDirectoryPermissionError(err,diagnostic);
+        ['total','active','track','attention'].forEach(k=>{ const node=el('dir-'+k); if(node) node.textContent='—'; });
+      });
+    }catch(listenerErr){
+      console.error('STUDENT DIRECTORY LISTENER SETUP ERROR',listenerErr);
+      setDirectoryStatus('waiting',`● Firebase listener error: ${listenerErr.code||'setup failed'}`);
+    }
   });
 }
 function refreshStudentDirectory(){
   if(currentRole!=='instructor') return;
-  trackedStudentId=trackedStudentId||null;
-  subscribeStudents();
+  const filter=el('student-filter'); if(filter) filter.value='all';
+  const search=el('student-search'); if(search) search.value='';
+  loadInstructorStudentsOnce().then(()=>{ if(currentRole==='instructor') subscribeStudents(); });
 }
 function advisorStudentSearch(){
   const filter=el('student-filter');
@@ -3011,7 +3063,7 @@ function closeStudentProfile(evt){if(evt&&evt.target!==el('student-profile-modal
 function updateInstructorDate(){const n=el('inst-current-date');if(n)n.textContent=new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date());}
 setInterval(updateInstructorDate,30000); updateInstructorDate();
 window.getAdvisorFirebaseStatus=async()=>({uid:auth?.currentUser?.uid||null,role:currentRole,instructor:await checkInstructorAccess()});
-window.advisorStudentSearch=advisorStudentSearch;window.advisorStudentShowAll=advisorStudentShowAll;
+window.advisorStudentSearch=advisorStudentSearch;window.advisorStudentShowAll=advisorStudentShowAll;window.loadInstructorStudentsOnce=loadInstructorStudentsOnce;
 window.setRole=setRole;window.generateStudentReport=generateStudentReport;window.toggleStudyPlanner=toggleStudyPlanner;window.openCSBTest=openCSBTest;window.toggleAuthMode=toggleAuthMode;window.handleLogin=handleLogin;window.toggleTask=toggleTask;window.togglePomo=togglePomo;window.resetPomo=resetPomo;window.toggleInstructorPanel=toggleInstructorPanel;window.enterStudentPreview=enterStudentPreview;window.exitStudentPreview=exitStudentPreview;window.openStudentFromDirectory=openStudentFromDirectory;window.renderStudentDirectory=renderStudentDirectory;window.closeStudentProfile=closeStudentProfile;window.logout=logout;window.openScheduleModal=openScheduleModal;window.closeScheduleModal=closeScheduleModal;window.saveStudentSchedule=saveStudentSchedule;window.refreshStudentDirectory=refreshStudentDirectory;window.openAcademicProfileModal=openAcademicProfileModal;window.closeAcademicProfileModal=closeAcademicProfileModal;window.saveAcademicProfile=saveAcademicProfile;window.openActionPlanModal=openActionPlanModal;window.closeActionPlanModal=closeActionPlanModal;window.saveActionPlan=saveActionPlan;window.editActionPlan=editActionPlan;window.cycleActionPlanStatus=cycleActionPlanStatus;window.deleteActionPlan=deleteActionPlan;window.openAdvisorCommentModal=openAdvisorCommentModal;window.closeAdvisorCommentModal=closeAdvisorCommentModal;window.saveAdvisorComment=saveAdvisorComment;window.deleteAdvisorComment=deleteAdvisorComment;
 
 // Stars
