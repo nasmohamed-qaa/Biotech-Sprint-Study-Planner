@@ -1696,8 +1696,9 @@ h1,h2,h3,h4,.brand-name,.student-view-title,.inst-title,.welcome-title,
         <section class="instructor-columns">
           <aside class="student-selector-card">
             <div class="card-heading">👥 <span>Select a Student</span></div>
-            <input class="inst-search" id="student-search" placeholder="Search student name or email…" oninput="renderStudentDirectory()"/>
+            <input class="inst-search" id="student-search" placeholder="Search student name or email…" oninput="advisorStudentSearch()"/>
             <select class="inst-filter" id="student-filter" onchange="renderStudentDirectory()"><option value="all" selected>All Students</option><option value="ontrack">On Track</option><option value="attention">Needs Attention</option><option value="notstarted">Not Started</option><option value="active">Active Now</option></select>
+            <div style="font-size:9px;color:var(--muted);margin:7px 2px 2px">Search all enrolled students, then click the row or <strong>View Profile</strong> for individual live progress.</div>
             <div id="student-directory-status" class="live-sync-badge waiting" style="margin:10px 0 8px">● Connecting to Firebase…</div>
             <div id="student-directory"></div>
           </aside>
@@ -2747,11 +2748,21 @@ function refreshStudentDirectory(){
   trackedStudentId=trackedStudentId||null;
   subscribeStudents();
 }
+function advisorStudentSearch(){
+  const filter=el('student-filter');
+  if(filter) filter.value='all';
+  renderStudentDirectory();
+}
 function renderStudentDirectory(){
   const search=(el('student-search')?.value||'').trim().toLowerCase();
   const filterNode=el('student-filter');
   const filter=['all','ontrack','attention','notstarted','active'].includes(filterNode?.value)?filterNode.value:'all';
-  let list=directoryStudents.filter(s=>{const st=studentStatus(s),active=isStudentActive(s);const text=((s.name||'')+' '+(s.email||'')).toLowerCase();return (!search||text.includes(search))&&(filter==='all'||(filter==='active'?active:st.key===filter));});
+  let list=directoryStudents.filter(s=>{
+    const st=studentStatus(s),active=isStudentActive(s);
+    const text=((s.name||'')+' '+(s.email||'')).toLowerCase();
+    if(search) return text.includes(search);
+    return filter==='all'||(filter==='active'?active:st.key===filter);
+  });
   const counts={total:directoryStudents.length,active:directoryStudents.filter(isStudentActive).length,ontrack:directoryStudents.filter(s=>studentStatus(s).key==='ontrack').length,attention:directoryStudents.filter(s=>studentStatus(s).key==='attention').length};
   ['total','active','track','attention'].forEach(k=>{const node=el('dir-'+k);if(node)node.textContent=k==='track'?counts.ontrack:counts[k];});
   const dir=el('student-directory');
@@ -2769,7 +2780,7 @@ function renderStudentDirectory(){
   }
   dir.innerHTML=`<table class="student-table"><thead><tr><th>Student</th><th>Status</th><th>Progress</th><th>Tasks</th><th>Pomodoros</th><th>Last Active</th><th></th></tr></thead><tbody>${list.map(s=>{
     const st=studentStatus(s), active=isStudentActive(s), last=studentLastDate(s), metrics=studentMetrics(s), p=metrics.progress, td=metrics.done, tt=metrics.total;
-    return `<tr class="student-row ${trackedStudentId===s.id?'selected':''}" onclick="openStudentFromDirectory('${s.id}')"><td><div class="student-cell-name">${escapeHtml(s.name||'Student')}</div><div class="student-cell-email">${escapeHtml(s.email||'')}</div><div class="student-academic-mini">${s.probationLevel?`<span>${escapeHtml(s.probationLevel)}</span>`:''}${s.academicRisk?`<span class="mini-risk-${String(s.academicRisk).toLowerCase().split(' ')[0]}">${escapeHtml(s.academicRisk)}</span>`:''}${s.gpa!==undefined&&s.gpa!==''?`<span>GPA ${escapeHtml(String(s.gpa))}</span>`:''}${s.progressTrend?`<span class="mini-trend">${escapeHtml(s.progressTrend)}</span>`:''}</div></td><td><span class="status-pill ${st.key} ${active?'active':''}">${active?'<span class="live-indicator"></span>':''}${st.label}</span></td><td><div style="display:flex;align-items:center;gap:8px"><div class="mini-progress"><span style="width:${Math.min(100,Math.max(0,p))}%"></span></div><strong>${p}%</strong></div></td><td>${td}/${tt}</td><td>${Number(s.pomoSessionCount)||0}</td><td>${last?timeAgo(last):'—'}</td><td><button class="select-student-btn" onclick="event.stopPropagation();openStudentFromDirectory('${s.id}')">Select</button></td></tr>`;
+    return `<tr class="student-row ${trackedStudentId===s.id?'selected':''}" onclick="openStudentFromDirectory('${s.id}')"><td><div class="student-cell-name">${escapeHtml(s.name||'Student')}</div><div class="student-cell-email">${escapeHtml(s.email||'')}</div><div class="student-academic-mini">${s.probationLevel?`<span>${escapeHtml(s.probationLevel)}</span>`:''}${s.academicRisk?`<span class="mini-risk-${String(s.academicRisk).toLowerCase().split(' ')[0]}">${escapeHtml(s.academicRisk)}</span>`:''}${s.gpa!==undefined&&s.gpa!==''?`<span>GPA ${escapeHtml(String(s.gpa))}</span>`:''}${s.progressTrend?`<span class="mini-trend">${escapeHtml(s.progressTrend)}</span>`:''}</div></td><td><span class="status-pill ${st.key} ${active?'active':''}">${active?'<span class="live-indicator"></span>':''}${st.label}</span></td><td><div style="display:flex;align-items:center;gap:8px"><div class="mini-progress"><span style="width:${Math.min(100,Math.max(0,p))}%"></span></div><strong>${p}%</strong></div></td><td>${td}/${tt}</td><td>${Number(s.pomoSessionCount)||0}</td><td>${last?timeAgo(last):'—'}</td><td><button class="select-student-btn" onclick="event.stopPropagation();openStudentFromDirectory('${s.id}')">View Profile</button></td></tr>`;
   }).join('')}</tbody></table>`;
 }
 function renderProfile(s){
@@ -2996,6 +3007,7 @@ function closeStudentProfile(evt){if(evt&&evt.target!==el('student-profile-modal
 function updateInstructorDate(){const n=el('inst-current-date');if(n)n.textContent=new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date());}
 setInterval(updateInstructorDate,30000); updateInstructorDate();
 window.getAdvisorFirebaseStatus=async()=>({uid:auth?.currentUser?.uid||null,role:currentRole,instructor:await checkInstructorAccess()});
+window.advisorStudentSearch=advisorStudentSearch;
 window.setRole=setRole;window.generateStudentReport=generateStudentReport;window.toggleStudyPlanner=toggleStudyPlanner;window.openCSBTest=openCSBTest;window.toggleAuthMode=toggleAuthMode;window.handleLogin=handleLogin;window.toggleTask=toggleTask;window.togglePomo=togglePomo;window.resetPomo=resetPomo;window.toggleInstructorPanel=toggleInstructorPanel;window.enterStudentPreview=enterStudentPreview;window.exitStudentPreview=exitStudentPreview;window.openStudentFromDirectory=openStudentFromDirectory;window.renderStudentDirectory=renderStudentDirectory;window.closeStudentProfile=closeStudentProfile;window.logout=logout;window.openScheduleModal=openScheduleModal;window.closeScheduleModal=closeScheduleModal;window.saveStudentSchedule=saveStudentSchedule;window.refreshStudentDirectory=refreshStudentDirectory;window.openAcademicProfileModal=openAcademicProfileModal;window.closeAcademicProfileModal=closeAcademicProfileModal;window.saveAcademicProfile=saveAcademicProfile;window.openActionPlanModal=openActionPlanModal;window.closeActionPlanModal=closeActionPlanModal;window.saveActionPlan=saveActionPlan;window.editActionPlan=editActionPlan;window.cycleActionPlanStatus=cycleActionPlanStatus;window.deleteActionPlan=deleteActionPlan;window.openAdvisorCommentModal=openAdvisorCommentModal;window.closeAdvisorCommentModal=closeAdvisorCommentModal;window.saveAdvisorComment=saveAdvisorComment;window.deleteAdvisorComment=deleteAdvisorComment;
 
 // Stars
