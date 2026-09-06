@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Biotech Sprint — Study Command Center 2.1</title>
+<meta name="advisor-build" content="2026-09-06-profile-v2"><title>Biotech Sprint — Study Command Center 2.1</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
   :root {
@@ -1700,6 +1700,7 @@ h1,h2,h3,h4,.brand-name,.student-view-title,.inst-title,.welcome-title,
             <select class="inst-filter" id="student-filter" onchange="renderStudentDirectory()"><option value="all" selected>All Students</option><option value="ontrack">On Track</option><option value="attention">Needs Attention</option><option value="notstarted">Not Started</option><option value="active">Active Now</option></select>
             <div style="font-size:9px;color:var(--muted);margin:7px 2px 2px">Search all enrolled students, then click the row or <strong>View Profile</strong> for individual live progress.</div>
             <div id="student-directory-status" class="live-sync-badge waiting" style="margin:10px 0 8px">● Connecting to Firebase…</div>
+            <button type="button" class="select-student-btn" style="width:100%;margin-bottom:10px" onclick="advisorStudentShowAll()">👥 Show All Enrolled Students</button>
             <div id="student-directory"></div>
           </aside>
 
@@ -2533,6 +2534,8 @@ function togglePomo(){
 function resetPomo(){clearInterval(pomoInterval);pomoRunning=false;pomoPhase='focus';pomoSeconds=FOCUS_SEC;el('pomo-start-btn').textContent='▶ Start';updatePomoDisplay();}
 function updatePomoDisplay(){const m=Math.floor(pomoSeconds/60),s=pomoSeconds%60;el('pomo-display').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el('pomo-phase').textContent=pomoPhase==='focus'?'Focus':'Break';const ratio=pomoSeconds/(pomoPhase==='focus'?FOCUS_SEC:BREAK_SEC);el('pomo-ring').style.strokeDashoffset=RING_CIRC*(1-ratio);el('pomo-ring').classList.toggle('break',pomoPhase==='break');el('pomo-display').classList.toggle('break-time',pomoPhase==='break');}
 
+function forceAdvisorStudentDirectoryDefaults(){ const filter=el('student-filter'); if(filter) filter.value='all'; }
+
 function toggleInstructorPanel(){
   if(currentRole!=='instructor') return;
   exitStudentPreview();
@@ -2753,6 +2756,7 @@ function advisorStudentSearch(){
   if(filter) filter.value='all';
   renderStudentDirectory();
 }
+function advisorStudentShowAll(){ const filter=el('student-filter'); if(filter) filter.value='all'; const search=el('student-search'); if(search) search.value=''; renderStudentDirectory(); }
 function renderStudentDirectory(){
   const search=(el('student-search')?.value||'').trim().toLowerCase();
   const filterNode=el('student-filter');
