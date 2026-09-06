@@ -1707,7 +1707,7 @@ h1,h2,h3,h4,.brand-name,.student-view-title,.inst-title,.welcome-title,
             <select class="inst-filter" id="student-filter" onchange="renderStudentDirectory()"><option value="all" selected>All Students</option><option value="ontrack">On Track</option><option value="attention">Needs Attention</option><option value="notstarted">Not Started</option><option value="active">Active Now</option></select>
             <div style="font-size:9px;color:var(--muted);margin:7px 2px 2px">Search all enrolled students, then click the row or <strong>View Profile</strong> for individual live progress.</div>
             <div id="student-directory-status" class="live-sync-badge waiting" style="margin:10px 0 8px">● Connecting to Firebase…</div>
-            <button type="button" class="select-student-btn" style="width:100%;margin-bottom:10px" onclick="advisorStudentShowAll()">👥 Show All Enrolled Students</button>
+            <button type="button" class="select-student-btn" style="width:100%;margin-bottom:10px" onclick="advisorStudentShowAll()">👥 Load All Enrolled Students</button>
             <div id="student-directory"></div>
           </aside>
 
@@ -1831,7 +1831,7 @@ import {
 } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js';
 import {
   getFirestore, doc, getDoc, setDoc, updateDoc, collection,
-  query, orderBy, onSnapshot, serverTimestamp, limit, getDocs
+  query, orderBy, onSnapshot, serverTimestamp, limit, getDocs, getDocsFromServer, getDocsFromCache
 } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
 
 // ─── PASTE YOUR FIREBASE WEB APP CONFIG HERE ───────────
@@ -2716,14 +2716,24 @@ function renderDirectoryPermissionError(err,diagnostic){
 
 async function loadInstructorStudentsOnce(){
   if(!db || currentRole!=='instructor') return false;
-  const status=el('student-directory-status');
-  const dir=el('student-directory');
   setDirectoryStatus('waiting','● Reading enrolled students…');
+  const readServer = getDocsFromServer ? getDocsFromServer(collection(db,'students')) : getDocs(collection(db,'students'));
+  const timeout = new Promise((_,reject)=>setTimeout(()=>reject(Object.assign(new Error('Firestore student list request timed out after 8 seconds.'),{code:'deadline-exceeded'})),8000));
   try{
-    // First do a direct read. This gives the advisor an immediate result and
-    // makes Firestore permission problems explicit instead of leaving the UI
-    // stuck on "Connecting to Firebase…".
-    const snap=await getDocs(collection(db,'students'));
+    // Force a server read with a timeout so the advisor never sits on
+    // “Connecting…” forever.
+    let snap;
+    try{
+      snap = await Promise.race([readServer, timeout]);
+    }catch(serverErr){
+      // A cached result is still useful when the browser temporarily cannot
+      // reach Firestore. If there is no cache, surface the real error.
+      if(getDocsFromCache){
+        try{ snap = await getDocsFromCache(collection(db,'students')); }
+        catch(cacheErr){ throw serverErr; }
+      }else throw serverErr;
+    }
+
     directoryStudents=snap.docs
       .map(d=>({id:d.id,...d.data()}))
       .filter(s=>String(s.role||'student').toLowerCase()==='student')
@@ -2731,10 +2741,10 @@ async function loadInstructorStudentsOnce(){
 
     renderStudentDirectory();
     renderInstructorEarlyWarning();
-    setDirectoryStatus('connected',`● Live · ${directoryStudents.length} student record${directoryStudents.length===1?'':'s'}`);
+    setDirectoryStatus('connected',`● ${directoryStudents.length} enrolled student${directoryStudents.length===1?'':'s'} loaded`);
     return true;
   }catch(err){
-    console.error('STUDENT DIRECTORY GETDOCS ERROR',err);
+    console.error('STUDENT DIRECTORY READ ERROR',err);
     directoryReadError=err;
     setDirectoryStatus('waiting',`● Firebase error: ${err.code||'read failed'}`);
     let diagnostic={ok:false,uid:auth?.currentUser?.uid||'',detail:''};
@@ -2748,55 +2758,44 @@ async function loadInstructorStudentsOnce(){
 function subscribeStudents(){
   if(!db || currentRole!=='instructor') return;
   if(unsubscribeDirectory){ unsubscribeDirectory(); unsubscribeDirectory=null; }
-
-  // Always enter the advisor directory in the unfiltered "All Students" view.
   const filter=el('student-filter'); if(filter) filter.value='all';
   const search=el('student-search'); if(search) search.value='';
   directoryReadError=null;
 
-  // Do an explicit first read so the directory cannot remain indefinitely on
-  // "Connecting to Firebase…". The live listener then keeps it synchronized.
-  loadInstructorStudentsOnce().then(()=>{
-    if(!db || currentRole!=='instructor') return;
+  loadInstructorStudentsOnce().then(ok=>{
+    if(!ok || !db || currentRole!=='instructor') return;
+    // Realtime updates after the initial, guaranteed directory load.
     try{
-      const studentsRef=collection(db,'students');
-      unsubscribeDirectory=onSnapshot(studentsRef,snap=>{
+      unsubscribeDirectory=onSnapshot(collection(db,'students'),snap=>{
         try{
-          directoryStudents=snap.docs
-            .map(d=>({id:d.id,...d.data()}))
+          directoryStudents=snap.docs.map(d=>({id:d.id,...d.data()}))
             .filter(s=>String(s.role||'student').toLowerCase()==='student')
             .sort((a,b)=>(studentLastDate(b)?.getTime()||0)-(studentLastDate(a)?.getTime()||0));
-
           const selected=trackedStudentId ? directoryStudents.find(s=>s.id===trackedStudentId) : null;
           if(selected && !unsubscribeProfile) trackedStudentData=selected;
-
-          // Render inside a guarded block so one malformed student record can
-          // never leave the advisor UI frozen on the loading state.
           renderStudentDirectory();
           renderInstructorEarlyWarning();
           if(selected && !unsubscribeProfile) updateInstructorPanel();
-          setDirectoryStatus('connected',`● Live · ${directoryStudents.length} student record${directoryStudents.length===1?'':'s'}`);
+          setDirectoryStatus('connected',`● Live · ${directoryStudents.length} enrolled student${directoryStudents.length===1?'':'s'}`);
         }catch(renderErr){
-          console.error('STUDENT DIRECTORY RENDER ERROR',renderErr);
-          directoryReadError=renderErr;
+          console.error('STUDENT DIRECTORY LIVE RENDER ERROR',renderErr);
           setDirectoryStatus('waiting','● Student directory render error');
-          if(dir){ dir.innerHTML=`<div class="student-directory-diagnostic"><strong>⚠️ Student directory could not be rendered.</strong><br><small>${escapeHtml(renderErr?.message||String(renderErr))}</small><div style="margin-top:10px"><button class="directory-help-btn" type="button" onclick="loadInstructorStudentsOnce()">↻ Try Again</button></div></div>`; }
+          const dir=el('student-directory');
+          if(dir) dir.innerHTML=`<div class="student-directory-diagnostic"><strong>⚠️ Student directory could not be rendered.</strong><br><small>${escapeHtml(renderErr?.message||String(renderErr))}</small><div style="margin-top:10px"><button class="directory-help-btn" type="button" onclick="loadInstructorStudentsOnce()">↻ Try Again</button></div></div>`;
         }
-      },async err=>{
-        console.error('STUDENT DIRECTORY FIRESTORE ERROR',err);
-        directoryReadError=err;
-        setDirectoryStatus('waiting',`● Firebase error: ${err.code||'permission-denied'}`);
-        let diagnostic={ok:false,uid:auth?.currentUser?.uid||'',detail:''};
-        try{ diagnostic=await checkInstructorAccess(); }catch(diagErr){ console.warn('Instructor diagnostic failed',diagErr); }
-        renderDirectoryPermissionError(err,diagnostic);
-        ['total','active','track','attention'].forEach(k=>{ const node=el('dir-'+k); if(node) node.textContent='—'; });
+      },err=>{
+        console.warn('Realtime student listener error',err);
+        // Do not wipe the successfully loaded directory just because the live
+        // stream later has a transient network problem.
+        setDirectoryStatus('waiting',`● Live sync unavailable: ${err.code||'error'} — showing last loaded data`);
       });
     }catch(listenerErr){
       console.error('STUDENT DIRECTORY LISTENER SETUP ERROR',listenerErr);
-      setDirectoryStatus('waiting',`● Firebase listener error: ${listenerErr.code||'setup failed'}`);
+      setDirectoryStatus('waiting',`● Live sync setup error: ${listenerErr.message||listenerErr}`);
     }
   });
 }
+
 function refreshStudentDirectory(){
   if(currentRole!=='instructor') return;
   const filter=el('student-filter'); if(filter) filter.value='all';
@@ -3073,6 +3072,7 @@ window.setRole=setRole;window.generateStudentReport=generateStudentReport;window
 function updateStudentDate(){const n=el('student-current-date');if(n)n.textContent=new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date());}
 setInterval(updateStudentDate,30000); updateStudentDate();
 
+window.addEventListener('error',e=>{ const st=el('student-directory-status'); if(st&&currentRole==='instructor'){ st.textContent='● Page error: '+(e.error?.message||e.message||'Unknown JavaScript error'); st.className='live-sync-badge waiting'; } console.error('BIOTECH SPRINT PAGE ERROR',e.error||e.message); });
 if(!FIREBASE_CONFIGURED) setLoginError('Firebase setup needed: paste your Firebase Web App config into firebaseConfig before using the live version.');
 // Firebase may remember a previous session, but never auto-route to a dashboard.
 // The user must explicitly choose Student or Instructor and click Sign In.
